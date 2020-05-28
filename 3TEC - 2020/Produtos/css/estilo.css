@@ -1,0 +1,41 @@
+.ImagemProduto{    
+    border-radius: 10px;    
+}
+
+.TextoProduto{
+    font-family: Tahoma;
+    font-weight: bold;
+    color:rgba(30,30,30,1);
+    font-size:12px;
+}
+
+.TextoForm{
+    font-family: Tahoma;
+    color:rgba(30,30,30,1);
+    font-size:16px;
+}
+
+.LinksTopo{
+    font-family: Tahoma;
+    font-weight: bold;
+    color:rgba(255,255,255,1);
+    font-size:14px;
+    text-decoration:none;
+}
+
+.LinksTopo:hover{
+    color:rgba(255,255,255,1);
+    text-shadow:2px 2px 2px #000000;
+    text-decoration:none;
+}
+
+.BarraTopo{
+    background-image: linear-gradient(to bottom, #330000, #990000);
+}
+
+.Botao{
+    background-color: rgba(120,0,0,1);
+    color:rgba(255,255,255,1);
+}
+
+
