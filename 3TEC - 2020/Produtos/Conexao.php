@@ -6,7 +6,7 @@
     $nomeBD = "bdprodutos";
     
     $vConn = mysqli_connect($servidor, $usuario, $senha, $nomeBD);
-    mysqli_set_charset($vConn, "utf8");
+    mysqli_set_charset($vConn, "utf8"); //aparecer acentos vindos do BD
    
     
 ?>

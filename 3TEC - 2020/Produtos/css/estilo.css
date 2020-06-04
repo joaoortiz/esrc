@@ -1,3 +1,23 @@
+#DivCadastro{
+    margin-top: 150px;    
+}
+
+.Logo{
+    width:100px;
+    height:60px;
+}
+
+.TopoForm{
+    background-image: linear-gradient(to bottom, #330000, #990000);
+    color: rgba(255,255,255,1);
+    font-size: 24pt;
+    height:60px;
+}
+
+.LinhaForm{
+    height:90px;
+}
+
 .ImagemProduto{    
     border-radius: 10px;    
 }
@@ -30,7 +50,8 @@
 }
 
 .BarraTopo{
-    background-image: linear-gradient(to bottom, #330000, #990000);
+    background-image: linear-gradient(to right, #CD2418, #990000);
+    height:65px;
 }
 
 .Botao{

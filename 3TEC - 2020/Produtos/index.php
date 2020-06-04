@@ -12,17 +12,25 @@
 
     <body>
 
-
         <?php
         include "Conexao.php";
         include "Topo.php";
+        $totReg = 0;
         ?>
 
         <div class="container-fluid">
             <div class="row">
                 <?php
-                //1        
-                $sqlProdutos = "Select * from Produtos";
+                //1     
+
+                if (!isset($_POST['busca'])) { //se a variavel busca nao existir: entrou direto na index
+                    $sqlProdutos = "Select * from Produtos";
+                } else { //se acessou a index pela pesquisa
+                    $prod = $_POST['HTML_produto'];
+                    $sqlProdutos = "Select * from Produtos where nome_PRODUTO like '%$prod%'";
+                }
+
+
                 $rsProdutos = mysqli_query($vConn, $sqlProdutos) or die(mysqli_error($vConn));
                 ?>
 
@@ -40,10 +48,15 @@
                         <div class="col-lg-4">
                             <div class="card" style="margin:8px;">
                                 <div class="card-body">
-                                    <img src="img/<?= $tblProdutos['imagem_PRODUTO'] ?>" class="img-thumbnail ImagemProduto">
+                                    <a href="DetalhesProduto.php?cod=<?= $tblProdutos['codigo_PRODUTO']; ?>">
+                                        <img src="img/<?= $tblProdutos['imagem_PRODUTO'] ?>" class="img-thumbnail ImagemProduto">
+                                    </a>
                                 </div>
+
                                 <div class="card-footer">
-                                    <font class="TextoProduto"><?= $tblProdutos['nome_PRODUTO'] ?></font>
+                                    <a href="DetalhesProduto.php?cod=<?= $tblProdutos['codigo_PRODUTO']; ?>">
+                                        <font class="TextoProduto"><?= $tblProdutos['nome_PRODUTO'] ?></font>
+                                    </a>
                                 </div>                    
                             </div>
                         </div>
@@ -81,8 +94,8 @@
                                 <div class="card-body text-center">
                                     Informe abaixo os dados de login.
                                     <br><br>
-                                    
-                                    
+
+
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="HTML_LOGIN" placeholder="Nome de Usuário">
                                     </div>
