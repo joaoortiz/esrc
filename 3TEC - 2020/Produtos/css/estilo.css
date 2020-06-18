@@ -2,10 +2,21 @@
     margin-top: 150px;    
 }
 
+#DivItemIguais{
+    border-right: solid #CCCCCC 1px;    
+}
+
+#DivIguais{
+    height:180px;
+    margin-top:20px;
+    margin-bottom:40px;
+}
+
 .Logo{
     width:100px;
     height:60px;
 }
+
 
 .TopoForm{
     background-image: linear-gradient(to bottom, #330000, #990000);
@@ -27,6 +38,19 @@
     font-weight: bold;
     color:rgba(30,30,30,1);
     font-size:12px;
+}
+
+.InfoProduto{
+    font-family: Tahoma;
+    font-weight: bold;
+    color:rgba(30,30,30,1);
+    font-size:18px;
+}
+
+.NomeProduto{
+    font-family: Tahoma;
+    font-weight: bold;
+    color:rgba(150,0,0,1);    
 }
 
 .TextoForm{
@@ -57,6 +81,14 @@
 .Botao{
     background-color: rgba(120,0,0,1);
     color:rgba(255,255,255,1);
+}
+
+
+.MiniFoto{
+    border-radius: 100%;
+  height: 100px;
+  object-fit: cover;
+  width: 100px;  
 }
 
 
