@@ -24,7 +24,15 @@
                 //1     
 
                 if (!isset($_POST['busca'])) { //se a variavel busca nao existir: entrou direto na index
-                    $sqlProdutos = "Select * from Produtos";
+                        
+                    if(isset($_GET['cc'])){
+                        $codCat = $_GET['cc'];
+                        $sqlProdutos = "Select * from produtos where codigoCategoria_PRODUTO = '$codCat'";
+                    }else{
+                        $sqlProdutos = "Select * from Produtos";
+                    }               
+                    
+                    
                 } else { //se acessou a index pela pesquisa
                     $prod = $_POST['HTML_produto'];
                     $sqlProdutos = "Select * from Produtos where nome_PRODUTO like '%$prod%'";

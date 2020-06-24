@@ -19,18 +19,18 @@
                 <label class="TextoForm">Categoria:</label>
                 <select name="HTML_categoria" class="form-control">
 
-                    <?php                    
+                    <?php
                     $sqlCat = "Select * from categorias";
                     $rsCat = mysqli_query($vConn, $sqlCat) or die(mysqli_error($vConn));
 
                     while ($tblCat = mysqli_fetch_array($rsCat)) {
-                    ?>
+                        ?>
 
-                    <option value="<?=$tblCat['codigo_CATEGORIA'];?>">
-                        <?=$tblCat['nome_CATEGORIA'];?>
-                    </option>
-                    
-                    <?php                    
+                        <option value="<?= $tblCat['codigo_CATEGORIA']; ?>">
+                            <?= $tblCat['nome_CATEGORIA']; ?>
+                        </option>
+
+                        <?php
                     }
                     ?>
 
@@ -76,6 +76,13 @@
 
             </div>
         </div>
+
+        <div class="inputs">
+            
+        </div>
+        <a href="javascript:void(0)" id="adicionarcampo" class="btn btn-sm btn-success">Adicionar Campo</a>
+
+
 
         <div class="row LinhaForm">
             <div class="col">

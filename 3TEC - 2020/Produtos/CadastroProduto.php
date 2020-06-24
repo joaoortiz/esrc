@@ -24,7 +24,15 @@ $ext = $aux[1];
 if (in_array($ext, $tiposPerm) && $imgTam <= $tamMax){
     $liberado = true;
 }
-  
+
+/**tratamento das fotos sec. **/
+
+
+foreach($_FILES['HTML_foto']['name'] as $id => $tmpFoto){
+    $fotosSec = $_FILES['HTML_foto']['name'][$id];
+    echo $fotosSec . "<br>";
+}
+
 if($liberado == true){
     //insert do produto
     $sqlProd = "Insert into Produtos(nome_PRODUTO, marca_PRODUTO, descricao_PRODUTO,";
@@ -32,14 +40,14 @@ if($liberado == true){
     $sqlProd .= "'$nome','$marca','$descricao','$valor','$imgOrig','$categoria')";
     
     //executando o insert
-    mysqli_query($vConn,$sqlProd) or die(mysqli_error($vConn));    
-    move_uploaded_file($imgTemp, "img/". $imgOrig); //enviando imagem
-    echo "<script>alert('Produto Cadastrado.');</script>";
-    echo "<script>location.href='Admin.php';</script>";
+    //mysqli_query($vConn,$sqlProd) or die(mysqli_error($vConn));    
+    //move_uploaded_file($imgTemp, "img/". $imgOrig); //enviando imagem
+    //echo "<script>alert('Produto Cadastrado.');</script>";
+    //echo "<script>location.href='Admin.php';</script>";
     
 }else{
-    echo "<script>alert('Arquivo de imagem não foi aceito.');</script>";
-    echo "<script>location.href='Admin.php';</script>";
+    //echo "<script>alert('Arquivo de imagem não foi aceito.');</script>";
+    //echo "<script>location.href='Admin.php';</script>";
     
 }
 

@@ -1,3 +1,4 @@
+
 #DivCadastro{
     margin-top: 150px;    
 }
@@ -50,6 +51,13 @@
 .NomeProduto{
     font-family: Tahoma;
     font-weight: bold;
+    color:rgba(150,0,0,1);    
+}
+
+.NomeProdutoSec{
+    font-family: Tahoma;
+    font-weight: bold;
+    font-size:10pt;
     color:rgba(150,0,0,1);    
 }
 

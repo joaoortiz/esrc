@@ -118,7 +118,7 @@
                             <a href="DetalhesProduto.php?cod=<?= $tblIguais['codigo_PRODUTO']; ?>">
                             
                             <img src="img/<?=$tblIguais['imagem_PRODUTO'];?>" class="img-fluid ImagemProduto">
-                            <font class="NomeProduto"><?=$tblIguais['nome_PRODUTO']?></font> <br>
+                            <font class="NomeProdutoSec"><?=$tblIguais['nome_PRODUTO']?></font> <br>
                             
                             </a>
                             

@@ -15,7 +15,7 @@
             while($tblCat = mysqli_fetch_array($rsCat)){                 
             ?>
             
-            <a href="?cc=<?=$tblCat['codigo_CATEGORIA']?>" class="LinksTopo">
+            <a href="index.php?cc=<?=$tblCat['codigo_CATEGORIA']?>" class="LinksTopo">
                 <?=$tblCat['nome_CATEGORIA']?>
             </a>
             
