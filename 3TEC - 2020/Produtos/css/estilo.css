@@ -93,10 +93,38 @@
 
 
 .MiniFoto{
-    border-radius: 100%;
+  border-radius: 100%;
   height: 100px;
   object-fit: cover;
   width: 100px;  
 }
 
+.ListaAlbum{
+  border-radius: 100%;
+  height: 25px;
+  object-fit: cover;
+  width: 25px;  
+}
 
+.LinksPg{
+    font-size:14pt;
+    color: rgba(120,0,0,1);
+    font-weight:bold;    
+}
+
+.LinksPgAtual{
+    font-size:18pt;
+    color: rgba(0,0,0,1);
+    font-weight:bold;    
+}
+
+.IconeAdm{
+    border: 1px solid #EEE;
+    width:100px;
+    height:100px;
+}
+
+.LogoProduto{
+    width:140px;
+    height:55px;
+}

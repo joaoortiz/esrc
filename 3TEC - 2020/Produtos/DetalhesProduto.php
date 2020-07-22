@@ -86,7 +86,7 @@
                         <?= substr($tblDetalhes['descricao_PRODUTO'], 0, 300); ?>...
                     </p>
 
-                    <img src="img/<?= $tblDetalhes['marca_PRODUTO'] ?>"><br><br>
+                    <img src="img/<?= $tblDetalhes['marca_PRODUTO']?>" class="LogoProduto"><br><br>
                     <font class="InfoProduto">                    
                     <p>Valor: <?= number_format($tblDetalhes['valor_PRODUTO'], 2); ?></p>
 
@@ -153,6 +153,10 @@
 
         </div>
         
+        
+        <?php
+        include "FormsModal.php";
+        ?>
         
         <script src="js/lightbox-plus-jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

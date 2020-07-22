@@ -2,7 +2,10 @@
     <div class="collapse navbar-collapse">
         
         <div class="nav navbar-brand col-lg-1">
-            <img src="img/Logo.png" class="Logo">
+            <a href="index.php">    
+                <img src="img/Logo.png" class="Logo">
+            </a>
+        
         </div>
       
         <div class="navbar nav col-lg-7">
@@ -26,7 +29,7 @@
             
         </div>
         
-        <div class="navbar nav col-lg-3">
+        <div class="navbar nav col-lg-2">
             
             <form class="form-inline FormPesquisa" action="index.php" method="POST">
                 <div class="input-group mb-2 mr-sm-2" style="margin-top:18px;">
@@ -49,12 +52,33 @@
         </div>
         
         
-        <div class="col-lg-1">
+        <div class="col-lg-2" style="padding-left:90px;">
             
-            <button class="btn btn-light float-right" data-toggle="modal" data-target="#FormLogin">
-                <i class="fa fa-user fa-2x text-black"></i> 
+            <?php if(!isset($_SESSION['statusLogin'])){ ?>
+            
+            <button class="btn btn-light" data-toggle="modal" data-target="#FormCadastroUsuario">
+                <i class="fa fa-user-plus fa-2x text-black"></i>
+            </button>
+
+            <button class="btn btn-light" data-toggle="modal" data-target="#FormLogin">
+                <i class="fa fa-sign-in fa-2x text-black"></i> 
             </button>
             
+            <?php }else{ ?>
+            
+            <a href="Painel.php">
+            <center>
+            <i class="fa fa-user fa-2x text-white"></i>
+            <br>
+            <font class="TextoProduto text-white">
+                <?=$_SESSION['login'];?>
+            </font>
+            </center>
+            </a>
+            
+            <?php }?>
+            
         </div>
+        
     </div>   
 </nav>
