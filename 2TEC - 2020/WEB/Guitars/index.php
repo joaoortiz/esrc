@@ -76,7 +76,7 @@
                         <div class="card-body CorpoCard">
                             <h5 class="card-title">Modelos</h5>
                             <p class="card-text">Conheça os modelos de guitarra e qual deles se enquadra no seu estilo.</p>
-                            <a href="" class="btn float-right Botoes">Acessar</a>
+                            <a href="Modelos.php" class="btn float-right Botoes">Acessar</a>
                         </div>
 
                     </div>
