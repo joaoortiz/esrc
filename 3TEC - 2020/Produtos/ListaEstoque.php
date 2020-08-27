@@ -56,7 +56,7 @@ while ($tblEstoque = mysqli_fetch_array($rsEstoque)) {
             </td>                       
             
             <td><?= "R$ " . number_format($tblEstoque['valor_PRODUTO'], 2); ?></td> 
-            <td></td>            
+            <td><?=$tblEstoque['estoque_PRODUTO'];?></td>            
             <td align="center">
                 <a href="?idPg=23&cod=<?=$tblEstoque['codigo_PRODUTO'];?>">
                     <i class="fa fa-pencil text-primary"></i>

@@ -8,7 +8,7 @@
         
         </div>
       
-        <div class="navbar nav col-lg-7">
+        <div class="navbar nav col-lg-6">
           
             <?php
             
@@ -52,16 +52,25 @@
         </div>
         
         
+        <div class="col-lg-1" style="padding-left:90px;">
+            
+            <a href="Carrinho.php">
+            <button class="btn rounded-circle" style="height: 50px; width:50px; border:2px solid #FFFFFF;">
+                <i class="fa fa-shopping-cart fa-lg text-white float-right"></i>
+            </button>
+            </a>
+            
+        </div>   
+            
         <div class="col-lg-2" style="padding-left:90px;">
+            <?php if(!isset($_SESSION['statusLogin']) || $_SESSION['statusLogin'] == 0){ ?>
             
-            <?php if(!isset($_SESSION['statusLogin'])){ ?>
-            
-            <button class="btn btn-light" data-toggle="modal" data-target="#FormCadastroUsuario">
-                <i class="fa fa-user-plus fa-2x text-black"></i>
+            <button class="btn rounded-circle" style="height: 50px; width:50px; border:2px solid #FFFFFF;" data-toggle="modal" data-target="#FormCadastroUsuario">
+                <i class="fa fa-user-plus fa-lg text-white"></i>
             </button>
 
-            <button class="btn btn-light" data-toggle="modal" data-target="#FormLogin">
-                <i class="fa fa-sign-in fa-2x text-black"></i> 
+            <button class="btn rounded-circle" style="height: 50px; width:50px; border:2px solid #FFFFFF" data-toggle="modal" data-target="#FormLogin">
+                <i class="fa fa-sign-in fa-lg text-white"></i> 
             </button>
             
             <?php }else{ ?>
@@ -77,7 +86,7 @@
             </a>
             
             <?php }?>
-            
+        </div>
         </div>
         
     </div>   

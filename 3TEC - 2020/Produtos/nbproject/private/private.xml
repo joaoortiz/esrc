@@ -3,20 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/PHP/Produtos/FormsModal.php</file>
-            <file>file:/D:/PHP/Produtos/HomeAdm.php</file>
-            <file>file:/D:/PHP/Produtos/FormCadastroProduto.php</file>
-            <file>file:/D:/PHP/Produtos/index.php</file>
-            <file>file:/D:/PHP/Produtos/Topo.php</file>
-            <file>file:/D:/PHP/Produtos/Logout.php</file>
-            <file>file:/D:/PHP/Produtos/css/estilo.css</file>
-            <file>file:/D:/PHP/Produtos/FormAlteraProduto.php</file>
-            <file>file:/D:/PHP/Produtos/Login.php</file>
-            <file>file:/D:/PHP/Produtos/CadastroUsuario.php</file>
             <file>file:/D:/PHP/Produtos/Painel.php</file>
+            <file>file:/D:/PHP/Produtos/css/estilo.css</file>
+            <file>file:/D:/PHP/Produtos/Topo.php</file>
             <file>file:/D:/PHP/Produtos/DetalhesProduto.php</file>
+            <file>file:/D:/PHP/Produtos/HomeAdm.php</file>
             <file>file:/D:/PHP/Produtos/HomeUser.php</file>
+            <file>file:/D:/PHP/Produtos/Login.php</file>
+            <file>file:/D:/PHP/Produtos/Logout.php</file>
+            <file>file:/D:/PHP/Produtos/FormsModal.php</file>
+            <file>file:/D:/PHP/Produtos/CadastroUsuario.php</file>
+            <file>file:/D:/PHP/Produtos/index.php</file>
             <file>file:/D:/PHP/Produtos/ListaEstoque.php</file>
+            <file>file:/D:/PHP/Produtos/FormCadastroProduto.php</file>
+            <file>file:/D:/PHP/Produtos/FormAlteraProduto.php</file>
+            <file>file:/D:/PHP/Produtos/AddCarrinho.php</file>
+            <file>file:/D:/PHP/Produtos/EsvaziarCarrinho.php</file>
+            <file>file:/D:/PHP/Produtos/Conexao.php</file>
+            <file>file:/D:/PHP/Produtos/Carrinho.php</file>
         </group>
     </open-files>
 </project-private>

@@ -89,12 +89,33 @@
                     <img src="img/<?= $tblDetalhes['marca_PRODUTO']?>" class="LogoProduto"><br><br>
                     <font class="InfoProduto">                    
                     <p>Valor: <?= number_format($tblDetalhes['valor_PRODUTO'], 2); ?></p>
+                    <form action="AddCarrinho.php" method="GET">
+                    <p>
+                        Quantidade: (<?=$tblDetalhes['estoque_PRODUTO']?>) em estoque.
+                   
+                        <select name="HTML_QTDE" class="form-control" style="width:150px;">
+                           <?php
+                           $cont=1;
+                           $contMax = $tblDetalhes['estoque_PRODUTO'];
+                           
+                           for($i=$cont; $i<=$contMax; $i++){
+                           ?>
+                            <option value="<?=$i?>"><?=$i?></option>
+                           <?php
+                           }
+                           ?>
+                        </select>
+                    </p>
+                    
+                    <input type="hidden" name="cod" value="<?=$codProd?>">
 
-                    <a href="" class="btn Botao float-right">
-                        <i class="fa fa-lg fa-credit-card-alt"></i>
-                        Comprar agora
-                    </a>
-                    </font><br><br>
+                    <button type="submit" class="btn Botao float-right">
+                        <i class="fa fa-lg fa-shopping-cart"></i>
+                        Adicionar ao carrinho
+                    </button>
+                    </form>
+                    </font>
+                    <br><br>
                 </div>
             </div>
 
