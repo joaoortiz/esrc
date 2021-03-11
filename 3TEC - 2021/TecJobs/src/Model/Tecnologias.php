@@ -3,7 +3,7 @@
 
 class Tecnologias {
    
-    public $id, $nome, $descricao ;
+    public $id, $nome, $descricao, $icone, $nivel ;
     
     public function getId() {
         return $this->id;
@@ -28,6 +28,22 @@ class Tecnologias {
     public function setDescricao($descricao) {
         $this->descricao = $descricao;
     }
+
+    public function getIcone() {
+        return $this->icone;
+    }
+
+    public function setIcone($icone) {
+        $this->icone = $icone;
+    }
+    public function getNivel() {
+        return $this->nivel;
+    }
+
+    public function setNivel($nivel) {
+        $this->nivel = $nivel;
+    }
+
 
 
 }

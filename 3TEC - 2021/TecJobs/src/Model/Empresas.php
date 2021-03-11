@@ -4,7 +4,7 @@ require_once "Usuarios.php";
 
 class Empresas extends Usuarios {
     
-     public $id, $email, $nomeFantasia, $info;
+    public $id, $email, $nomeFantasia, $info;
     public $cep, $endereco, $numero, $complemento, $telefone ;
     public $imagem, $idCategoria;
     

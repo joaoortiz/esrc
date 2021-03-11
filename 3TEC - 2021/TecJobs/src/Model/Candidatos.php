@@ -1,6 +1,5 @@
 <?php
 
-
 class Candidatos extends Usuarios {
    
     public $id, $email, $nomeCompleto, $dataNascimento, $sexo, $bio;
@@ -88,8 +87,8 @@ class Candidatos extends Usuarios {
         $this->endereco = $endereco;
     }
 
-    public function setNumeroEnd($numeroEnd) {
-        $this->numeroEnd = $numeroEnd;
+    public function setNumero($numero) {
+        $this->numero = $numero;
     }
 
     public function setComplemento($complemento) {

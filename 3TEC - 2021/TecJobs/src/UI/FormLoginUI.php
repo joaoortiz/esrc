@@ -11,8 +11,8 @@
         <div class="container"> 
             <center>
                 <div class="col-md-6 animate__animated animate__zoomIn FormLogin">
-                    <form action="src/Control/UsuariosControl.php" method="post">
-                        <h5 style="margin: 35px;color: white; font-size: 30px;">Insira os dados abaixo para acesso:</h5>
+                    <form action="../Control/UsuariosControl.php" method="post">
+                        <h5 style="margin: 35px;color: #333333; font-size: 30px;">Insira os dados abaixo para acesso:</h5>
 
                         <div class="form-group">
 
@@ -43,17 +43,17 @@
                             <div class="col-lg-1"></div>
 
                             <div class="col-lg-5 form-group">
-                                <button class="btn animated-button thar thar-left">
+                                <button class="btn animated-button  btn-dark">
                                     <i class="fa fa-user"></i>
-                                    Cadastrar.
+                                    Cadastrar
                                 </button>
                                 <input type = "hidden" name="acao" value="1">
                             </div>
 
                             <div class="col-lg-5 form-group">
-                                <button class="btn animated-button thar thar-right">
+                                <button class="btn animated-button btn-dark">
                                     <i class="fa fa-unlock-alt"></i>
-                                    Acessar.
+                                    Acessar
                                 </button>
                             </div>
 

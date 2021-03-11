@@ -2,17 +2,21 @@
 
 require_once 'ConexaoDAO.php';
 require_once '../Model/Empresas.php';
+require_once '../Model/Candidatos.php';
 
 class UsuariosDAO {
     
+    public $objBD;
+    
     function validarUsuario($login, $senha){
-        $vConn = ConexaoDAO::abrirConexao();
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
         
-        $sqlLogin = "Select * from Usuarios";
+        $sqlLogin = "Select * from Usuarios ";
         $sqlLogin .= "where login_USUARIO like '$login' and ";
         $sqlLogin .= "senha_USUARIO like '" . md5($senha) . "'";
         
-        $rsLogin .= $vConn->query($sqlLogin);
+        $rsLogin = $vConn->query($sqlLogin);
         
         if($rsLogin->rowCount() < 0){
             return NULL;
@@ -25,45 +29,47 @@ class UsuariosDAO {
                 //SELECT NA EMPRESA
                 $sqlEmpresa = "Select * from empresas where email_EMPRESA like '$loginUsuario'";
                 $rsEmpresa = $vConn->query($sqlEmpresa);
-                $tblEmpresa = $rsEmpresa->fetch(PDO::FETCH_BOTH);
+                $tblEmpresa = $rsEmpresa->fetch();
                 
                 $objEmpresa = new Empresas();
-                foreach($tblEmpresa as $row){
-                    $objEmpresa->setId($row[0]);
-                    $objEmpresa->setEmail($row[1]);
-                    $objEmpresa->setNomeFantasia($row[2]);
-                    $objEmpresa->setInfo($row[3]);
-                    $objEmpresa->setCep($row[4]);
-                    $objEmpresa->setEndereco($row[5]);
-                    $objEmpresa->setNumero($row[6]);
-                    $objEmpresa->setComplemento($row[7]);
-                    $objEmpresa->setTelefone($row[8]);
-                    $objEmpresa->setImagem($row[9]);
-                    $objEmpresa->setIdCategoria($row[10]);
-                }
+                
+                    $objEmpresa->setId($tblEmpresa['id_EMPRESA']);
+                    $objEmpresa->setEmail($tblEmpresa['email_EMPRESA']);
+                    $objEmpresa->setNomeFantasia($tblEmpresa['nomeFantasia_EMPRESA']);
+                    $objEmpresa->setInfo($tblEmpresa['info_EMPRESA']);
+                    $objEmpresa->setCep($tblEmpresa['cep_EMPRESA']);
+                    $objEmpresa->setEndereco($tblEmpresa['endereco_EMPRESA']);
+                    $objEmpresa->setNumero($tblEmpresa['numero_EMPRESA']);
+                    $objEmpresa->setComplemento($tblEmpresa['complemento_EMPRESA']);
+                    $objEmpresa->setTelefone($tblEmpresa['telefone_EMPRESA']);
+                    $objEmpresa->setImagem($tblEmpresa['imagem_EMPRESA']);
+                    $objEmpresa->setIdCategoria($tblEmpresa['idCategoria_EMPRESA']);
+                    $objEmpresa->setPermissao(2);
+                
                 return $objEmpresa;
                 
             } else if($permissaoUsuario == 3) {
                 //SELECT DO CANDIDATO
                 $sqlCandidato = "Select * from candidatos where email_CANDIDATO like '$loginUsuario'";
                 $rsCandidato = $vConn->query($sqlCandidato);
-                $tblCandidato = $rsCandidato->fetch(PDO::FETCH_BOTH);
+                $tblCandidato = $rsCandidato->fetch();
                 
-                $objEmpresa = new Candidatos();
-                foreach($tblCandidato as $row){
-                    $objCandidato->setId($row[0]);
-                    $objCandidato->setEmail($row[1]);
-                    $objCandidato->setNomeCompleto($row[2]);
-                    $objCandidato->setDataNascimento($row[3]);
-                    $objCandidato->setSexo($row[4]);
-                    $objCandidato->setBio($row[5]);
-                    $objCandidato->setCep($row[6]);
-                    $objCandidato->setEndereco($row[7]);
-                    $objCandidato->setNumero($row[8]);
-                    $objCandidato->setComplemento($row[9]);
-                    $objCandidato->setTelefone($row[10]);
-                    $objCandidato->setImagem($row[11]);
-                }
+                $objCandidato = new Candidatos();
+                
+                    $objCandidato->setId($tblCandidato['id_CANDIDATO']);
+                    $objCandidato->setEmail($tblCandidato['email_CANDIDATO']);
+                    $objCandidato->setNomeCompleto($tblCandidato['nomeCompleto_CANDIDATO']);
+                    $objCandidato->setDataNascimento($tblCandidato['dataNascimento_CANDIDATO']);
+                    $objCandidato->setSexo($tblCandidato['sexo_CANDIDATO']);
+                    $objCandidato->setBio($tblCandidato['bio_CANDIDATO']);
+                    $objCandidato->setCep($tblCandidato['cep_CANDIDATO']);
+                    $objCandidato->setEndereco($tblCandidato['endereco_CANDIDATO']);
+                    $objCandidato->setNumero($tblCandidato['numero_CANDIDATO']);
+                    $objCandidato->setComplemento($tblCandidato['complemento_CANDIDATO']);
+                    $objCandidato->setTelefone($tblCandidato['telefone_CANDIDATO']);
+                    $objCandidato->setImagem($tblCandidato['imagem_CANDIDATO']);
+                    $objCandidato->setPermissao(3);
+                
                 return $objCandidato;
             }
         }
@@ -71,7 +77,8 @@ class UsuariosDAO {
     }
     
     function cadastrarUsuario($tipo){
-        $vConn = ConexaoDAO::abrirConexao(); 
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
         
         //inserir dados na tabela usuario
         $sqlCadastraUsuario = "Insert into usuarios(login_USUARIO, senha_USUARIO, permissao_USUARIO) values(";
