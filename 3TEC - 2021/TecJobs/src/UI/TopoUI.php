@@ -1,38 +1,52 @@
-<nav class="navbar navbar-expand-lg bg-dark MenuTopo">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color:#7953B3;">
+    <div class="container-fluid">
 
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="nav navbar-brand col-lg-3">
-                <i class="fa fa-briefcase fa-2x text-white"></i>
-                <font class="">TecJobs</font>
+        <div class="col-lg-2">
+            <a class="navbar-brand text-white" href="#">Tecjobs</a>
+        </div>
+
+        <div class="col-lg-1">
+            <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+        </div>
+
+        <div class="col-lg-1">
+            <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
         </div>
 
 
-        <div class="navbar-nav col-lg-8 justify-content-md-center">
-            <form class="form-inline">
 
-                <div class="form-group mx-sm-3 mb-2">
-                    <label for="HTML_busca" class="text-white">Pesquisar empresas</label>
-                    <input type="text" readonly class="form-control" id="HTML_busca" placeholder="Insira o nome">
-
-
-                    <button type="submit" class="btn btn-primary mb-2">
-                        <i class="fa fa-search fa-lg"></i> Buscar
-                    </button>
+        <div class="col-lg-4">
+            
+            <form class="form-inline FormPesquisa" action="index.php" method="POST">
+                <div class="input-group mb-2 mr-sm-2"  style="margin-top:5px;">
+                                       
+                    <input type="text" class="form-control" name="HTML_produto" placeholder="Pesquisar Empresas">
+                    
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <button type="submit" class="" style="border-width:0px;">
+                                <i class="fa fa-md fa-search"></i>
+                            </button>
+                            
+                        </div>
+                    </div>
                 </div>
+                <input type="hidden" name="busca" value="1">
             </form>
+            
         </div>
-
-        <div class="navbar-nav col-lg-2 justify-content-md-center text-center DivItem">
-
+        
+        <div class="col-lg-3">
+            <?php
+            if(isset($_SESSION['permissao']) &&$_SESSION['permissao'] != 0){
+            ?>
+            <?=$_SESSION['nome'];?>
+            
+            <a href="../Control/Logoff.php">Sair</a>
+            <?php
+            }
+            ?>
         </div>
-
-        <div class="navbar-nav col-lg-2 justify-content-md-center text-center DivItem">
-
-        </div>
-
-        <div class="navbar-nav col-lg-2 justify-content-md-center text-center DivItem">
-
-        </div>
-
     </div>
+</div>
 </nav>

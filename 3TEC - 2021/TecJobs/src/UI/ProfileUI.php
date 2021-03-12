@@ -53,59 +53,124 @@ session_start();
                 </div>
             </div>
 
-            <div class="row" style="min-height: 250px;">
+            <div class="row" style="min-height: 80px;">
                 <div class="col-lg-12">
-                    <?= $_SESSION['info']; ?>
+                    <div class="card">
+                        <div class="card-body">
+                            <?= $_SESSION['info']; ?>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
-            <div class="row" style="height: 200px;">
+            <div class="row" style="min-height: 100px;">                
                 <div class="col-lg-12">
-                    FORMAÇÃO
+                    <div class="card">
+                        <div class="card-header">
+                            Formação Acadêmica
+                        </div>
+                        <div class="card-body">
+                            <?php
+                            if ($_SESSION['permissao'] == 3) {
+                                $objBDCand = new CandidatosDAO();
+                                $form = $objBDCand->listarFormacoes($_SESSION['id']);
+
+                                for ($i = 0; $i < count($form); $i++) {
+                                    if ($form[$i]->getConclusao() == 0)
+                                        $status = "Não conluído";
+                                    else if ($form[$i]->getConclusao() == 1)
+                                        $status = "Concluído";
+                                    ?>
+                                    <h5><?= $form[$i]->getNomeInstituicao(); ?> (<?= $form[$i]->getInicio(); ?> - <?= $form[$i]->getFim(); ?>)</h5>    
+                                    <h6><?= $form[$i]->getNomeCurso(); ?> (<?= $status ?>)</h6>    
+                                    <hr>
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="row justify-content-md-center" style="min-height: 200px;">
-
-                <?php
-                if ($_SESSION['permissao'] == 3) {
-                    $objBDCand = new CandidatosDAO();
-                    $tecn = $objBDCand->listarConhecimentos($_SESSION['id']);
-
-                    for ($i = 0; $i < count($tecn); $i++) {
-                        ?>
-                        <div class="col-lg-2 text-center">
-                            <img src="../../img/tech/<?=$tecn[$i]->getIcone();?>" class="Icones">
-                            <br>
-                            <?=$tecn[$i]->getNome();?><br>
-                            
+            <div class="row justify-content-md-center" style="min-height: 150px;margin-top:15px;">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Conhecimentos
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-md-center">
                                 <?php
-                                for($j=0;$j<$tecn[$i]->getNivel();$j++){
-                                ?>
-                            <i class="fa fa-star fa-sm text-warning"></i>
-                                <?php
+                                if ($_SESSION['permissao'] == 3) {
+                                    $objBDCand = new CandidatosDAO();
+                                    $tecn = $objBDCand->listarConhecimentos($_SESSION['id']);
+                                    ?>
+
+                                    <?php
+                                    for ($i = 0; $i < count($tecn); $i++) {
+                                        ?>
+                                        <div class="col-lg-2">
+                                            <img src="../../img/tech/<?= $tecn[$i]->getIcone(); ?>" class="Icones">
+                                            <br>
+                                            <?= $tecn[$i]->getNome(); ?><br>
+
+                                            <?php
+                                            for ($j = 0; $j < $tecn[$i]->getNivel(); $j++) {
+                                                ?>
+                                                <i class="fa fa-star fa-sm text-warning"></i>
+
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
+
+                                        <?php
+                                    }
                                 }
                                 ?>
-                            
-                                
+                            </div>
                         </div>
-                        <?php
-                    }
-                }
-                ?>
-
-            </div>
-
-            <div class="row" style="height: 200px;">
-                <div class="col-lg-12 border">
-                    EMPRESAS
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+            <div class="row justify-content-md-center" style="min-height: 150px;margin-top:15px;">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Interesses
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-md-center">
+                                <?php
+                                if ($_SESSION['permissao'] == 3) {
+                                    $objBDCand = new CandidatosDAO();
+                                    $inter = $objBDCand->listarInteresses($_SESSION['id']);
+
+                                    for ($i = 0; $i < count($inter); $i++) {
+                                        ?>
+                                        <div class="col-lg-2 text-center">
+                                            <img src="../../img/users/<?= $inter[$i]->getImagem(); ?>" class="Icones">
+                                            <br>
+                                            <?= $inter[$i]->getNomeFantasia(); ?><br>
+
+                                        </div>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     </body>
 
 </html>
