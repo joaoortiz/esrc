@@ -54,7 +54,7 @@
                 $type = $_GET['type'];
                 if ($type == 3) {
                     ?>
-                    <form action="../Control/UsuariosControl.php" method="POST">
+            <form action="../Control/UsuariosControl.php" method="POST" enctype="multipart/form-data">
                         <div class="row justify-content-md-center" style="margin-top: 25px;margin-bottom:25px;">
                             <div class="col-lg-2">
                                 <img src="../../img/misc/user.png" class="ImgUser">
@@ -67,28 +67,28 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="inputEmail4">Email</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                <label>Email</label>
+                                <input type="email" class="form-control" name="HTML_email">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputPassword4">Nome Completo</label>
-                                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                                <label>Nome Completo</label>
+                                <input type="text" class="form-control" name="HTML_nomeCompleto">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="inputEmail4">Senha</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                <label>Senha</label>
+                                <input type="password" class="form-control" name="HTML_senha">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="inputPassword4">Confirmar Senha</label>
-                                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                                <input type="password" class="form-control"  name="HTML_confSenha">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="inputEmail4">Data de Nascimento</label>
-                                <input type="date" class="form-control" id="inputEmail4" placeholder="Email">
+                                <label>Data de Nascimento</label>
+                                <input type="date" class="form-control" name="HTML_dataNascimento">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="inputPassword4">Sexo</label>
-                                <select class="form-control">
+                                <label>Sexo</label>
+                                <select class="form-control" name="HTML_sexo">
                                     <option value="M">Masculino</option>
                                     <option value="F">Feminino</option>
                                 </select>
@@ -100,59 +100,58 @@
                                 <hr>
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="inputEmail4">Cep</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                <label>Cep</label>
+                                <input type="text" class="form-control" name="HTML_cep">
                             </div>
                             <div class="form-group col-md-7">
-                                <label for="inputPassword4">Endereço</label>
-                                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                                <label>Endereço</label>
+                                <input type="text" class="form-control" name="HTML_endereco">
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="inputPassword4">Número</label>
-                                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                                <label>Número</label>
+                                <input type="text" class="form-control" name="HTML_numero">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputCity">Complemento</label>
-                                <input type="text" class="form-control" id="inputCity">
+                                <label>Complemento</label>
+                                <input type="text" class="form-control"  name="HTML_complemento">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="inputCity">Bairro</label>
-                                <input type="text" class="form-control" id="inputCity">
+                                <label>Bairro</label>
+                                <input type="text" class="form-control" name="HTML_bairro">
 
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="inputZip">Cidade</label>
-                                <input type="text" class="form-control" id="inputZip">
+                                <label>Cidade</label>
+                                <input type="text" class="form-control" name="HTML_cidade">
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputCity">Telefone</label>
-                                <input type="text" class="form-control" id="inputCity">
+                                <label>Telefone</label>
+                                <input type="text" class="form-control" id="inputCity" name="HTML_telefone">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputCity">Imagem</label>
+                                <label>Imagem</label>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile">
+                                    <input type="file" class="custom-file-input"  name="HTML_imagem">
                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
 
                             </div>
 
                         </div>
-
-                        <button type="submit" class="btn float-right text-white"  style="background-color:#7952B3;">Cadastrar Usuário</button>
+                        <input type="hidden" name="exec" value="3">
+                        <input type="hidden" name="type" value="3">
+                        <button type="submit" class="btn float-right text-white"  style="background-color:#7952B3;">Cadastrar Candidato</button>
                     </form>
-
-
 
                     <?php
                 } else if ($type == 2) {
                     ?>    
-                    <form action="../Control/UsuariosControl.php" method="POST">
+            <form action="../Control/UsuariosControl.php" method="POST" enctype="multipart/form-data">
                         <div class="row justify-content-md-center" style="margin-top: 25px;margin-bottom:25px;">
                             <div class="col-lg-2">
                                 <img src="../../img/misc/company.png" class="ImgUser">
@@ -165,24 +164,24 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="inputEmail4">Email</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                <label>Email</label>
+                                <input type="email" class="form-control" name="HTML_email">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputPassword4">Nome Fantasia</label>
-                                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                                <label>Nome Fantasia</label>
+                                <input type="text" class="form-control" name="HTML_nomeFantasia">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="inputEmail4">Senha</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                <label>Senha</label>
+                                <input type="password" class="form-control" name="HTML_senha">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="inputEmail4">Confirmar Senha</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                <label>Confirmar Senha</label>
+                                <input type="password" class="form-control" name="HTML_confSenha">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputPassword4">Categoria</label>
-                                <select class="form-control">
+                                <select class="form-control" name="HTML_categoria">
                                     <?php
                                     $objEmpresa = new EmpresasDAO();
                                     $cat = $objEmpresa->listarCategorias();
@@ -204,61 +203,89 @@
                                 <hr>
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="inputEmail4">Cep</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                <label>Cep</label>
+                                <input type="text" class="form-control" name="HTML_cep">
                             </div>
                             <div class="form-group col-md-7">
-                                <label for="inputPassword4">Endereço</label>
-                                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                                <label>Endereço</label>
+                                <input type="text" class="form-control" name="HTML_endereco">
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="inputPassword4">Número</label>
-                                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                                <label>Número</label>
+                                <input type="text" class="form-control" name="HTML_numero">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputCity">Complemento</label>
-                                <input type="text" class="form-control" id="inputCity">
+                                <label>Complemento</label>
+                                <input type="text" class="form-control" name="HTML_complemento">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="inputCity">Bairro</label>
-                                <input type="text" class="form-control" id="inputCity">
+                                <label>Bairro</label>
+                                <input type="text" class="form-control" name="HTML_bairro">
 
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="inputZip">Cidade</label>
-                                <input type="text" class="form-control" id="inputZip">
+                                <label>Cidade</label>
+                                <input type="text" class="form-control" name="HTML_cidade">
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputCity">Telefone</label>
-                                <input type="text" class="form-control" id="inputCity">
+                                <input type="text" class="form-control" name="HTML_telefone">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputCity">Imagem</label>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile">
+                                    <input type="file" class="custom-file-input" id="customFile" name="HTML_imagem">
                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
 
                             </div>
 
                         </div>
-
+                        
+                        <input type="hidden" name="exec" value="3">
+                        <input type="hidden" name="type" value="2">
                         <button type="submit" class="btn float-right text-white"  style="background-color:#7952B3;">Cadastrar Empresa</button>
                     </form>
 
                     <?php
                 }
-            }
-            /*             * **************************************************** STEP 3 ***************************************************** */ else if ($Step == 3) {
-                if ($type == 2) {
+            
+            /*             * **************************************************** STEP 3 ***************************************************** */ 
+           
+            }else if ($step == 3) {
+                    $type=$_GET['type'];
+                if ($type == 2) {?>
                     
-                } else if ($type == 3) {
-                    
+                     <form action="../Control/UsuariosControl.php" method="POST">
+                        <div class="row justify-content-md-center" style="margin-top: 25px;margin-bottom:25px;">
+                            <div class="col-lg-2">
+                                <img src="../../img/misc/company.png" class="ImgUser">
+                            </div>
+                        </div>
+                         <div class="form-row">
+                             <div class="col-lg-12 text-center" style="margin-top: 15px;">
+                                <center><h4 class="text-dark">Nos conte um pouco sobre sua empresa</h4></center>                                                            
+                             </div>
+                         </div>
+                         <div class="form-row justify-content-md-center">
+                             <div class="col-lg-8 text-center" style="margin-top: 15px;">
+                                 <textarea class="form-control"></textarea>                                
+                            </div>                             
+                         </div>
+                         <div class="form-row justify-content-md-center">
+                             <div class="col-lg-12 text-center" style="margin-top: 15px;">
+                                 <hr>
+                                       <center><h4 class="text-dark">Diga-nos o que você procura</h4></center>                                                            
+                            </div>                             
+                         </div>
+                     </form>
+                         
+<?php                    
                 }
             }
             ?>

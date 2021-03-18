@@ -80,7 +80,7 @@ class UsuariosDAO {
         
     }
     
-    function cadastrarUsuario($tipo){
+    function cadastrarUsuario($tipo,$objUsuario,$objDados){
         $objBD = new ConexaoDAO();
         $vConn = $objBD->abrirConexao();
         
@@ -92,9 +92,9 @@ class UsuariosDAO {
         
         if($tipo == 1){ //candidato
             $sqlCadastraDados = "Insert into candidatos(";
-            $sqlCadastraDados .= "login_CANDIDATO, nomeCompleto_CANDIDATO, dataNascimento_CANDIDATO, sexo_CANDIDATO";
+            $sqlCadastraDados .= "email_CANDIDATO, nomeCompleto_CANDIDATO, dataNascimento_CANDIDATO, sexo_CANDIDATO";
             $sqlCadastraDados .= "bio_CANDIDATO, cep_CANDIDATO, endereco_CANDIDATO";
-            $sqlCadastraDados .= "numero_CANDIDATO, complemento_CANDIDATO, telefone_CANDIDATO, imagem_CANDIDATO)";
+            $sqlCadastraDados .= "numero_CANDIDATO, complemento_CANDIDATO, bairro_CANDIDATO, cidade_CANDIDATO, telefone_CANDIDATO, imagem_CANDIDATO)";
             $sqlCadastraDados .= "values(";
             $sqlCadastraDados .= "'" . $objDados->getEmail() . "',";
             $sqlCadastraDados .= "'" . $objDados->getNome() . "',";
@@ -105,6 +105,8 @@ class UsuariosDAO {
             $sqlCadastraDados .= "'" . $objDados->getEndereco() . "',";
             $sqlCadastraDados .= "'" . $objDados->getNumero() . "',";
             $sqlCadastraDados .= "'" . $objDados->getComplemento() . "',";
+            $sqlCadastraDados .= "'" . $objDados->getBairro() . "',";
+            $sqlCadastraDados .= "'" . $objDados->getCidade() . "',";
             $sqlCadastraDados .= "'" . $objDados->getTelefone() . "',";
             $sqlCadastraDados .= "'" . $objDados->getImagem() . "',";
             
@@ -113,7 +115,7 @@ class UsuariosDAO {
             $sqlCadastraDados = "Insert into candidatos(";
             $sqlCadastraDados .= "email_EMPRESA, nomeFantasia_EMPRESA,";
             $sqlCadastraDados .= "info_EMPRESA, cep_EMPRESA, endereco_EMPRESA";
-            $sqlCadastraDados .= "numero_EMPRESA, complemento_EMPRESA, telefone_EMPRESA, imagem_EMPRESA, idCategoria_EMPRESA)";
+            $sqlCadastraDados .= "numero_EMPRESA, complemento_EMPRESA, bairro_EMPRESA, cidade_EMPRESA, telefone_EMPRESA, imagem_EMPRESA, idCategoria_EMPRESA)";
             $sqlCadastraDados .= "values(";
             $sqlCadastraDados .= "'" . $objDados->getEmail() . "',";
             $sqlCadastraDados .= "'" . $objDados->getNomeFantasia() . "',";
@@ -122,6 +124,8 @@ class UsuariosDAO {
             $sqlCadastraDados .= "'" . $objDados->getEndereco() . "',";
             $sqlCadastraDados .= "'" . $objDados->getNumero() . "',";
             $sqlCadastraDados .= "'" . $objDados->getComplemento() . "',";
+            $sqlCadastraDados .= "'" . $objDados->getBairro() . "',";
+            $sqlCadastraDados .= "'" . $objDados->getCidade() . "',";
             $sqlCadastraDados .= "'" . $objDados->getTelefone() . "',";
             $sqlCadastraDados .= "'" . $objDados->getImagem() . "',";
             $sqlCadastraDados .= $objDados->getIdCategoria() . ")";
