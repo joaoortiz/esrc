@@ -27,4 +27,15 @@ class EmpresasDAO {
         
         return $cat;
     }
+    
+    function consultarCategoria($id){
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
+
+        $sqlCat = "Select * from categorias where id_CATEGORIA = '$id'";
+        $rsCat = $vConn->query($sqlCat);
+        $tblCat = $rsCat->fetch();
+        
+        return $tblCat['nome_CATEGORIA'];
+    }
 }

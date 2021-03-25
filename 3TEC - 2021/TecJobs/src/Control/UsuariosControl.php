@@ -63,6 +63,8 @@ if ($exec == 1) { //login
             $_SESSION['endereco'] = $objEmp->getEndereco();
             $_SESSION['numero'] = $objEmp->getNumero();
             $_SESSION['complemento'] = $objEmp->getComplemento();
+            $_SESSION['bairro'] = $objEmp->getBairro();
+            $_SESSION['cidade'] = $objEmp->getCidade();            
             $_SESSION['telefone'] = $objEmp->getTelefone();
             $_SESSION['imagem'] = $objEmp->getImagem();
             $_SESSION['idCategoria'] = $objEmp->getIdCategoria();
