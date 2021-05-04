@@ -1,0 +1,42 @@
+html{
+   scroll-behavior: smooth;
+}
+
+.BarraMenu{
+    color: rgba(248,248,255,1); /*cinza bem claro*/
+    font-size: 12px;
+    font-family: Verdana;
+    background-image: linear-gradient(to right, #BE002B, #CD5C5C);
+}
+
+.Links{
+    color: rgba(0,0,0,1);
+    text-decoration:none;
+}
+
+.Links:hover{    
+    text-decoration:none;
+}
+
+.TextoDestaque{
+    color: rgba(200,200,30,1);
+    font-family:'Comic Sans MS';
+}
+
+.ImgMini{
+    margin-top:5px;
+    width: 240px;
+    height:132px;
+    filter: grayscale(100%);
+}
+
+.ImgMini:hover{
+    margin-top:5px;
+    width: 240px;
+    height:132px;
+    filter: grayscale(0%);   
+}
+
+.TextoInfo{
+    font-size:11pt;
+}

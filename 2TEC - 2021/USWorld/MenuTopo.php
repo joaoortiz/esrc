@@ -1,42 +1,38 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color:#B22222;">
-  <a class="navbar-brand text-light" href="#">
-      <i class="fa fa-star fa-lg"></i>
-      <i class="fa fa-star fa-lg"></i>     
-      US World
-      <i class="fa fa-star fa-lg"></i>
-      <i class="fa fa-star fa-lg"></i>
-  </a>
-  
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
+<nav class="navbar navbar-expand-lg BarraMenu">
+    <div class="col-lg-2 text-center">
+        <a href="#">
+            <img src="img/logo.png" style="width:80px;height:50px;">
+            <h5 class="text-dark">USWorld</h4>
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
+    </div>
+    
+    <div class="col-lg-2 text-center">
+        <a href="" class="text-white">
+            <i class="fa fa-address-card fa-3x"></i>
+            <h4 class="text-white">Vistos</h4>        
+        </a>
+    </div>
+    
+    <div class="col-lg-2 text-center">
+        <a href="" class="text-white">
+            <i class="fa fa-home fa-3x"></i>
+            <h4 class="text-white">Onde morar?</h4>        
+        </a>
+    </div>
+    
+    <div class="col-lg-2 text-center">
+        <a href="" class="text-white">
+            <i class="fa fa-star fa-3x"></i>
+            <h4 class="text-white">Dicas</h4>        
+        </a>
+    </div>
+    
+    <div class="col-lg-2 text-center">
+        <a href="" class="text-white">
+            <i class="fa fa-envelope fa-3x"></i>
+            <h4 class="text-white">Contato</h4>        
+        </a>
+    </div>
+    
+    
 </nav>
