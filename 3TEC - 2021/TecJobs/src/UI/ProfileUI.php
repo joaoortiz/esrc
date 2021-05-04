@@ -83,9 +83,14 @@ $objCat = new EmpresasDAO();
                                         for ($i = 0; $i < count($inter); $i++) {
                                             ?>
                                             <div class="col-lg-4 text-center">
-                                                <img src="../../img/users/<?= $inter[$i]->getImagem(); ?>" class="Icones">
+                                                <a href="ProfileEmpresa.php?idEmp=<?= $inter[$i]->getId(); ?>">
+                                                    <img src="../../img/users/<?= $inter[$i]->getImagem(); ?>" class="Icones">
+                                                </a>
                                                 <br>
-                                                <?= $inter[$i]->getNomeFantasia(); ?><br>
+                                                <a href="ProfileEmpresa.php?idEmp=<?= $inter[$i]->getId(); ?>">
+                                                    <?= $inter[$i]->getNomeFantasia(); ?>
+                                                </a>
+                                                <br>
 
                                             </div>
                                             <?php
@@ -173,7 +178,12 @@ $objCat = new EmpresasDAO();
 
             </div>
 
-        <?php } else if ($_SESSION['permissao'] == 2) { //PERFIL EMPRESA?>
+            <?php
+        } else if ($_SESSION['permissao'] == 2) { //PERFIL EMPRESA
+            $id = $_SESSION['id'];
+            $objBDEmp = new EmpresasDAO();
+            $vagas = $objBDEmp->listarVagas($id);
+            ?>
 
             <div class="container" style="margin-top: 30px;">
                 <div class="row" style="min-height: 180px;">
@@ -198,95 +208,82 @@ $objCat = new EmpresasDAO();
                                         <a href="" style="color: #7952B3;">
                                             <i class="fa fa-plus-square fa-3x"></i><br>
                                             Seguir
-                                        
+
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col">
-                                            <?= $_SESSION['endereco'] . ", " . $_SESSION['numero']; ?> - <?= $_SESSION['bairro']; ?> - <?= $_SESSION['complemento']; ?><br> 
-                                            <?= $_SESSION['cep']; ?><br> 
-                                            Telefone: <?= $_SESSION['telefone']; ?>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <?= $_SESSION['endereco'] . ", " . $_SESSION['numero']; ?> - <?= $_SESSION['bairro']; ?> - <?= $_SESSION['complemento']; ?><br> 
+                                        <?= $_SESSION['cep']; ?><br> 
+                                        Telefone: <?= $_SESSION['telefone']; ?>
 
-                                        </div>
-                                        <div class="col">
-                                            Endereço de E-mail: <?= $_SESSION['email']; ?> <br>
-                                            Categoria: <?= $objCat->consultarCategoria($_SESSION['idCategoria']) ?>
-
-                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row" style="min-height: 170px;">
-                        <div class="col-lg-8">
-                            <div class="card">
-                                <div class="card-body">
-                                    <?= $_SESSION['info']; ?>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="col-lg-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    Interesses
-                                </div>
-                                <div class="card-body">
-                                    <div class="row justify-content-md-center">
-                                        <?php
-                                        ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row" style="min-height: 100px; margin-top:15px;">                
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    Formação Acadêmica
-                                </div>
-                                <div class="card-body">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row justify-content-md-center" style="min-height: 150px;margin-top:15px;">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    Conhecimentos
-                                </div>
-                                <div class="card-body">
-                                    <div class="row justify-content-md-center">
+                                    <div class="col">
+                                        Endereço de E-mail: <?= $_SESSION['email']; ?> <br>
+                                        Categoria: <?= $objCat->consultarCategoria($_SESSION['idCategoria']) ?>
 
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
+                <div class="row" style="min-height: 100px;">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <?= $_SESSION['info']; ?>
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
 
+                <div class="row" style="min-height: 100px; margin-top:15px;">                
+                    <?php
+                    for ($i = 0; $i < count($vagas); $i++) {
+                        ?>
+
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <?= $vagas[$i]->getCargo(); ?>
+                                </div>
+                                <div class="card-body">
+                                    <?= $vagas[$i]->getDescricao(); ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
 
                 </div>
 
+                <div class="row justify-content-md-center" style="min-height: 150px;margin-top:15px;">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                Tecnologias
+                            </div>
+                            <div class="card-body">
+                                <div class="row justify-content-md-center">
 
-            <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+            </div>
+
+        <?php } ?>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     </body>
 
 </html>

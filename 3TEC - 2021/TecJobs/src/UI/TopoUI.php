@@ -23,22 +23,27 @@
         <div class="col-lg-1">
             <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
         </div>
+        
+        <div class="col-lg-1">
+            <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+        </div>
 
 
 
         <div class="col-lg-4">
 
-            <form class="form-inline FormPesquisa" action="index.php" method="POST">
-                <div class="input-group mb-2 mr-sm-2"  style="margin-top:5px;">
+            <form class="form-inline FormPesquisa" action="ListaEmpresasUI.php" method="POST">
+                <div class="input-group mb-2 mr-sm-2"  style="margin-top:5px;padding-left: 35px;">
 
 
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-search"></i></span>
                     </div>
-                    <input type="text" class="form-control" name="HTML_produto" placeholder="Pesquisar Empresas">
+                    <input type="text" class="form-control" name="HTML_nome" placeholder="Pesquisar Empresas" style="width:300px;">
 
                     <div class="input-group-append">
                         <div class="input-group-text">
+                            <input type="hidden" name="tipo" value="1">
                             <button type="submit" class="" style="border-width:0px;">
                                 Buscar
                             </button>
