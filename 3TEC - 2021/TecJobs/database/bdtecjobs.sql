@@ -4,7 +4,7 @@ USE `bdtecjobs`;
 --
 -- Host: 127.0.0.1    Database: bdtecjobs
 -- ------------------------------------------------------
--- Server version	5.7.17
+-- Server version	5.1.54-community-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -33,15 +33,6 @@ CREATE TABLE `areas` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `areas`
---
-
-LOCK TABLES `areas` WRITE;
-/*!40000 ALTER TABLE `areas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `areas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `candidatos`
 --
 
@@ -59,21 +50,13 @@ CREATE TABLE `candidatos` (
   `endereco_CANDIDATO` varchar(150) NOT NULL,
   `numero_CANDIDATO` int(11) NOT NULL,
   `complemento_CANDIDATO` varchar(50) DEFAULT NULL,
+  `bairro_CANDIDATO` varchar(60) NOT NULL,
+  `cidade_CANDIDATO` varchar(60) NOT NULL,
   `telefone_CANDIDATO` varchar(11) NOT NULL,
   `imagem_CANDIDATO` varchar(37) DEFAULT NULL,
   PRIMARY KEY (`id_CANDIDATO`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `candidatos`
---
-
-LOCK TABLES `candidatos` WRITE;
-/*!40000 ALTER TABLE `candidatos` DISABLE KEYS */;
-INSERT INTO `candidatos` VALUES (1,'joao@esrc.com.br','João Ortiz','1985-06-08','M','Bacharel em Ciência da Computação, Pós graduado em Des. de Sistemas e Docência no Ens. Superior.','02138040','R. Marabu',223,'','1129496686','joao.jpg');
-/*!40000 ALTER TABLE `candidatos` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `categorias`
@@ -87,18 +70,8 @@ CREATE TABLE `categorias` (
   `nome_CATEGORIA` varchar(50) NOT NULL,
   `descricao_CATEGORIA` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_CATEGORIA`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `categorias`
---
-
-LOCK TABLES `categorias` WRITE;
-/*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
-INSERT INTO `categorias` VALUES (1,'Comunicação e Jornalismo','Emissora de TV direcionada ao jornalismo');
-/*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `cursos`
@@ -111,17 +84,8 @@ CREATE TABLE `cursos` (
   `id_CURSO` int(11) NOT NULL AUTO_INCREMENT,
   `nome_CURSO` varchar(120) NOT NULL,
   PRIMARY KEY (`id_CURSO`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cursos`
---
-
-LOCK TABLES `cursos` WRITE;
-/*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `empresas`
@@ -139,23 +103,15 @@ CREATE TABLE `empresas` (
   `endereco_EMPRESA` varchar(150) NOT NULL,
   `numero_EMPRESA` int(11) NOT NULL,
   `complemento_EMPRESA` varchar(50) DEFAULT NULL,
+  `bairro_EMPRESA` varchar(60) NOT NULL,
+  `cidade_EMPRESA` varchar(60) NOT NULL,
   `telefone_EMPRESA` varchar(11) NOT NULL,
   `imagem_EMPRESA` varchar(37) DEFAULT NULL,
   `idCategoria_EMPRESA` int(11) NOT NULL,
   PRIMARY KEY (`id_EMPRESA`),
   KEY `idCategoria_EMPRESA` (`idCategoria_EMPRESA`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `empresas`
---
-
-LOCK TABLES `empresas` WRITE;
-/*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
-INSERT INTO `empresas` VALUES (1,'web@cnn.com','CNN Brasil','Líder em Independência','01310100','Av. Paulista',1564,'','1145547877','cnn.jpg',1);
-/*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `formacoes`
@@ -176,15 +132,6 @@ CREATE TABLE `formacoes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `formacoes`
---
-
-LOCK TABLES `formacoes` WRITE;
-/*!40000 ALTER TABLE `formacoes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `formacoes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `instituicoes`
 --
 
@@ -195,17 +142,8 @@ CREATE TABLE `instituicoes` (
   `id_INSTITUICAO` int(11) NOT NULL AUTO_INCREMENT,
   `nome_INSTITUICAO` varchar(120) NOT NULL,
   PRIMARY KEY (`id_INSTITUICAO`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `instituicoes`
---
-
-LOCK TABLES `instituicoes` WRITE;
-/*!40000 ALTER TABLE `instituicoes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `instituicoes` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `interesses`
@@ -223,15 +161,6 @@ CREATE TABLE `interesses` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `interesses`
---
-
-LOCK TABLES `interesses` WRITE;
-/*!40000 ALTER TABLE `interesses` DISABLE KEYS */;
-/*!40000 ALTER TABLE `interesses` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `niveis`
 --
 
@@ -245,16 +174,6 @@ CREATE TABLE `niveis` (
   PRIMARY KEY (`idCandidato_NIVEL`,`idTecnologia_NIVEL`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `niveis`
---
-
-LOCK TABLES `niveis` WRITE;
-/*!40000 ALTER TABLE `niveis` DISABLE KEYS */;
-INSERT INTO `niveis` VALUES (1,1,4),(1,2,5),(1,3,4),(1,4,5),(1,5,1);
-/*!40000 ALTER TABLE `niveis` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tecnologias`
@@ -273,16 +192,6 @@ CREATE TABLE `tecnologias` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tecnologias`
---
-
-LOCK TABLES `tecnologias` WRITE;
-/*!40000 ALTER TABLE `tecnologias` DISABLE KEYS */;
-INSERT INTO `tecnologias` VALUES (1,'Java','Linguagem de Programação','java.png'),(2,'HTML 5','Desenvolvimento WEB','html.png'),(3,'CSS','Layouts e Interfaces WEB','css.png'),(4,'PHP','Programação WEB','php.png'),(5,'Python','Programação e Análise de Dados','python.png'),(6,'Photoshop','Design e UI','ps.png'),(7,'Javascript','Programação WEB','js.png'),(8,'MySQL','Banco de Dados','mysql.png');
-/*!40000 ALTER TABLE `tecnologias` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `usuarios`
 --
 
@@ -298,14 +207,21 @@ CREATE TABLE `usuarios` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `usuarios`
+-- Table structure for table `vagas`
 --
 
-LOCK TABLES `usuarios` WRITE;
-/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES ('joao@esrc.com.br','e10adc3949ba59abbe56e057f20f883e',3),('web@cnn.com','e10adc3949ba59abbe56e057f20f883e',2);
-/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `vagas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vagas` (
+  `id_VAGA` int(11) NOT NULL AUTO_INCREMENT,
+  `cargo_VAGA` varchar(30) NOT NULL,
+  `descricao_VAGA` text NOT NULL,
+  `idEmpresa_VAGA` int(11) NOT NULL,
+  PRIMARY KEY (`id_VAGA`),
+  KEY `idEmpresa_VAGA` (`idEmpresa_VAGA`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping routines for database 'bdtecjobs'
@@ -320,4 +236,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-11 12:33:36
+-- Dump completed on 2021-05-05 21:22:40
