@@ -36,7 +36,7 @@ class CandidatosDAO {
         $objBD = new ConexaoDAO();
         $vConn = $objBD->abrirConexao();
 
-        $sqlInt = "Select * from interesses I, empresas E where I.idCandidato_INTERESSE = '$idCand' and I.idEmpresa_INTERESSE = E.id_EMPRESA and direcao_INTERESSE = 2";
+        $sqlInt = "Select * from interesses I, empresas E where I.idCandidato_INTERESSE = '$idCand' and I.idEmpresa_INTERESSE = E.id_EMPRESA";
         $rsInt = $vConn->query($sqlInt);
         $tblInt = $rsInt->fetchAll(PDO::FETCH_BOTH);
         

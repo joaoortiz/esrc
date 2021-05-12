@@ -204,14 +204,7 @@ $objCat = new EmpresasDAO();
                                         </h5>
                                     </div>
 
-                                    <div class="col-lg-2 text-right">
-                                        <a href="" style="color: #7952B3;">
-                                            <i class="fa fa-plus-square fa-3x"></i><br>
-                                            Seguir
-
-                                        </a>
-                                    </div>
-                                </div>
+                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="row">

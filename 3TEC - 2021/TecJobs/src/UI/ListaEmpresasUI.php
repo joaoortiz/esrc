@@ -10,15 +10,15 @@ $tipo = $_POST['tipo'];
 $nome = "";
 $idCat = 0;
 
-if($tipo == 1){
-    $nome=$_POST['HTML_nome'];    
-}else if($tipo == 2){    
-    $idCat = $_POST['HTML_categoria'];;
+if ($tipo == 1) {
+    $nome = $_POST['HTML_nome'];
+} else if ($tipo == 2) {
+    $idCat = $_POST['HTML_categoria'];
 }
 
 $objCat = new EmpresasDAO();
 $objBDEmp = new EmpresasDAO();
-$lista = $objBDEmp->listarEmpresas($nome,$idCat,$tipo);
+$lista = $objBDEmp->listarEmpresas($nome, $idCat, $tipo);
 ?>
 
 
@@ -41,21 +41,47 @@ $lista = $objBDEmp->listarEmpresas($nome,$idCat,$tipo);
         include "TopoUI.php";
         ?>
         <div class="container" style="margin-top: 30px;">
-            <?php
-                for($i=0; $i<count($lista); $i++){ ?>
-            
             <div class="row">
-                <div class="col-lg-12">
-                    CARD DA EMPRESA
-                </div>
-            </div>            
-            
-            <?php
+                <?php
+                $cont = 0;
+                for ($i = 0; $i < count($lista); $i++) {
+                    ?>
+                    <div class="col-lg-6">
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <a href="ProfileEmpresa.php?idEmp=<?= $lista[$i]->getId(); ?>">
+                                        <img src="../../img/users/<?= $lista[$i]->getImagem(); ?>" class="card-img">
+                                    </a>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <a href="ProfileEmpresa.php?idEmp=<?= $lista[$i]->getId(); ?>">
+                                            <h5 class="card-title"><?= $lista[$i]->getNomeFantasia(); ?></h5>
+                                        </a>                                        
+                                        <p class="card-text"><?= $lista[$i]->getInfo(); ?></p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <?php
+                    $cont++;
+
+                    if ($cont == 2) {
+                        echo "</div><div class=row>";
+                        $cont == 0;
+                    }
+                    ?>
+
+                    <?php
                 }
-            ?>           
-            
+                ?>           
+            </div>
         </div>
-        
+
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>

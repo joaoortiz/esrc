@@ -11,6 +11,8 @@ $idEmp = $_GET['idEmp'];
 $objBDEmp = new EmpresasDAO();
 $vagas = $objBDEmp->listarVagas($idEmp);
 $empresa = $objBDEmp->consultarEmpresa($idEmp);
+$idCand = $_SESSION['id'];
+$sigo = $objBDEmp->verificarRelacao($idCand, $idEmp)
 ?>
 
 
@@ -53,11 +55,25 @@ $empresa = $objBDEmp->consultarEmpresa($idEmp);
                                     </div>
 
                                     <div class="col-lg-2 text-right">
-                                        <a href="" style="color: #7952B3;">
+                                        
+                                        <?php
+                                            if($sigo == false){
+                                        ?>
+                                        
+                                        <a href="../Control/EmpresasControl.php?exec=1&idEmp=<?=$empresa->getId();?>" style="color: #7952B3;">
                                             <i class="fa fa-plus-square fa-3x"></i><br>
                                             Seguir
 
                                         </a>
+                                            <?php }else{ ?>
+                                        <a href="../Control/EmpresasControl.php?exec=2&idEmp=<?=$empresa->getId();?>" style="color: #7952B3;">
+                                            <i class="fa fa-minus-square fa-3x"></i><br>
+                                            Remover
+
+                                        </a>   
+                                            <?php } ?>
+                                        
+                                        
                                     </div>
                                 </div>
                             </div>

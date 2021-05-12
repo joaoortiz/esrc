@@ -129,11 +129,44 @@ class EmpresasDAO {
             $objEmpresa->setTelefone($row['telefone_EMPRESA']);
             $objEmpresa->setImagem($row['imagem_EMPRESA']);
             $objEmpresa->setIdCategoria($row['idCategoria_EMPRESA']);
-            
+
             $lista->append($objEmpresa);
         }
-        
+
         return $lista;
+    }
+
+    function seguirEmpresa($idCand, $idEmpresa) {
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
+
+        $sqlSeguir = "Insert into interesses(idCandidato_INTERESSE, idEmpresa_INTERESSE, direcao_INTERESSE) values";
+        $sqlSeguir.= "($idCand,$idEmpresa,1)";
+
+        $vConn->query($sqlSeguir);
+    }
+
+    function removerRelacao($idCand, $idEmpresa) {
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
+
+        $sqlSeguir = "Delete from interesses where idCandidato_INTERESSE = '$idCand' and idEmpresa_INTERESSE = '$idEmpresa'";
+        $vConn->query($sqlSeguir);
+    }
+
+    function verificarRelacao($idCand, $idEmpresa) {
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
+
+        $sqlVer = "Select * from INTERESSES where idCandidato_INTERESSE = '$idCand' and idEmpresa_INTERESSE = '$idEmpresa'";
+
+        $rsVer = $vConn->query($sqlVer);
+        $numReg = $rsVer->rowCount();
+
+        if ($numReg == 0)
+            return false;
+        else
+            return true;
     }
 
 }
