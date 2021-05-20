@@ -145,13 +145,13 @@
                 <div class="card  col-lg-12 border-0">
                     <div class="row no-gutters">
                         <div class="col-md-4">
-                            <a href="" data-toggle="modal" data-target="#mdlSanFrancisco">
+                            <a href="" data-toggle="modal" data-target="#mdlSanFran">
                                 <img src="img/sf.jpg" class="img-fluid">
                             </a>
                         </div>
                         <div class="col-md-8">
                             <div class="card-body" style="padding-top: 0px;">
-                                <a href="" data-toggle="modal" data-target="#mdlSanFrancisco">
+                                <a href="" data-toggle="modal" data-target="#mdlSanFran">
                                     <h5 class="card-title">San Francisco</h5>
                                 </a>
                                 <p class="card-text">
