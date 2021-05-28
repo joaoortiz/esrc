@@ -112,14 +112,13 @@ class UsuariosDAO {
             
             
         } else if($tipo == 2){ //empresa
-            $sqlCadastraDados = "Insert into candidatos(";
+            $sqlCadastraDados = "Insert into empresas(";
             $sqlCadastraDados .= "email_EMPRESA, nomeFantasia_EMPRESA,";
-            $sqlCadastraDados .= "info_EMPRESA, cep_EMPRESA, endereco_EMPRESA";
+            $sqlCadastraDados .= "cep_EMPRESA, endereco_EMPRESA,";
             $sqlCadastraDados .= "numero_EMPRESA, complemento_EMPRESA, bairro_EMPRESA, cidade_EMPRESA, telefone_EMPRESA, imagem_EMPRESA, idCategoria_EMPRESA)";
             $sqlCadastraDados .= "values(";
             $sqlCadastraDados .= "'" . $objDados->getEmail() . "',";
             $sqlCadastraDados .= "'" . $objDados->getNomeFantasia() . "',";
-            $sqlCadastraDados .= "'" . $objDados->getInfo() . "',";
             $sqlCadastraDados .= "'" . $objDados->getCep() . "',";
             $sqlCadastraDados .= "'" . $objDados->getEndereco() . "',";
             $sqlCadastraDados .= "'" . $objDados->getNumero() . "',";
@@ -132,7 +131,7 @@ class UsuariosDAO {
         }
         
         $vConn->query($sqlCadastraUsuario);
-        $vConn->query($sqlCadastroDados);
+        $vConn->query($sqlCadastraDados);
     }
 }
 

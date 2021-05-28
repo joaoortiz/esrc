@@ -68,8 +68,18 @@ button.animated-button.thar:before {
     height:75px;
 }
 
+.ImgLogoSingle{
+    width:120px;
+    height:94px;
+}
+
 .TextoLogo{
     font-family: Arial Black;
+}
+.TextoDestaque{
+    font-family: Arial Black;
+    font-weight: bold;
+    font-size: 16pt;
 }
 
 .MenuTopo{

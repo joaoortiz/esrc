@@ -2,17 +2,13 @@
 <?php
 require_once "../Model/Empresas.php";
 require_once "../DAO/EmpresasDAO.php";
-require_once "../Model/Candidatos.php";
-require_once "../DAO/CandidatosDAO.php";
+require_once "../Model/Vagas.php";
 session_start();
 
-$objCat = new EmpresasDAO();
 $idEmp = $_GET['idEmp'];
 $objBDEmp = new EmpresasDAO();
 $vagas = $objBDEmp->listarVagas($idEmp);
 $empresa = $objBDEmp->consultarEmpresa($idEmp);
-$idCand = $_SESSION['id'];
-$sigo = $objBDEmp->verificarRelacao($idCand, $idEmp)
 ?>
 
 
@@ -34,7 +30,6 @@ $sigo = $objBDEmp->verificarRelacao($idCand, $idEmp)
         <?php
         include "TopoUI.php";
         ?>
-
         <div class="container" style="margin-top: 30px;">
             <div class="row" style="min-height: 180px;">
                 <div class="col-lg-2" style="padding-top:10px;">
@@ -61,21 +56,21 @@ $sigo = $objBDEmp->verificarRelacao($idCand, $idEmp)
                                             <i class="fa fa-user fa-3x" style="color:#76EEC6;"></i>
                                         </div>
                                         <div class="col-md-4 text-center">
-                                            <font class="TextoDestaque"><?=count($vagas);?></font><br>
+                                            <font class="TextoDestaque"><?= count($vagas); ?></font><br>
                                             <font class="TextoDados text-muted">Vagas</font>
 
 
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="card col-lg-3 border-0" style="margin-right:50px; ">
                                     <div class="row no-gutters" style="height:20px;">
                                         <div class="col-md-8" style="padding-top: 5px;">
                                             <i class="fa fa-briefcase fa-3x" style="color:#76EEC6;"></i>
                                         </div>
                                         <div class="col-md-4 text-center">
-                                            <font class="TextoDestaque"><?=count($vagas);?></font><br>
+                                            <font class="TextoDestaque"><?= count($vagas); ?></font><br>
                                             <font class="TextoDados text-muted">Vagas</font>
 
 
@@ -86,18 +81,6 @@ $sigo = $objBDEmp->verificarRelacao($idCand, $idEmp)
 
                                 <div class="col-lg-1 text-right">
 
-                                    <?php
-                                    if ($sigo == false) {
-                                        ?>
-
-                                        <a href="../Control/EmpresasControl.php?exec=1&idEmp=<?= $empresa->getId(); ?>" style="color: #7952B3;">
-                                            <i class="fa fa-thumbs-up fa-3x"></i><br>                                            
-                                        </a>
-                                    <?php } else { ?>
-                                        <a href="../Control/EmpresasControl.php?exec=2&idEmp=<?= $empresa->getId(); ?>" style="color: #7952B3;">
-                                            <i class="fa fa-minus-square fa-3x"></i><br>
-                                        </a>   
-                                    <?php } ?>
 
 
                                 </div>
@@ -113,7 +96,7 @@ $sigo = $objBDEmp->verificarRelacao($idCand, $idEmp)
                                 </div>
                                 <div class="col">
                                     Endereço de E-mail: <?= $empresa->getEmail(); ?> <br>
-                                    Categoria: <?= $objCat->consultarCategoria($empresa->getIdCategoria()); ?>
+                                    Categoria: <?= $objBDEmp->consultarCategoria($empresa->getIdCategoria()); ?>
 
                                 </div>
                             </div>
@@ -122,95 +105,77 @@ $sigo = $objBDEmp->verificarRelacao($idCand, $idEmp)
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <?= $empresa->getInfo(); ?>
-                        </div>
-                    </div>
+            <div class="d-flex flex-column border-0 rounded" style="margin-left:15px;padding-bottom:10px;">
+                <div class="text-dark border-bottom" style="margin-bottom:10px;padding-left:20px; padding-top:12px; height:50px; background-color:#F7F7F7;">
+                    Vagas
+                    <a href="#" data-toggle="modal" data-target="#MdlCadastraVaga">
+                        (Adicionar)
+                    </a>
+                </div>  
+                <?php if ($_SESSION['permissao'] == 3) { ?>
+                    <div class="card-columns">
+                        <?php
+                        for ($i = 0; $i < count($vagas); $i++) {
+                            ?>
+                            <div class="card" style="padding-bottom:5px;">
+                                <div class="card-body text-center">
+                                    <i class="fa fa-<?= $vagas[$i]->getIcone(); ?> fa-3x" style="color:#86D4F5;margin-bottom: 3px;"></i>
+                                    <h5 class="card-title"><?= $vagas[$i]->getCargo(); ?></h5>
+                                    <hr>                                        
+                                    <?= $vagas[$i]->getDescricao(); ?>                                     
 
-                </div>
-            </div>
+                                    <hr>
+                                    <a href="../Control/UsuariosControl.php" class="btn text-white float-right" style="background-color:#7952B3;">
+                                        Aplicar
+                                    </a>
 
-            <?php if (count($vagas) == 0) { ?>
-                <div class="row" style="min-height: 100px; margin-top:15px;">                
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                                Vagas
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <font class="text-muted"> Nenhuma Vaga disponível</font>
-                            </div>
-                        </div>
+
+                        <?php }
+                        ?>
                     </div>
-                </div>
-            <?php } else {
-                ?>
+                <?php } else if ($_SESSION['permissao'] == 2) {
+                    ?>
 
-                <div class="row" style="margin-top:15px;">
 
-                    <div class="d-flex flex-column border rounded" style="margin-left:15px;margin-right:15px;padding-bottom:10px;">
-                        <div class="text-dark border-bottom" style="margin-bottom:10px;padding-left:20px; padding-top:12px; height:50px; background-color:#F7F7F7;">
-                            Vagas
-                        </div>
-                        <div class="card-group">
-                            <?php
-                            $contVagas = 0;
-                            for ($i = 0; $i < count($vagas); $i++) {
-                                if($contVagas <= 3){
-                                ?>
+                    <?php
+                    for ($i = 0; $i < count($vagas); $i++) {
+                        ?>
 
-                                <div class="col-lg-3">
-                                    <div class="card">
-                                        <div class="card-body text-center">
-                                            <i class="fa fa-<?=$vagas[$i]->getIcone();?> fa-3x" style="color:#86D4F5;margin-bottom: 3px;"></i>
-                                            <h5 class="card-title"><?= $vagas[$i]->getCargo(); ?></h5>
-                                            <hr>                                        
-                                            <?= $vagas[$i]->getDescricao(); ?>
+
+                        <div class="row justify-content-md-center" style="margin-bottom:5px; ">
+                            <div class="card col-lg-12 border" style="padding-bottom:5px;">
+                                <div class="row no-gutters">
+                                    <div class="col-md-1 text-center">
+                                        <i class="fa fa-<?= $vagas[$i]->getIcone(); ?> fa-4x" style="margin-top:40px;color:#86D4F5;"></i>                                            
+                                    </div>
+                                    <div class="col-md-11">
+                                        <div class="card-body" style="padding-top: 10px;">
+                                            <h5 class="card-title"><?= $vagas[$i]->getCargo(); ?></h5> 
+                                            <p class="card-text">
+                                            <p class="card-text"><?= $vagas[$i]->getDescricao(); ?></p>
                                             <hr>
                                             <a href="../Control/UsuariosControl.php" class="btn text-white float-right" style="background-color:#7952B3;">
-                                                Aplicar
+                                                Gerenciar
                                             </a>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
-                                <?php
-                                $contVagas++;
-                                }
-                            }
-                            ?>
-                            <div class="col-lg-12 text-right">
-                                    <a href="ListaVagasUI.php?idEmp=<?=$idEmp?>">
-                                    Ver todas as vagas
-                                    </a>
-                                </div>
-                        </div>
-                    </div>
-                </div>
-                <?php
-            }
-            ?>
-
-
-
-            <div class="row justify-content-md-center" style="min-height: 150px;margin-top:15px;">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            Tecnologias
-                        </div>
-                        <div class="card-body">
-                            <div class="row justify-content-md-center">
-
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
 
+
+                        <?php
+                    }
+                }
+                ?>
+                
+            </div>
         </div>
+
+
 
 
 

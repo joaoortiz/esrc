@@ -4,7 +4,7 @@ USE `bdtecjobs`;
 --
 -- Host: 127.0.0.1    Database: bdtecjobs
 -- ------------------------------------------------------
--- Server version	5.1.54-community-log
+-- Server version	5.7.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -89,7 +89,7 @@ CREATE TABLE `categorias` (
   `nome_CATEGORIA` varchar(50) NOT NULL,
   `descricao_CATEGORIA` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_CATEGORIA`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +98,7 @@ CREATE TABLE `categorias` (
 
 LOCK TABLES `categorias` WRITE;
 /*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
-INSERT INTO `categorias` VALUES (1,'Comunicação e Jornalismo','Emissora de TV direcionada ao jornalismo'),(2,'Tecnologia Industrial','');
+INSERT INTO `categorias` VALUES (1,'Comunicação e Jornalismo','Emissora de TV direcionada ao jornalismo'),(2,'Tecnologia Industrial',''),(3,'Transporte e Turismo',NULL);
 /*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +149,7 @@ CREATE TABLE `empresas` (
   `idCategoria_EMPRESA` int(11) NOT NULL,
   PRIMARY KEY (`id_EMPRESA`),
   KEY `idCategoria_EMPRESA` (`idCategoria_EMPRESA`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,7 +158,7 @@ CREATE TABLE `empresas` (
 
 LOCK TABLES `empresas` WRITE;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
-INSERT INTO `empresas` VALUES (1,'web@cnn.com','CNN Brasil','Líder em Independência','01310100','Av. Paulista',1564,'2º Andar','Consolação','São Paulo','1145547877','cnn.jpg',1),(2,'web@caterpillar.com','Caterpillar','Pioneira no desenvolvimento de máquinas e tratores.','04587030','Rod. dos Bandeirantes',0,'Km 122','Jd. das Oliveiras','Americana','1935521424','cat.png',2);
+INSERT INTO `empresas` VALUES (1,'web@cnn.com','CNN Brasil','Líder em Independência','01310100','Av. Paulista',1564,'2º Andar','Consolação','São Paulo','1145547877','cnn.jpg',1),(2,'web@caterpillar.com','Caterpillar','Pioneira no desenvolvimento de máquinas e tratores.','04587030','Rod. dos Bandeirantes',0,'Km 122','Jd. das Oliveiras','Americana','1935521424','cat.png',2),(4,'web@megabus.com','Megabus Travel Company','A maior empresa de transportes rodoviários do mundo.','12590000','Rua Flórida',345,'','Jardins','São Paulo','1196587456','mgb.jpg',3);
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -235,8 +235,32 @@ CREATE TABLE `interesses` (
 
 LOCK TABLES `interesses` WRITE;
 /*!40000 ALTER TABLE `interesses` DISABLE KEYS */;
-INSERT INTO `interesses` VALUES (1,1,2);
+INSERT INTO `interesses` VALUES (1,1,1),(1,2,1);
 /*!40000 ALTER TABLE `interesses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `necessidades`
+--
+
+DROP TABLE IF EXISTS `necessidades`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `necessidades` (
+  `idEmpresa_NECESSIDADE` int(11) NOT NULL,
+  `idTecnologia_NECESSIDADE` int(11) NOT NULL,
+  `descricao_NECESSIDADE` text NOT NULL,
+  PRIMARY KEY (`idEmpresa_NECESSIDADE`,`idTecnologia_NECESSIDADE`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `necessidades`
+--
+
+LOCK TABLES `necessidades` WRITE;
+/*!40000 ALTER TABLE `necessidades` DISABLE KEYS */;
+/*!40000 ALTER TABLE `necessidades` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -311,7 +335,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES ('joao@esrc.com.br','e10adc3949ba59abbe56e057f20f883e',3),('web@cnn.com','e10adc3949ba59abbe56e057f20f883e',2),('web@caterpillar.com','e10adc3949ba59abbe56e057f20f883e',2);
+INSERT INTO `usuarios` VALUES ('joao@esrc.com.br','e10adc3949ba59abbe56e057f20f883e',3),('web@cnn.com','e10adc3949ba59abbe56e057f20f883e',2),('web@caterpillar.com','e10adc3949ba59abbe56e057f20f883e',2),('web@megabus.com','14e1b600b1fd579f47433b88e8d85291',2);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -326,10 +350,11 @@ CREATE TABLE `vagas` (
   `id_VAGA` int(11) NOT NULL AUTO_INCREMENT,
   `cargo_VAGA` varchar(30) NOT NULL,
   `descricao_VAGA` text NOT NULL,
+  `icone_VAGA` varchar(45) NOT NULL,
   `idEmpresa_VAGA` int(11) NOT NULL,
   PRIMARY KEY (`id_VAGA`),
   KEY `idEmpresa_VAGA` (`idEmpresa_VAGA`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -338,7 +363,7 @@ CREATE TABLE `vagas` (
 
 LOCK TABLES `vagas` WRITE;
 /*!40000 ALTER TABLE `vagas` DISABLE KEYS */;
-INSERT INTO `vagas` VALUES (1,'Analista de Dados','O candidato deverá ser apto a criar layouts e artes baseadas em dados estatísticos.',1),(2,'Analista Político','O candidato deverá estar apto a realizar análises do atual cenário político mundial com base em tendências e eventos históricos.',1);
+INSERT INTO `vagas` VALUES (1,'Analista de Dados','O candidato deverá ser apto a criar layouts e artes baseadas em dados estatísticos.','bar-chart',1),(2,'Analista Político','O candidato deverá estar apto a realizar análises do atual cenário político mundial com base em tendências e eventos históricos.','black-tie',1),(3,'Web Designer','O candidato deverá ser apto a elaborar documentos e páginas multimídia incorporadas ao site, a fim de promover a convergências das reportagens criadas pela emissora.','globe',1),(4,'Motion Designer','O candidato deverá estar apto a criar artes e modelos gráficos a partir dos dados estatísticos levantados pelo sistema e pelos analistas de dados.','newspaper-o',1),(5,'Auxiliar de Produção','O candidato deverá ser apto a otimizar os processos de produção ao vivo dos programas e jornais, apresentando alternativas de exibição em diversas mídias.','podcast',1);
 /*!40000 ALTER TABLE `vagas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -355,4 +380,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-07  7:12:32
+-- Dump completed on 2021-05-28  8:52:55

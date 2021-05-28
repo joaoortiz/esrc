@@ -71,7 +71,7 @@ $objCat = new EmpresasDAO();
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="card-header">
-                                Interesses
+                                Seguindo
                             </div>
                             <div class="card-body">
                                 <div class="row justify-content-md-center">
@@ -80,20 +80,28 @@ $objCat = new EmpresasDAO();
                                         $objBDCand = new CandidatosDAO();
                                         $inter = $objBDCand->listarInteresses($_SESSION['id']);
 
-                                        for ($i = 0; $i < count($inter); $i++) {
+                                        if (count($inter) == 0) {
                                             ?>
-                                            <div class="col-lg-4 text-center">
-                                                <a href="ProfileEmpresa.php?idEmp=<?= $inter[$i]->getId(); ?>">
-                                                    <img src="../../img/users/<?= $inter[$i]->getImagem(); ?>" class="Icones">
-                                                </a>
-                                                <br>
-                                                <a href="ProfileEmpresa.php?idEmp=<?= $inter[$i]->getId(); ?>">
-                                                    <?= $inter[$i]->getNomeFantasia(); ?>
-                                                </a>
-                                                <br>
+                                            <font class="text-muted"> Nenhuma empresa</font>
 
-                                            </div>
                                             <?php
+                                        } else {
+
+                                            for ($i = 0; $i < count($inter); $i++) {
+                                                ?>
+                                                <div class="col-lg-4 text-center">
+                                                    <a href="ProfileEmpresa.php?idEmp=<?= $inter[$i]->getId(); ?>">
+                                                        <img src="../../img/users/<?= $inter[$i]->getImagem(); ?>" class="Icones">
+                                                    </a>
+                                                    <br>
+                                                    <a href="ProfileEmpresa.php?idEmp=<?= $inter[$i]->getId(); ?>">
+                                                        <?= $inter[$i]->getNomeFantasia(); ?>
+                                                    </a>
+                                                    <br>
+
+                                                </div>
+                                                <?php
+                                            }
                                         }
                                     }
                                     ?>
@@ -204,7 +212,7 @@ $objCat = new EmpresasDAO();
                                         </h5>
                                     </div>
 
-                                 </div>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -225,7 +233,7 @@ $objCat = new EmpresasDAO();
                     </div>
                 </div>
 
-                <div class="row" style="min-height: 100px;">
+                <div class="row" style="">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
@@ -235,25 +243,71 @@ $objCat = new EmpresasDAO();
 
                     </div>
                 </div>
-
-                <div class="row" style="min-height: 100px; margin-top:15px;">                
-                    <?php
-                    for ($i = 0; $i < count($vagas); $i++) {
-                        ?>
-
-                        <div class="col-lg-3">
+                <?php if (count($vagas) == 0) { ?>
+                    <div class="row" style="min-height: 100px; margin-top:15px;">                
+                        <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <?= $vagas[$i]->getCargo(); ?>
+                                    Vagas
+                                    <a href="#" data-toggle="modal" data-target="#MdlCadastraVaga">
+                                        (Adicionar)
+                                    </a>
+
                                 </div>
                                 <div class="card-body">
-                                    <?= $vagas[$i]->getDescricao(); ?>
+                                    <font class="text-muted"> Nenhuma Vaga disponível</font>
                                 </div>
                             </div>
                         </div>
-                    <?php } ?>
+                    </div>
+                <?php } else {
+                    ?>
 
-                </div>
+                    <div class="row" style="margin-top:15px;">
+
+                        <div class="d-flex flex-column border rounded" style="margin-left:15px;margin-right:15px;padding-bottom:10px;">
+                            <div class="text-dark border-bottom" style="margin-bottom:10px;padding-left:20px; padding-top:12px; height:50px; background-color:#F7F7F7;">
+                                Vagas
+                                <a href="#" data-toggle="modal" data-target="#MdlCadastraVaga">
+                                    (Adicionar)
+                                </a>
+                            </div>
+                            <div class="card-group">
+                                <?php
+                                $idEmp = $_SESSION['id'];
+                                $contVagas = 0;
+                                for ($i = 0; $i < count($vagas); $i++) {
+                                    if ($contVagas <= 3) {
+                                        ?>
+
+                                        <div class="col-lg-3">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <i class="fa fa-<?=$vagas[$i]->getIcone();?> fa-3x" style="color:#86D4F5;margin-bottom: 3px;"></i>
+                                            <h5 class="card-title"><?= $vagas[$i]->getCargo(); ?></h5>
+                                            <hr>                                        
+                                            <?= $vagas[$i]->getDescricao(); ?>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                        <?php
+                                        $contVagas++;
+                                    }
+                                }
+                                ?>
+                                <div class="col-lg-12 text-right">
+                                    <a href="ListaVagasUI.php?idEmp=<?= $idEmp ?>">
+                                        Ver todas as vagas
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?>
+
+
 
                 <div class="row justify-content-md-center" style="min-height: 150px;margin-top:15px;">
                     <div class="col-lg-12">
@@ -273,6 +327,66 @@ $objCat = new EmpresasDAO();
             </div>
 
         <?php } ?>
+
+
+
+
+        <div class="modal fade" id="MdlCadastraVaga" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content ">
+                    <div class="modal-body">
+
+                        <form class="form" action="../Control/EmpresasControl.php" method="POST">
+                            <center>
+                                <div class="row" style="background-color:#7952B3;">
+                                    <div class="col-lg-3">
+                                        <img src="../../img/misc/logo_single.png" class="img-fluid">
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <font class="TextoDestaque">Cadastrar Vaga</font>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h5>Informe abaixo os dados para o cadastro da vaga</h5>
+                            </center>
+
+                            <div class="row LinhaForm">
+                                <div class="col">
+                                    <label>Cargo Disponível:</label>
+                                    <input type="text" class="form-control" name="HTML_cargo">                                    
+                                </div>                                    
+                            </div>
+
+
+                            <div class="row LinhaForm">
+                                <div class="col">
+                                    <label>Descrição da Vaga</label>
+                                    <textarea class="form-control" name="HTML_descricao"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row LinhaForm" style="margin-top:5px;">
+                                <div class="col">
+                                    <input type="hidden" value="3" name="exec">
+                                    <button type="submit" class="btn float-right text-white" style="background-color: #7952B3;">
+                                        <i class="fa fa-lg fa-plus"></i>
+                                        Adicionar Vaga
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

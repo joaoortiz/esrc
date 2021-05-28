@@ -2,7 +2,7 @@
 
 class Vagas {
 
-    public $id, $cargo, $descricao, $idEmpresa;
+    public $id, $cargo, $descricao, $icone, $idEmpresa;
 
     public function getId() {
         return $this->id;
@@ -34,6 +34,14 @@ class Vagas {
 
     public function setIdEmpresa($idEmpresa) {
         $this->idEmpresa = $idEmpresa;
+    }
+
+    public function getIcone() {
+        return $this->icone;
+    }
+
+    public function setIcone($icone) {
+        $this->icone = $icone;
     }
 
 

@@ -3,6 +3,7 @@
 require_once "ConexaoDAO.php";
 require_once "../Model/Categorias.php";
 require_once "../Model/Vagas.php";
+require_once "../Model/Empresas.php";
 
 class EmpresasDAO {
 
@@ -45,6 +46,7 @@ class EmpresasDAO {
             $objVagas->setId($row['id_VAGA']);
             $objVagas->setCargo($row['cargo_VAGA']);
             $objVagas->setDescricao($row['descricao_VAGA']);
+            $objVagas->setIcone($row['icone_VAGA']);
             $objVagas->setIdEmpresa($row['idEmpresa_VAGA']);
 
             $vagas->append($objVagas);
@@ -168,5 +170,65 @@ class EmpresasDAO {
         else
             return true;
     }
+
+    function cadastrarVaga($vaga) {
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
+        
+        $sqlVaga = "Insert into vagas(cargo_VAGA, descricao_VAGA, idEmpresa_VAGA) values (";
+        $sqlVaga.= "'" . $vaga->getCargo() . "',";
+        $sqlVaga.= "'" . $vaga->getDescricao() . "',";
+        $sqlVaga.= $vaga->getIdEmpresa() . ")";
+        
+        $vConn->query($sqlVaga);
+    }
+    
+    function cadastrarEmpresa($tmpEmpresa){
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
+        
+        $sqlCadastro = "Insert into empresas(";
+        $sqlCadastro.="email_EMPRESA, nomeFantasia_EMPRESA,cep_EMPRESA,";
+        $sqlCadastro.="endereco_EMPRESA, numero_EMPRESA,complemento_EMPRESA,";
+        $sqlCadastro.="bairro_EMPRESA, cidade_EMPRESA,telefone_EMPRESA,";
+        $sqlCadastro.="imagem_EMPRESA, idCategoria_EMPRESA)values(";
+        $sqlCadastro.="'" . $tmpEmpresa->getEmail() . "'";
+        $sqlCadastro.="'" . $tmpEmpresa->getNomeFantasia() . "'";
+        $sqlCadastro.="'" . $tmpEmpresa->getCep() . "'";
+        $sqlCadastro.="'" . $tmpEmpresa->getEndereco() . "'";
+        $sqlCadastro.="'" . $tmpEmpresa->getNumero() . "'";
+        $sqlCadastro.="'" . $tmpEmpresa->getComplemento() . "'";
+        $sqlCadastro.="'" . $tmpEmpresa->getBairro() . "'";
+        $sqlCadastro.="'" . $tmpEmpresa->getCidade() . "'";
+        $sqlCadastro.="'" . $tmpEmpresa->getTelefone() . "'";
+        $sqlCadastro.="'" . $tmpEmpresa->getImagem() . "'";
+        $sqlCadastro.= $tmpEmpresa->getIdCategoria() . ")";
+        
+        $vConn->query($sqlCadastro);
+    }
+    
+    function adicionarInfo($tmpInfo, $tmpId){
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
+        
+        $sqlInfo ="Update empresas set info_EMPRESA = '$tmpInfo' where id_EMPRESA = '$tmpId'";
+                
+        $vConn->query($sqlInfo);
+    }
+    
+    function consultarUltimaEmpresa(){
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
+        
+        $sqlEmp = "Select id_EMPRESA from EMPRESAS order by id_EMPRESA desc limit 1";
+        $rsId = $vConn->query($sqlEmp);
+        
+        $tblId = $rsId->fetch();
+        
+        return $tblId['id_EMPRESA'];
+        
+         
+    }
+    
 
 }
