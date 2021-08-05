@@ -104,11 +104,7 @@ section .section-title {
 .backside .card .card-title {
     color: #007b5e !important;
 }
-.frontside .card .card-body img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-}
+
 
 html{
    scroll-behavior: smooth;
@@ -152,3 +148,30 @@ html{
 .TextoInfo{
     font-size:11pt;
 }
+
+.IconLand{
+    width:120px;
+    height:120px;     
+}
+
+#DivGGB{
+    background-image: url(../img/ggb.jpg);
+    background-size: 200px 140px;
+       background-position-x: -30px;
+}
+#DivMRM{
+    background-image: url(../img/mrm.jpg);
+    background-size: 220px 140px;
+    background-position-x: -40px;
+}
+#DivHWS{
+    background-image: url(../img/hws.jpg);
+    background-size: 220px 140px;
+    background-position-x: -90px;
+}
+#DivBKB{
+    background-image: url(../img/bkb.jpg);
+    background-size: 220px 140px;
+    background-position-x: 0px;
+}
+
