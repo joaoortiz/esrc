@@ -22,17 +22,43 @@
       1.3.1.5 - Redirecionamento
 
 2. Módulo de Perfil
-  2.1- Layout do Perfil (UI)
-    2.1.2 Carregamento da Sessão
-      2.1.2.1 Exibição de dados gerais (UI)  
-    2.1.3 Listagem de Formação Acadêmica (Candidato - UI)
-      2.1.3.1 Consulta de relações nas tabelas Instituições, Cursos, Formações
+  2.1 - Layout do Perfil (UI)
+    2.1.1 -  Carregamento da Sessão
+      2.1.1.1 - Exibição de dados gerais (UI)  
+    2.1.2 - Listagem de Empresas de interesse(Seguindo)
+      2.1.2.1 - Consulta na tabela Interesses
+    2.1.3 - Listagem de Formação Acadêmica (Candidato - UI)
+      2.1.3.1 -  Consulta de relações nas tabelas Instituições, Cursos, Formações
     2.1.4 Exibição dos conhecimentos (Candidato - UI)
       2.1.4.1 Consulta de relação nas tabelas Tecnologias e Níveis
     2.1.5 Contagem de seguidores (Empresa - UI)
       2.1.5.1 Consulta(count) na tabela Interesses
     2.1.6 Contagem de vagas disponíveis (Empresa - UI)
       2.1.6.1 Consulta(count) na tabela Vagas
+    2.1.6 Exibição rápida de vagas (UI)
+      2.1.6.1 Listagem completa de vagas por empresa
+    2.1.7 Listagem de tecnologias (Necessidades - UI) (**PENDENTE**)
+  2.2 Gerenciamento de Perfil (**PENDENTE**)
+    
+3. Módulo de Vagas
+    3.1 - Cadastro de vagas
+    3.2 - Aplicação de vagas (**PENDENTE**)
+    3.3 - Descoberta de vagas (**PENDENTE**)
+    3.4 - Gerenciamento das vagas
+      3.4.1 - Edição de informações de vaga
+      3.4.2 - Listagem de candidatos por vaga
+ 
+4. Módulo de Relacionamento
+  4.1 - Gerenciamento de Seguidores
+    4.1.1 - Adicionar Empresa
+      4.1.1.1 - Cadastro na tabela Interesses
+    4.1.2 - Remover Empresa
+      4.1.2.1 - Exclusão na tabela Interesses
+    
+5. Módulo de Mensagens
+
+6. Módulo de Avaliações 
+    
       
     
     
