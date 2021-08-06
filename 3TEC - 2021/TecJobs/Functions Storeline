@@ -1,0 +1,38 @@
+1. Módulo de Usuários
+  1.1 Cadastro de Empresa
+    1.1.1 Formulário de Informações gerais (UI)
+      1.1.1.1 Upload de imagem   
+      1.1.1.2 Insert na tabela Usuarios
+      1.1.1.3 Inser na tabela Empresas      
+    1.1.2 Formulário de Descrição da empresa (UI)
+    1.1.3 Seleção das Tecnologias (UI)
+  1.2 Cadastro de Candidato
+    1.2.1 Formulário de Informações gerais (UI)
+      1.2.1.1 Upload de imagem   
+      1.2.1.2 Insert na tabela Usuarios
+      1.2.1.3 Inser na tabela Candidatos      
+    1.2.2 Formulário de bio do candidato (UI)
+    1.2.3 Seleção dos conhecimentos (UI)
+  1.3 Autenticação
+    1.3.1 - Formulário de Login (UI)
+      1.3.1.1 - Consulta no banco de dados na tabela Usuarios
+      1.3.1.2 - Validação de nível
+      1.3.1.3 - Consulta na tabela Empresas/Candidatos
+      1.3.1.4 - Gravação da Sessão
+      1.3.1.5 - Redirecionamento
+
+2. Módulo de Perfil
+  2.1- Layout do Perfil (UI)
+    2.1.2 Carregamento da Sessão
+      2.1.2.1 Exibição de dados gerais (UI)  
+    2.1.3 Listagem de Formação Acadêmica (Candidato - UI)
+      2.1.3.1 Consulta de relações nas tabelas Instituições, Cursos, Formações
+    2.1.4 Exibição dos conhecimentos (Candidato - UI)
+      2.1.4.1 Consulta de relação nas tabelas Tecnologias e Níveis
+    2.1.5 Contagem de seguidores (Empresa - UI)
+      2.1.5.1 Consulta(count) na tabela Interesses
+    2.1.6 Contagem de vagas disponíveis (Empresa - UI)
+      2.1.6.1 Consulta(count) na tabela Vagas
+      
+    
+    
