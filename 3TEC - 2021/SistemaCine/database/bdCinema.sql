@@ -4,7 +4,7 @@ USE `bdcinema`;
 --
 -- Host: 127.0.0.1    Database: bdcinema
 -- ------------------------------------------------------
--- Server version	5.1.54-community-log
+-- Server version	5.7.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,8 +28,9 @@ CREATE TABLE `atores` (
   `id_ATOR` int(11) NOT NULL AUTO_INCREMENT,
   `nome_ATOR` varchar(100) NOT NULL,
   `dataNascimento_ATOR` date NOT NULL,
+  `imagem_ATOR` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id_ATOR`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,6 +39,7 @@ CREATE TABLE `atores` (
 
 LOCK TABLES `atores` WRITE;
 /*!40000 ALTER TABLE `atores` DISABLE KEYS */;
+INSERT INTO `atores` VALUES (1,'Ian Mcleen','1930-05-02','im.jpg'),(2,'Elijah Wood','1982-06-18','ew.jpg'),(3,'Leonardo di Caprio','1970-10-08','lc.jpg'),(4,'Kate Winslet','1972-12-23','kw.jpg');
 /*!40000 ALTER TABLE `atores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,6 +118,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+INSERT INTO `clientes` VALUES ('12345678900','123456789','1984-10-03','José da Silva','Rua Marabu 223','Vila Maria','São Paulo','02138040','11985478541','jsilva@gmail.com');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,6 +170,31 @@ LOCK TABLES `departamentos` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `elencos`
+--
+
+DROP TABLE IF EXISTS `elencos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `elencos` (
+  `idFilme_ELENCO` int(11) NOT NULL,
+  `idAtor_ELENCO` int(11) NOT NULL,
+  `personagem_ELENCO` varchar(120) NOT NULL,
+  PRIMARY KEY (`idFilme_ELENCO`,`idAtor_ELENCO`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `elencos`
+--
+
+LOCK TABLES `elencos` WRITE;
+/*!40000 ALTER TABLE `elencos` DISABLE KEYS */;
+INSERT INTO `elencos` VALUES (1,1,'Gandalf'),(1,2,'Frodo'),(2,3,'Jack Dawson'),(2,4,'Rose DeWitt Bukater');
+/*!40000 ALTER TABLE `elencos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `filmes`
 --
 
@@ -186,7 +214,7 @@ CREATE TABLE `filmes` (
   `status_FILME` bit(1) NOT NULL,
   `idGenero_FILME` int(11) NOT NULL,
   PRIMARY KEY (`id_FILME`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -195,7 +223,7 @@ CREATE TABLE `filmes` (
 
 LOCK TABLES `filmes` WRITE;
 /*!40000 ALTER TABLE `filmes` DISABLE KEYS */;
-INSERT INTO `filmes` VALUES (1,'The Lord of the Rings - The Fellowship of the Ring','O Senhor dos Anéis - A Sociedade do Anel','Peter Jackson',2001,195,0,'A casa caiu.','','',2);
+INSERT INTO `filmes` VALUES (1,'The Lord of the Rings - The Fellowship of the Ring','O Senhor dos Anéis - A Sociedade do Anel','Peter Jackson',2001,195,0,'A casa caiu.','lotr1.jpg','',2),(2,'Titanic','Titanic','James Cameron',2000,183,0,'Bateu e afundou','tit.jpg','',4);
 /*!40000 ALTER TABLE `filmes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,6 +298,7 @@ CREATE TABLE `ingressos` (
   `valor_INGRESSO` float NOT NULL,
   `numeroPoltrona_INGRESSO` int(11) NOT NULL,
   `cpfCliente_INGRESSO` varchar(11) NOT NULL,
+  `idSessao_INGRESSO` int(11) NOT NULL,
   PRIMARY KEY (`id_INGRESSO`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -281,6 +310,54 @@ CREATE TABLE `ingressos` (
 LOCK TABLES `ingressos` WRITE;
 /*!40000 ALTER TABLE `ingressos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ingressos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `itens`
+--
+
+DROP TABLE IF EXISTS `itens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `itens` (
+  `idVenda_ITEM` int(11) NOT NULL,
+  `idProduto_ITEM` int(11) NOT NULL,
+  `qtde_ITEM` int(11) NOT NULL,
+  PRIMARY KEY (`idVenda_ITEM`,`idProduto_ITEM`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `itens`
+--
+
+LOCK TABLES `itens` WRITE;
+/*!40000 ALTER TABLE `itens` DISABLE KEYS */;
+/*!40000 ALTER TABLE `itens` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `itenscombo`
+--
+
+DROP TABLE IF EXISTS `itenscombo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `itenscombo` (
+  `idCombo_ITEMCOMBO` int(11) NOT NULL,
+  `idProduto_ITEMCOMBO` int(11) NOT NULL,
+  `desconto_ITEMCOMBO` float NOT NULL,
+  PRIMARY KEY (`idCombo_ITEMCOMBO`,`idProduto_ITEMCOMBO`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `itenscombo`
+--
+
+LOCK TABLES `itenscombo` WRITE;
+/*!40000 ALTER TABLE `itenscombo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `itenscombo` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -297,7 +374,7 @@ CREATE TABLE `produtos` (
   `marca_PRODUTO` varchar(45) NOT NULL,
   `quantidadeEstoque_PRODUTO` int(11) NOT NULL,
   PRIMARY KEY (`id_PRODUTO`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -306,6 +383,7 @@ CREATE TABLE `produtos` (
 
 LOCK TABLES `produtos` WRITE;
 /*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
+INSERT INTO `produtos` VALUES (1,'Bala de Goma Fini',12,'Fini',120),(2,'Suco Del Valle Uva',7,'Coca-Cola',65),(3,'Batata Pringles Original',25,'Pringles',80),(4,'MMs',16,'Arcor',50);
 /*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,7 +400,7 @@ CREATE TABLE `salas` (
   `idTipo_SALA` int(11) NOT NULL,
   `idCinema_SALA` int(11) NOT NULL,
   PRIMARY KEY (`id_SALA`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -331,7 +409,36 @@ CREATE TABLE `salas` (
 
 LOCK TABLES `salas` WRITE;
 /*!40000 ALTER TABLE `salas` DISABLE KEYS */;
+INSERT INTO `salas` VALUES (1,400,1,1),(2,250,2,1),(3,550,3,1),(4,600,3,1);
 /*!40000 ALTER TABLE `salas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sessoes`
+--
+
+DROP TABLE IF EXISTS `sessoes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sessoes` (
+  `id_SESSAO` int(11) NOT NULL AUTO_INCREMENT,
+  `data_SESSAO` date NOT NULL,
+  `hora_SESSAO` time NOT NULL,
+  `info_SESSAO` varchar(200) DEFAULT NULL,
+  `idFilme_SESSAO` int(11) NOT NULL,
+  `idSala_SESSAO` int(11) NOT NULL,
+  PRIMARY KEY (`id_SESSAO`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sessoes`
+--
+
+LOCK TABLES `sessoes` WRITE;
+/*!40000 ALTER TABLE `sessoes` DISABLE KEYS */;
+INSERT INTO `sessoes` VALUES (1,'2021-05-16','10:00:00',NULL,1,1),(2,'2021-05-16','14:00:00',NULL,1,1),(3,'2021-05-16','14:00:00',NULL,1,4),(4,'2021-05-16','18:00:00',NULL,1,4),(5,'2021-05-16','10:00:00',NULL,2,2),(6,'2021-05-16','10:00:00',NULL,2,4);
+/*!40000 ALTER TABLE `sessoes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -374,7 +481,7 @@ CREATE TABLE `tipossalas` (
   `nome_TIPOSALA` varchar(20) NOT NULL,
   `descricao_TIPOSALA` varchar(100) NOT NULL,
   PRIMARY KEY (`id_TIPOSALA`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -383,6 +490,7 @@ CREATE TABLE `tipossalas` (
 
 LOCK TABLES `tipossalas` WRITE;
 /*!40000 ALTER TABLE `tipossalas` DISABLE KEYS */;
+INSERT INTO `tipossalas` VALUES (1,'Convencional','Sala normal'),(2,'3D','Sala 3D'),(3,'XD','Ultratela'),(4,'4D','Poltronas dinâmicas');
 /*!40000 ALTER TABLE `tipossalas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -399,7 +507,7 @@ CREATE TABLE `vendas` (
   `valorTotal_VENDA` float NOT NULL,
   `cpfCliente_VENDA` varchar(11) NOT NULL,
   PRIMARY KEY (`id_VENDA`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -408,6 +516,7 @@ CREATE TABLE `vendas` (
 
 LOCK TABLES `vendas` WRITE;
 /*!40000 ALTER TABLE `vendas` DISABLE KEYS */;
+INSERT INTO `vendas` VALUES (1,'2021-05-24',32,'12345678900');
 /*!40000 ALTER TABLE `vendas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -424,4 +533,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-17  7:32:28
+-- Dump completed on 2021-06-16 13:24:58
