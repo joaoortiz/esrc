@@ -1,4 +1,3 @@
-
 public class FilmesVO {
     private int id, duracao, ano, classificacao, idGenero;
     private String tituloOrig, tituloTrad, diretor, sinopse, imagem;

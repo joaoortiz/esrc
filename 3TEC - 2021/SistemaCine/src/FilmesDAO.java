@@ -7,8 +7,10 @@ public class FilmesDAO {
     public static Statement stFilmes;
     public static ResultSet rsFilmes;
 
-    public static void cadastrarFilme(FilmesVO tmpFilme) throws Exception {
+    public static boolean cadastrarFilme(FilmesVO tmpFilme) throws Exception {
 
+        boolean status = false;
+        
         try {
             BancoDAO.abrirConexao();
         } catch (Exception erro) {
@@ -20,7 +22,7 @@ public class FilmesDAO {
             String sqlCadFilme = "";
             sqlCadFilme += "Insert into FILMES(tituloOriginal_FILME, tituloTraduzido_FILME,";
             sqlCadFilme += "diretor_FILME, ano_FILME, duracao_FILME, classificacao_FILME, sinopse_FILME,";
-            sqlCadFilme += "imagem_FILME, status_FILMES, idGenero_FILME) values(";
+            sqlCadFilme += "imagem_FILME, status_FILME, idGenero_FILME) values(";
             sqlCadFilme += "'" + tmpFilme.getTituloOrig() + "',";
             sqlCadFilme += "'" + tmpFilme.getTituloTrad() + "',";
             sqlCadFilme += "'" + tmpFilme.getDiretor() + "',";
@@ -33,6 +35,8 @@ public class FilmesDAO {
 
             stFilmes = BancoDAO.vConn.createStatement();
             stFilmes.executeUpdate(sqlCadFilme);
+            status = true;
+            
 
         } catch (Exception erro) {
             String msgErro = "";
@@ -49,6 +53,7 @@ public class FilmesDAO {
             throw new Exception(erro);
         }
 
+        return status;
     }
 
     public static FilmesVO consultarFilme(int tmpId) throws Exception {
@@ -63,7 +68,7 @@ public class FilmesDAO {
 
         try {
             //Intruções de Consulta
-            String sqlFilmes = "Select * from Filmes";
+            String sqlFilmes = "Select * from Filmes where id_FILME = " + tmpId;
             stFilmes = BancoDAO.vConn.createStatement();
             rsFilmes = stFilmes.executeQuery(sqlFilmes);
 
@@ -115,7 +120,12 @@ public class FilmesDAO {
         try {
             //Intruções de listagem
 
-            String sqlFilmes = "Select * from FILMES";
+            String sqlFilmes = "" ;
+            if(tmpTipo == 0)
+                    sqlFilmes = "Select * from FILMES";
+            else if(tmpTipo == 1)
+                    sqlFilmes = "Select * from Filmes where tituloTraduzido_FILME like '" + tmpTitulo + "%'";
+            System.out.println(tmpTitulo);
             stFilmes = BancoDAO.vConn.createStatement();
 
             rsFilmes = stFilmes.executeQuery(sqlFilmes);
@@ -245,9 +255,9 @@ public class FilmesDAO {
     }
 
     public static List<SalasVO> listarSalas(int tmpIdFilme) throws Exception {
-        
+
         List<SalasVO> lista = new ArrayList<SalasVO>();
-        
+
         try {
             BancoDAO.abrirConexao();
         } catch (Exception erro) {
@@ -255,21 +265,21 @@ public class FilmesDAO {
         }
 
         try {
-            
-            String sqlSalas = "Select S.* from SALAS S, SESSOES SS where SS.idFilme_SESSAO = " + tmpIdFilme + " and SS.idSala_SESSAO = S.id_SALA";
+
+            String sqlSalas = "Select distinct S.* from SALAS S, SESSOES SS where SS.idFilme_SESSAO = " + tmpIdFilme + " and SS.idSala_SESSAO = S.id_SALA";
             stFilmes = BancoDAO.vConn.createStatement();
             rsFilmes = stFilmes.executeQuery(sqlSalas);
-            
-            while(rsFilmes.next()){
-                
+
+            while (rsFilmes.next()) {
+
                 SalasVO tmpSala = new SalasVO();
-                
+
                 tmpSala.setId(rsFilmes.getInt("id_SALA"));
                 tmpSala.setQtdePoltronas(rsFilmes.getInt("quantidadePoltronas_SALA"));
-                
+
                 lista.add(tmpSala);
-            }                      
-            
+            }
+
         } catch (Exception erro) {
             String msgErro = "";
             msgErro += "Falha na listagem das salas para este filme.\n";
@@ -278,14 +288,146 @@ public class FilmesDAO {
 
             throw new Exception(msgErro);
         }
-        
+
         try {
             BancoDAO.fecharConexao();
         } catch (Exception erro) {
             throw new Exception(erro);
         }
-        
+
+        return lista;
+    }
+    
+    public static List<GenerosVO> listarGeneros() throws Exception {
+
+        List<GenerosVO> lista = new ArrayList<GenerosVO>();
+
+        try {
+            BancoDAO.abrirConexao();
+        } catch (Exception erro) {
+            throw new Exception(erro);
+        }
+
+        try {
+
+            String sqlGeneros = "Select * from generos";
+            stFilmes = BancoDAO.vConn.createStatement();
+            rsFilmes = stFilmes.executeQuery(sqlGeneros);
+
+            while (rsFilmes.next()) {
+
+                GenerosVO tmpGen = new GenerosVO();
+
+                tmpGen.setId(rsFilmes.getInt("id_GENERO"));
+                tmpGen.setNome(rsFilmes.getString("nome_GENERO"));
+
+                lista.add(tmpGen);
+            }
+
+        } catch (Exception erro) {
+            String msgErro = "";
+            msgErro += "Falha na listagem dos gêneros para o carregamento.\n";
+            msgErro += "Verifique a sintaxe do comando Select bem como nome de tabelas e campos.\n\n";
+            msgErro += "Erro Original: " + erro.getMessage();
+
+            throw new Exception(msgErro);
+        }
+
+        try {
+            BancoDAO.fecharConexao();
+        } catch (Exception erro) {
+            throw new Exception(erro);
+        }
+
         return lista;
     }
 
-}//fechando classe
+    public static List<AtoresVO> listarElenco(int tmpIdFilme) throws Exception {
+
+        List<AtoresVO> lista = new ArrayList<AtoresVO>();
+
+        try {
+            BancoDAO.abrirConexao();
+        } catch (Exception erro) {
+            throw new Exception(erro.getMessage());
+        }
+
+        try {
+            //Listagem do elenco
+            String sqlElenco = "Select A.*, E.personagem_ELENCO from ATORES A, ELENCOS E where A.id_ATOR = E.idAtor_ELENCO and E.idFilme_ELENCO = " + tmpIdFilme;
+            stFilmes = BancoDAO.vConn.createStatement();
+            rsFilmes = stFilmes.executeQuery(sqlElenco);
+
+            //continuar aqui
+            while (rsFilmes.next()) {
+                AtoresVO tmpAtor = new AtoresVO();
+
+                tmpAtor.setId(rsFilmes.getInt("id_ATOR"));
+                tmpAtor.setNome(rsFilmes.getString("nome_ATOR"));
+                tmpAtor.setPersonagem(rsFilmes.getString("personagem_ELENCO"));
+                tmpAtor.setImagem(rsFilmes.getString("imagem_ATOR"));
+
+                lista.add(tmpAtor);
+            }
+
+        } catch (Exception erro) {
+            String msgErro = "Falha na listagem do elenco. Verifique a sintaxe da instrução SELECT bem como nome de campos e tabelas.\n\n Erro Original: " + erro.getMessage();
+            throw new Exception(msgErro);
+        }
+
+        try {
+            BancoDAO.fecharConexao();
+
+        } catch (Exception erro) {
+            throw new Exception(erro.getMessage());
+        }
+        return lista;
+    }
+
+    public static List<SessoesVO> listarSessoes(int tmpIdFilme) throws Exception {
+
+        List<SessoesVO> lista = new ArrayList<SessoesVO>();
+
+        try {
+            BancoDAO.abrirConexao();
+        } catch (Exception erro) {
+            throw new Exception(erro.getMessage());
+        }
+
+        try {
+            //Listagem do elenco
+            String sqlSessoes = "Select SS.* from SALAS S, SESSOES SS ";
+            sqlSessoes += "where SS.idFilme_SESSAO = " + tmpIdFilme;
+            sqlSessoes += " and SS.idSala_SESSAO = S.id_SALA";
+            stFilmes = BancoDAO.vConn.createStatement();
+            rsFilmes = stFilmes.executeQuery(sqlSessoes);
+
+            //continuar aqui
+            while (rsFilmes.next()) {
+                SessoesVO tmpSessao = new SessoesVO();
+
+                tmpSessao.setIdSala(rsFilmes.getInt("idSala_SESSAO"));
+                tmpSessao.setIdFilme(rsFilmes.getInt("idFilme_SESSAO"));
+                tmpSessao.setHora(rsFilmes.getString("hora_SESSAO"));
+                tmpSessao.setData(rsFilmes.getString("data_SESSAO"));
+
+                lista.add(tmpSessao);
+            }
+
+        } catch (Exception erro) {
+            String msgErro = "Falha na listagem do elenco. Verifique a sintaxe da instrução SELECT bem como nome de campos e tabelas.\n\n Erro Original: " + erro.getMessage();
+            throw new Exception(msgErro);
+        }
+
+        try {
+            BancoDAO.fecharConexao();
+
+        } catch (Exception erro) {
+            throw new Exception(erro.getMessage());
+        }
+        return lista;
+    }
+
+    
+    
+}

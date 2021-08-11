@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 
-
 public class MainView extends JFrame implements ActionListener{
     
     //Declaração dos objetos
@@ -40,8 +39,8 @@ public class MainView extends JFrame implements ActionListener{
         btnMenu = new JButton [itensMenu.length];
         for(int i=0; i<itensMenu.length; i++){
          btnMenu[i] = new JButton (new ImageIcon("img/icons/" + i + ".png"));
-         
          btnMenu[i].setBackground(Color.white);
+         btnMenu[i].setToolTipText((itensMenu[i]));
          btnMenu[i].addActionListener(this);
          ctnMenu.add(btnMenu[i]);//add botoes no menu
          
@@ -58,16 +57,20 @@ public class MainView extends JFrame implements ActionListener{
     }//fechando construtor
     
     public void actionPerformed(ActionEvent evt){
-        if (evt.getSource() == btnMenu[2]){
+        if(evt.getSource() == btnMenu[2]){
             dskJanelas.add(new FilmesView());
+        }
+        if(evt.getSource() == btnMenu[3]){
+            dskJanelas.add(new ElencosView());
         }
     }//fechando ActionPerformed
     
+
     public static Dimension getResolucao(){
         Toolkit info = Toolkit.getDefaultToolkit();
         Dimension res = info.getScreenSize();
-        
+       
         return res;
     }
- 
+    
 }//fechando classe

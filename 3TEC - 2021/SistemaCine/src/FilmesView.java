@@ -1,5 +1,9 @@
 
 import javax.swing.*;
+import javax.swing.filechooser.*;
+import java.io.*;
+import java.nio.file.*;
+import java.nio.channels.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -23,8 +27,8 @@ public class FilmesView extends JInternalFrame implements ActionListener {
         "Título Traduzido: ", "Ano de Lançamento: ",
         "Classificação Etária: ", "Duração: ",
         "Gênero: ", "Sinopse: ", "Imagem: "};
-    public static String[] strClass = {"Livre", "10 Anos", "14 Anos", "16 Anos", "18 Anos"};
-    public static String[] strGeneros = {"Ação", "Aventura", "Comédia", "Drama", "Suspense", "Terror", "Ficcção Científica", "Romance"};
+    public static String[] strClass = {"0 - Livre", "10 - Anos", "14 - Anos", "16 - Anos", "18 - Anos"};
+    public static String[] strGeneros = new String[8];
 
     public static JLabel lblAtrib[];
     public static JTextField txtId, txtTituloOrig, txtTituloTrad, txtAno, txtDuracao;
@@ -32,6 +36,10 @@ public class FilmesView extends JInternalFrame implements ActionListener {
 
     public static JScrollPane scrSinopse;
     public static JTextArea txaSinopse;
+
+    public static FileChannel flcOrigem, flcDestino;
+    public static FileInputStream flsEntrada;
+    public static FileOutputStream flsSaida;
 
     public static ImageIcon icnImagem, icnAtor1, icnAtor2;
     public static JLabel lblImagem, lblElenco, lblAtor1, lblAtor2;
@@ -48,7 +56,9 @@ public class FilmesView extends JInternalFrame implements ActionListener {
     public static JButton btnEditar, btnNovo, btnSalvar, btnExcluir, btnGeneros;
 
     public static java.util.List<FilmesVO> lista = new ArrayList<FilmesVO>();
-    public static int idFilme = 0;
+    public static String camOrig, nomeOrig, camDest;
+    public static int statusFoto;
+    public static boolean liberaImagem = false;
 
     public FilmesView() {
 
@@ -166,35 +176,61 @@ public class FilmesView extends JInternalFrame implements ActionListener {
         cmbClassificacao.setBounds(210, 260, 240, 25);
         ctnFilmes.add(cmbClassificacao);
 
+        //PROGRAMAR AQUI
+        try {
+            java.util.List<GenerosVO> listaG = new ArrayList<GenerosVO>();
+            listaG = FilmesDAO.listarGeneros();
+
+            int cont = 0;
+            for (GenerosVO tmpGenero : listaG) {
+                strGeneros[cont] = tmpGenero.getNome();
+                cont++;
+            }
+
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, erro.getMessage());
+        }
+
         cmbGenero = new JComboBox(strGeneros);
         cmbGenero.setBounds(110, 360, 340, 25);
         ctnFilmes.add(cmbGenero);
 
-        icnImagem = new ImageIcon("img/lotr1.jpg");
+        icnImagem = new ImageIcon("");
         lblImagem = new JLabel(icnImagem);
         lblImagem.setBounds(480, 60, 216, 320);
         ctnFilmes.add(lblImagem);
+
+        //Rotina da inserção da foto
+        lblImagem.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (liberaImagem) {
+                    selecionarImagem();
+                }
+
+            }
+        }
+        );
 
         lblElenco = new JLabel("-- Elenco -- ");
         lblElenco.setBounds(890, 410, 160, 25);
         lblElenco.setFont(fntLabels);
         ctnFilmes.add(lblElenco);
 
-        icnAtor1 = new ImageIcon("img/ian.jpg");
+        icnAtor1 = new ImageIcon("");
         lblAtor1 = new JLabel(icnAtor1);
         lblAtor1.setBounds(730, 450, 190, 240);
         ctnFilmes.add(lblAtor1);
 
-        lblNomeAtor1 = new JLabel("Ian Mckleen as Gandalf");
+        lblNomeAtor1 = new JLabel("");
         lblNomeAtor1.setBounds(730, 680, 190, 50);
         ctnFilmes.add(lblNomeAtor1);
 
-        icnAtor2 = new ImageIcon("img/elijah.jpg");
+        icnAtor2 = new ImageIcon("");
         lblAtor2 = new JLabel(icnAtor2);
         lblAtor2.setBounds(950, 450, 190, 240);
         ctnFilmes.add(lblAtor2);
 
-        lblNomeAtor2 = new JLabel("Elijah Wood as Frodo");
+        lblNomeAtor2 = new JLabel("");
         lblNomeAtor2.setBounds(960, 680, 190, 50);
         ctnFilmes.add(lblNomeAtor2);
 
@@ -206,13 +242,15 @@ public class FilmesView extends JInternalFrame implements ActionListener {
 
         tblFilmes.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                idFilme = Integer.parseInt(tblFilmes.getValueAt(tblFilmes.getSelectedRow(), 0).toString());
+                int idFilme = Integer.parseInt(tblFilmes.getValueAt(tblFilmes.getSelectedRow(), 0).toString());
                 System.out.println(idFilme);
 
                 try {
                     FilmesVO tmpFilme = FilmesDAO.consultarFilme(idFilme);
-                    carregarCampos(tmpFilme);
-                    carregarListaSalas();
+                    java.util.List<AtoresVO> tmpAtores = FilmesDAO.listarElenco(idFilme);
+                    carregarCampos(tmpFilme, tmpAtores);
+                    carregarListaSalas(idFilme);
+
                 } catch (Exception erro) {
                     JOptionPane.showMessageDialog(null, erro.getMessage());
                 }
@@ -235,7 +273,36 @@ public class FilmesView extends JInternalFrame implements ActionListener {
         txtPesquisa.setBounds(860, 60, 520, 25);
         ctnFilmes.add(txtPesquisa);
 
+        txtPesquisa.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent evt) {
+
+                try {
+                    
+                    while(mdlFilmes.getRowCount() > 0){
+                        mdlFilmes.removeRow(0);
+                    }
+
+                    lista = FilmesDAO.listarFilmes(1, txtPesquisa.getText(), 0);
+
+                    for (FilmesVO tmpFilme : lista) {
+                        String dados[] = new String[4];
+                        dados[0] = "" + tmpFilme.getId();
+                        dados[1] = tmpFilme.getTituloTrad();
+                        dados[2] = "" + tmpFilme.getAno();
+                        dados[3] = "" + tmpFilme.getClassificacao();
+
+                        mdlFilmes.addRow(dados);
+                    }
+                } catch (Exception erro) {
+                    JOptionPane.showMessageDialog(null, erro.getMessage());
+                }
+
+            }
+        }
+        );
+
         btnGeneros = new JButton("Gênero");
+
         btnGeneros.setBounds(1400, 60, 150, 25);
         ctnFilmes.add(btnGeneros);
 
@@ -244,43 +311,64 @@ public class FilmesView extends JInternalFrame implements ActionListener {
         tblSalasFilmes = new JTable();
         scrSalasFilmes = new JScrollPane(tblSalasFilmes);
         mdlSalasFilmes = (DefaultTableModel) tblSalasFilmes.getModel();
-        scrSalasFilmes.setBounds(1400, 110, 150, 275);
+
+        scrSalasFilmes.setBounds(
+                1400, 110, 150, 275);
         ctnFilmes.add(scrSalasFilmes);
 
-        for (int i = 0; i < strSalas.length; i++) {
+        for (int i = 0;
+                i < strSalas.length;
+                i++) {
             mdlSalasFilmes.addColumn(strSalas[i]);
         }
 
-        String strHorarios[] = {"Hora", "Número da sala"};
+        String strHorarios[] = {"Data", "Hora", "Número da sala"};
         tblHorarios = new JTable();
         scrHorarios = new JScrollPane(tblHorarios);
         mdlHorarios = (DefaultTableModel) tblHorarios.getModel();
-        scrHorarios.setBounds(1200, 410, 350, 150);
+
+        scrHorarios.setBounds(
+                1200, 410, 350, 150);
         ctnFilmes.add(scrHorarios);
 
-        for (int i = 0; i < strHorarios.length; i++) {
+        for (int i = 0;
+                i < strHorarios.length;
+                i++) {
             mdlHorarios.addColumn(strHorarios[i]);
         }
 
         btnNovo = new JButton("Novo Filme");
-        btnNovo.addActionListener(this);
-        btnNovo.setBounds(1345, 580, 200, 35);
+
+        btnNovo.addActionListener(
+                this);
+        btnNovo.setBounds(
+                1345, 580, 200, 35);
         ctnFilmes.add(btnNovo);
 
         btnEditar = new JButton("Editar Dados");
-        btnEditar.addActionListener(this);
-        btnEditar.setBounds(1345, 630, 200, 35);
+
+        btnEditar.addActionListener(
+                this);
+        btnEditar.setBounds(
+                1345, 630, 200, 35);
         ctnFilmes.add(btnEditar);
 
         btnSalvar = new JButton("Salvar");
-        btnSalvar.addActionListener(this);
-        btnSalvar.setBounds(1345, 680, 200, 35);
+
+        btnSalvar.addActionListener(
+                this);
+        btnSalvar.setBounds(
+                1345, 680, 200, 35);
         ctnFilmes.add(btnSalvar);
 
-        desbloquearCampos(false);
+        desbloquearCampos(
+                false);
 
-        this.setSize(1620, MainView.dskJanelas.getHeight());
-        this.setVisible(true);
+        this.setSize(
+                1620, MainView.dskJanelas.getHeight());
+
+        this.setVisible(
+                true);
 
     }//fechando construtor
 
@@ -289,15 +377,80 @@ public class FilmesView extends JInternalFrame implements ActionListener {
             limparCampos();
             desbloquearCampos(true);
             txtId.setEditable(false);
+            liberaImagem = true;
             try {
                 txtId.setText("" + FilmesDAO.gerarId());
             } catch (Exception erro) {
                 JOptionPane.showMessageDialog(null, erro.getMessage());
             }
+        } else if (evt.getSource() == btnSalvar) {
+            FilmesVO tmpFilme = preencherObjeto();
+
+            try {
+                boolean status = FilmesDAO.cadastrarFilme(tmpFilme);
+
+                //salvar a foto
+                int ultimoPonto = nomeOrig.lastIndexOf(".");//pegando a posição do ultimo ponto
+                String extensao = nomeOrig.substring(ultimoPonto + 1, nomeOrig.length());
+                camDest = "img\\" + nomeOrig;
+
+                flsEntrada = new FileInputStream(camOrig);
+                flsSaida = new FileOutputStream(camDest);
+
+                flcOrigem = flsEntrada.getChannel();
+                flcDestino = flsSaida.getChannel();
+
+                //cópia total do arquivo
+                flcOrigem.transferTo(0, flcOrigem.size(), flcDestino);
+
+                flcOrigem.close();
+                flcDestino.close();
+
+                if (status) {
+                    JOptionPane.showMessageDialog(null, "Filme Cadastrado");
+                    //limparCampos();
+                    desbloquearCampos(false);
+                    
+                    carregarLista();
+                    
+                    
+                }
+                
+                
+
+            } catch (Exception erro) {
+                JOptionPane.showMessageDialog(null, erro.getMessage());
+            }
+
         }
     }
 
+    public static FilmesVO preencherObjeto() {
+        FilmesVO tmpFilme = new FilmesVO();
+
+        tmpFilme.setId(Integer.parseInt(txtId.getText()));
+        tmpFilme.setTituloOrig(txtTituloOrig.getText());
+        tmpFilme.setTituloTrad(txtTituloTrad.getText());
+        tmpFilme.setAno(Integer.parseInt(txtAno.getText()));
+        tmpFilme.setDuracao(Integer.parseInt(txtDuracao.getText()));
+        tmpFilme.setSinopse(txaSinopse.getText());
+        
+        tmpFilme.setIdGenero(cmbGenero.getSelectedIndex()+1);
+
+        String idade = cmbClassificacao.getSelectedItem().toString();
+        String auxIdade[] = idade.split("-");
+        int classEtaria = Integer.parseInt(auxIdade[0].trim());
+        tmpFilme.setClassificacao(classEtaria);
+        tmpFilme.setImagem(nomeOrig);
+
+        return tmpFilme;
+    }
+
     public static void carregarLista() {
+
+        while (mdlFilmes.getRowCount() > 0) {
+            mdlFilmes.removeRow(0);
+        }
 
         try {
 
@@ -311,18 +464,30 @@ public class FilmesView extends JInternalFrame implements ActionListener {
                 dados[3] = "" + tmpFilme.getClassificacao();
 
                 mdlFilmes.addRow(dados);
+        
 
             }
 
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         }
+        
+        
+        
     }
 
-    public static void carregarListaSalas() {
+    public static void carregarListaSalas(int tmpIdFilme) {
+
+        while (mdlSalasFilmes.getRowCount() > 0) {
+            mdlSalasFilmes.removeRow(0);
+        }
+        while (mdlHorarios.getRowCount() > 0) {
+            mdlHorarios.removeRow(0);
+        }
         try {
 
-            java.util.List<SalasVO> lista = FilmesDAO.listarSalas(idFilme);
+            java.util.List<SalasVO> lista = FilmesDAO.listarSalas(tmpIdFilme);
+            java.util.List<SessoesVO> listaSS = FilmesDAO.listarSessoes(tmpIdFilme);
 
             for (SalasVO tmpSala : lista) {
                 String dados[] = new String[2];
@@ -333,12 +498,22 @@ public class FilmesView extends JInternalFrame implements ActionListener {
                 mdlSalasFilmes.addRow(dados);
             }
 
+            for (SessoesVO tmpSessoes : listaSS) {
+                String dadosSS[] = new String[3];
+
+                dadosSS[0] = "" + corrigirData(tmpSessoes.getData());
+                dadosSS[1] = "" + tmpSessoes.getHora();
+                dadosSS[2] = "" + tmpSessoes.getIdSala();
+
+                mdlHorarios.addRow(dadosSS);
+            }
+
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         }
     }
 
-    public static void carregarCampos(FilmesVO tmpFilme) {
+    public static void carregarCampos(FilmesVO tmpFilme, java.util.List<AtoresVO> tmpAtores) {
         txtId.setText("" + tmpFilme.getId());
         txtTituloOrig.setText(tmpFilme.getTituloOrig());
         txtTituloTrad.setText(tmpFilme.getTituloTrad());
@@ -347,6 +522,24 @@ public class FilmesView extends JInternalFrame implements ActionListener {
         txaSinopse.setText(tmpFilme.getSinopse());
         cmbGenero.setSelectedIndex(tmpFilme.getIdGenero() - 1);
         cmbClassificacao.setSelectedItem(tmpFilme.getClassificacao());
+        lblImagem.setIcon(new ImageIcon("img/" + tmpFilme.getImagem()));
+
+        int contAtor = 1;
+        
+        if(tmpAtores.isEmpty()){
+                   lblAtor1.setIcon(new ImageIcon("img/actor.png"));
+                   lblAtor2.setIcon(new ImageIcon("img/actor.png"));
+        }else{
+        
+        for (AtoresVO atual : tmpAtores) {
+            if (contAtor == 1) {
+                lblAtor1.setIcon(new ImageIcon("img/" + atual.getImagem()));
+            } else if (contAtor == 2) {
+                lblAtor2.setIcon(new ImageIcon("img/" + atual.getImagem()));
+            }
+            contAtor++;
+        }
+        }
 
     }
 
@@ -362,8 +555,8 @@ public class FilmesView extends JInternalFrame implements ActionListener {
         txaSinopse.setText("");
 
         lblImagem.setIcon(new ImageIcon("img/icons/plus.png"));
-        lblAtor1.setIcon(new ImageIcon("img/icons/plus.png"));
-        lblAtor2.setIcon(new ImageIcon("img/icons/plus.png"));
+        lblAtor1.setIcon(new ImageIcon(""));
+        lblAtor2.setIcon(new ImageIcon(""));
 
         lblNomeAtor1.setText("");
         lblNomeAtor2.setText("");
@@ -379,6 +572,30 @@ public class FilmesView extends JInternalFrame implements ActionListener {
         cmbClassificacao.setEnabled(tmpStatus);
         cmbGenero.setEnabled(tmpStatus);
         txaSinopse.setEditable(tmpStatus);
+    }
+
+    public void selecionarImagem() {
+        JFileChooser flcImagem = new JFileChooser("D:\\PHP");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Arquivos de imagem (*.png,*.jpg)", "png", "jpg", "jpeg");
+        flcImagem.setFileFilter(filtro);
+
+        statusFoto = flcImagem.showOpenDialog(this);
+
+        camOrig = flcImagem.getSelectedFile().getPath();
+        nomeOrig = flcImagem.getSelectedFile().getName();
+
+        lblImagem.setIcon(new ImageIcon(camOrig));
+
+        //System.out.println(camOrig + "\\" + nomeOrig);
+    }
+
+    public static String corrigirData(String tmpData) {
+
+        String aux[] = tmpData.split("-");
+
+        String novaData = aux[2] + "/" + aux[1] + "/" + aux[0];
+        return novaData;
+
     }
 
 }//fechando classe

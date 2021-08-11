@@ -1,4 +1,3 @@
-
 public class SalasVO {
 
     public int id, qtdePoltronas, idTipo, idCinema;
