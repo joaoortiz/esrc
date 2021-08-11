@@ -4,7 +4,7 @@ USE `bdcinema`;
 --
 -- Host: 127.0.0.1    Database: bdcinema
 -- ------------------------------------------------------
--- Server version	5.7.17
+-- Server version	5.1.54-community-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,10 +27,10 @@ DROP TABLE IF EXISTS `atores`;
 CREATE TABLE `atores` (
   `id_ATOR` int(11) NOT NULL AUTO_INCREMENT,
   `nome_ATOR` varchar(100) NOT NULL,
-  `dataNascimento_ATOR` date NOT NULL,
+  `dataNascimento_ATOR` date DEFAULT NULL,
   `imagem_ATOR` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id_ATOR`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `atores` (
 
 LOCK TABLES `atores` WRITE;
 /*!40000 ALTER TABLE `atores` DISABLE KEYS */;
-INSERT INTO `atores` VALUES (1,'Ian Mcleen','1930-05-02','im.jpg'),(2,'Elijah Wood','1982-06-18','ew.jpg'),(3,'Leonardo di Caprio','1970-10-08','lc.jpg'),(4,'Kate Winslet','1972-12-23','kw.jpg');
+INSERT INTO `atores` VALUES (1,'Ian Mcleen','1930-05-02','im.jpg'),(2,'Elijah Wood','1982-06-18','ew.jpg'),(3,'Leonardo di Caprio','1970-10-08','lc.jpg'),(4,'Kate Winslet','1972-12-23','kw.jpg'),(5,'Colm Feore',NULL,'cf.jpg');
 /*!40000 ALTER TABLE `atores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -76,7 +76,6 @@ DROP TABLE IF EXISTS `cinemas`;
 CREATE TABLE `cinemas` (
   `id_CINEMA` int(11) NOT NULL AUTO_INCREMENT,
   `quantidadeSalas_CINEMA` int(11) NOT NULL,
-  `idShopping_CINEMA` int(11) NOT NULL,
   PRIMARY KEY (`id_CINEMA`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -214,7 +213,7 @@ CREATE TABLE `filmes` (
   `status_FILME` bit(1) NOT NULL,
   `idGenero_FILME` int(11) NOT NULL,
   PRIMARY KEY (`id_FILME`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,7 +222,7 @@ CREATE TABLE `filmes` (
 
 LOCK TABLES `filmes` WRITE;
 /*!40000 ALTER TABLE `filmes` DISABLE KEYS */;
-INSERT INTO `filmes` VALUES (1,'The Lord of the Rings - The Fellowship of the Ring','O Senhor dos Anéis - A Sociedade do Anel','Peter Jackson',2001,195,0,'A casa caiu.','lotr1.jpg','',2),(2,'Titanic','Titanic','James Cameron',2000,183,0,'Bateu e afundou','tit.jpg','',4);
+INSERT INTO `filmes` VALUES (1,'The Lord of the Rings - The Fellowship of the Ring','O Senhor dos Anéis - A Sociedade do Anel','Peter Jackson',2001,195,0,'A casa caiu.','lotr1.jpg','',2),(2,'Titanic','Titanic','James Cameron',2000,183,0,'Bateu e afundou','tit.jpg','',4),(3,'Storm of the Century','A Tempestade do Século','null',1999,215,16,'Um homem misterioso chega ao vilarejo em busca de algo.','sotc.jpg','',5),(4,'Rose Red','Rose Red: A Casa Adormecida','null',2002,175,14,'Uma casa que perturba seus hóspedes.','rr.jpg','',6);
 /*!40000 ALTER TABLE `filmes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -248,6 +247,7 @@ CREATE TABLE `funcionarios` (
   `email_FUNCIONARIO` varchar(120) NOT NULL,
   `idCargo_FUNCIONARIO` int(11) NOT NULL,
   `idDepartamento_FUNCIONARIO` int(11) NOT NULL,
+  `idCinema_FUNCIONARIO` int(11) DEFAULT NULL,
   PRIMARY KEY (`registro_FUNCIONARIO`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -322,8 +322,9 @@ DROP TABLE IF EXISTS `itens`;
 CREATE TABLE `itens` (
   `idVenda_ITEM` int(11) NOT NULL,
   `idProduto_ITEM` int(11) NOT NULL,
+  `idCombo_ITEM` int(11) NOT NULL,
   `qtde_ITEM` int(11) NOT NULL,
-  PRIMARY KEY (`idVenda_ITEM`,`idProduto_ITEM`)
+  PRIMARY KEY (`idVenda_ITEM`,`idProduto_ITEM`,`idCombo_ITEM`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -425,8 +426,8 @@ CREATE TABLE `sessoes` (
   `data_SESSAO` date NOT NULL,
   `hora_SESSAO` time NOT NULL,
   `info_SESSAO` varchar(200) DEFAULT NULL,
-  `idFilme_SESSAO` int(11) NOT NULL,
   `idSala_SESSAO` int(11) NOT NULL,
+  `idFilme_SESSAO` int(11) NOT NULL,
   PRIMARY KEY (`id_SESSAO`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -437,7 +438,7 @@ CREATE TABLE `sessoes` (
 
 LOCK TABLES `sessoes` WRITE;
 /*!40000 ALTER TABLE `sessoes` DISABLE KEYS */;
-INSERT INTO `sessoes` VALUES (1,'2021-05-16','10:00:00',NULL,1,1),(2,'2021-05-16','14:00:00',NULL,1,1),(3,'2021-05-16','14:00:00',NULL,1,4),(4,'2021-05-16','18:00:00',NULL,1,4),(5,'2021-05-16','10:00:00',NULL,2,2),(6,'2021-05-16','10:00:00',NULL,2,4);
+INSERT INTO `sessoes` VALUES (1,'2021-05-16','10:00:00',NULL,1,1),(2,'2021-05-16','14:00:00',NULL,1,1),(3,'2021-05-16','14:00:00',NULL,4,1),(4,'2021-05-16','18:00:00',NULL,4,1),(5,'2021-05-16','10:00:00',NULL,2,2),(6,'2021-05-16','10:00:00',NULL,4,2);
 /*!40000 ALTER TABLE `sessoes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -456,6 +457,7 @@ CREATE TABLE `shoppings` (
   `cidade_SHOPPING` varchar(50) NOT NULL,
   `cep_SHOPPING` varchar(8) NOT NULL,
   `telefone_SHOPPING` varchar(11) NOT NULL,
+  `idCinema_SHOPPING` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_SHOPPING`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -533,4 +535,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-16 13:24:58
+-- Dump completed on 2021-08-11  7:51:49
