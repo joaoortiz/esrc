@@ -25,10 +25,9 @@ DROP TABLE IF EXISTS `areas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `areas` (
-  `id_AREA` int(11) NOT NULL AUTO_INCREMENT,
-  `nome_AREA` varchar(50) NOT NULL,
-  `abrangencia_AREA` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id_AREA`)
+  `idVaga_AREA` int(11) NOT NULL,
+  `idTecnologia_AREA` int(11) NOT NULL,
+  PRIMARY KEY (`idVaga_AREA`,`idTecnologia_AREA`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -64,7 +63,7 @@ CREATE TABLE `candidatos` (
   `telefone_CANDIDATO` varchar(11) NOT NULL,
   `imagem_CANDIDATO` varchar(37) DEFAULT NULL,
   PRIMARY KEY (`id_CANDIDATO`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +72,7 @@ CREATE TABLE `candidatos` (
 
 LOCK TABLES `candidatos` WRITE;
 /*!40000 ALTER TABLE `candidatos` DISABLE KEYS */;
-INSERT INTO `candidatos` VALUES (1,'joao@esrc.com.br','João Ortiz','1985-06-08','M','Bacharel em Ciência da Computação, Pós graduado em Des. de Sistemas e Docência no Ens. Superior.','02138040','R. Marabu',223,'','','','1129496686','joao.jpg');
+INSERT INTO `candidatos` VALUES (1,'joao@esrc.com.br','João Ortiz','1985-06-08','M','Bacharel em Ciência da Computação, Pós graduado em Des. de Sistemas e Docência no Ens. Superior.','02138040','R. Marabu',223,'','','','1129496686','joao.jpg'),(3,'lmongiat@gmail.com','Lucas Mongiat','2005-08-08','M','Estudante da área de TI com conhecimentos em design e projetos de rede.','03124000','R. Sg. Rodrigues Alves',458,'Apto 85 Bl 2','Pq. Novo Mundo','São Paulo','11974547455','luc.PNG'),(4,'boneli@gmail.com','Matheus Boneli Carvas','2005-05-05','M','Especialista em edição de imagens e criação de soluções digitais.','02138040','Rua Marabu',223,'','Vila Sabrina','São Paulo','1198564578','bon.PNG');
 /*!40000 ALTER TABLE `candidatos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +88,7 @@ CREATE TABLE `categorias` (
   `nome_CATEGORIA` varchar(50) NOT NULL,
   `descricao_CATEGORIA` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_CATEGORIA`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +97,7 @@ CREATE TABLE `categorias` (
 
 LOCK TABLES `categorias` WRITE;
 /*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
-INSERT INTO `categorias` VALUES (1,'Comunicação e Jornalismo','Emissora de TV direcionada ao jornalismo'),(2,'Tecnologia Industrial',''),(3,'Transporte e Turismo',NULL);
+INSERT INTO `categorias` VALUES (1,'Comunicação e Jornalismo','Emissora de TV direcionada ao jornalismo'),(2,'Tecnologia Industrial',''),(3,'Transporte e Turismo',NULL),(4,'Moradia e Imóveis','Empresa de aluguel e venda de imóveis'),(5,'Administração de Inteligência e Dados',NULL);
 /*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +148,7 @@ CREATE TABLE `empresas` (
   `idCategoria_EMPRESA` int(11) NOT NULL,
   PRIMARY KEY (`id_EMPRESA`),
   KEY `idCategoria_EMPRESA` (`idCategoria_EMPRESA`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,7 +157,7 @@ CREATE TABLE `empresas` (
 
 LOCK TABLES `empresas` WRITE;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
-INSERT INTO `empresas` VALUES (1,'web@cnn.com','CNN Brasil','Líder em Independência','01310100','Av. Paulista',1564,'2º Andar','Consolação','São Paulo','1145547877','cnn.jpg',1),(2,'web@caterpillar.com','Caterpillar','Pioneira no desenvolvimento de máquinas e tratores.','04587030','Rod. dos Bandeirantes',0,'Km 122','Jd. das Oliveiras','Americana','1935521424','cat.png',2),(4,'web@megabus.com','Megabus Travel Company','A maior empresa de transportes rodoviários do mundo.','12590000','Rua Flórida',345,'','Jardins','São Paulo','1196587456','mgb.jpg',3);
+INSERT INTO `empresas` VALUES (1,'web@cnn.com','CNN Brasil','Líder em Independência','01310100','Av. Paulista',1564,'2º Andar','Consolação','São Paulo','1145547877','cnn.jpg',1),(2,'web@caterpillar.com','Caterpillar','Pioneira no desenvolvimento de máquinas e tratores.','04587030','Rod. dos Bandeirantes',0,'Km 122','Jd. das Oliveiras','Americana','1935521424','cat.png',2),(8,'web@zillow.com','Zillow Rental Home','Empresa virtual gestora de venda e aluguel de imóveis em território americano.','74159','Post St',452,'','Soma','San Francisco','555369852','zil.png',4),(7,'web@megabus.com','Megabus Company Travel','Empresa rodoviária líder no transporte de passageiros nos EUA e Reino Unido.','70951','Central St',56,'Union Station','Downtown','Los Angeles','555478745','mgb.jpg',3),(9,'oracle@oracle.com','Oracle Systems and Technology','A Oracle Corporation é uma empresa multinacional de tecnologia e informática norte-americana, especializada no desenvolvimento e comercialização de hardware e softwares e de banco de dados.','79561','San Jose St',454,'','Silicon Valley','San Jose','1555478456','oracle-logo.png',5);
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -235,7 +234,7 @@ CREATE TABLE `interesses` (
 
 LOCK TABLES `interesses` WRITE;
 /*!40000 ALTER TABLE `interesses` DISABLE KEYS */;
-INSERT INTO `interesses` VALUES (1,1,1),(1,2,1);
+INSERT INTO `interesses` VALUES (1,1,1),(1,2,1),(3,7,1),(3,8,1),(4,7,1);
 /*!40000 ALTER TABLE `interesses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,7 +248,7 @@ DROP TABLE IF EXISTS `necessidades`;
 CREATE TABLE `necessidades` (
   `idEmpresa_NECESSIDADE` int(11) NOT NULL,
   `idTecnologia_NECESSIDADE` int(11) NOT NULL,
-  `descricao_NECESSIDADE` text NOT NULL,
+  `descricao_NECESSIDADE` text,
   PRIMARY KEY (`idEmpresa_NECESSIDADE`,`idTecnologia_NECESSIDADE`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -260,6 +259,7 @@ CREATE TABLE `necessidades` (
 
 LOCK TABLES `necessidades` WRITE;
 /*!40000 ALTER TABLE `necessidades` DISABLE KEYS */;
+INSERT INTO `necessidades` VALUES (1,5,''),(1,8,''),(1,6,''),(8,2,''),(7,6,''),(7,5,''),(7,1,''),(8,3,''),(8,7,''),(9,8,NULL),(9,5,NULL);
 /*!40000 ALTER TABLE `necessidades` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -284,7 +284,7 @@ CREATE TABLE `niveis` (
 
 LOCK TABLES `niveis` WRITE;
 /*!40000 ALTER TABLE `niveis` DISABLE KEYS */;
-INSERT INTO `niveis` VALUES (1,1,4),(1,2,5),(1,3,4),(1,4,5),(1,5,1);
+INSERT INTO `niveis` VALUES (1,1,4),(1,2,5),(1,3,4),(1,4,5),(1,5,1),(3,6,1),(3,2,1),(4,6,1),(4,2,1),(4,3,1);
 /*!40000 ALTER TABLE `niveis` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -310,7 +310,7 @@ CREATE TABLE `tecnologias` (
 
 LOCK TABLES `tecnologias` WRITE;
 /*!40000 ALTER TABLE `tecnologias` DISABLE KEYS */;
-INSERT INTO `tecnologias` VALUES (1,'Java','Linguagem de Programação','java.png'),(2,'HTML 5','Desenvolvimento WEB','html.png'),(3,'CSS','Layouts e Interfaces WEB','css.png'),(4,'PHP','Programação WEB','php.png'),(5,'Python','Programação e Análise de Dados','python.png'),(6,'Photoshop','Design e UI','ps.png'),(7,'Javascript','Programação WEB','js.png'),(8,'MySQL','Banco de Dados','mysql.png');
+INSERT INTO `tecnologias` VALUES (1,'Java','Linguagem de Programação','1.png'),(2,'HTML 5','Desenvolvimento WEB','2.png'),(3,'CSS','Layouts e Interfaces WEB','3.png'),(4,'PHP','Programação WEB','4.png'),(5,'Python','Programação e Análise de Dados','5.png'),(6,'Photoshop','Design e UI','6.png'),(7,'Javascript','Programação WEB','7.png'),(8,'MySQL','Banco de Dados','8.png');
 /*!40000 ALTER TABLE `tecnologias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -335,7 +335,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES ('joao@esrc.com.br','e10adc3949ba59abbe56e057f20f883e',3),('web@cnn.com','e10adc3949ba59abbe56e057f20f883e',2),('web@caterpillar.com','e10adc3949ba59abbe56e057f20f883e',2),('web@megabus.com','14e1b600b1fd579f47433b88e8d85291',2);
+INSERT INTO `usuarios` VALUES ('joao@esrc.com.br','e10adc3949ba59abbe56e057f20f883e',3),('web@cnn.com','e10adc3949ba59abbe56e057f20f883e',2),('web@caterpillar.com','e10adc3949ba59abbe56e057f20f883e',2),('web@megabus.com','e10adc3949ba59abbe56e057f20f883e',2),('web@zillow.com','e10adc3949ba59abbe56e057f20f883e',2),('lmongiat@gmail.com','e10adc3949ba59abbe56e057f20f883e',3),('oracle@oracle.com','e10adc3949ba59abbe56e057f20f883e',2),('boneli@gmail.com','e10adc3949ba59abbe56e057f20f883e',3);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -350,11 +350,11 @@ CREATE TABLE `vagas` (
   `id_VAGA` int(11) NOT NULL AUTO_INCREMENT,
   `cargo_VAGA` varchar(30) NOT NULL,
   `descricao_VAGA` text NOT NULL,
-  `icone_VAGA` varchar(45) NOT NULL,
+  `icone_VAGA` varchar(45) DEFAULT NULL,
   `idEmpresa_VAGA` int(11) NOT NULL,
   PRIMARY KEY (`id_VAGA`),
   KEY `idEmpresa_VAGA` (`idEmpresa_VAGA`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -363,7 +363,7 @@ CREATE TABLE `vagas` (
 
 LOCK TABLES `vagas` WRITE;
 /*!40000 ALTER TABLE `vagas` DISABLE KEYS */;
-INSERT INTO `vagas` VALUES (1,'Analista de Dados','O candidato deverá ser apto a criar layouts e artes baseadas em dados estatísticos.','bar-chart',1),(2,'Analista Político','O candidato deverá estar apto a realizar análises do atual cenário político mundial com base em tendências e eventos históricos.','black-tie',1),(3,'Web Designer','O candidato deverá ser apto a elaborar documentos e páginas multimídia incorporadas ao site, a fim de promover a convergências das reportagens criadas pela emissora.','globe',1),(4,'Motion Designer','O candidato deverá estar apto a criar artes e modelos gráficos a partir dos dados estatísticos levantados pelo sistema e pelos analistas de dados.','newspaper-o',1),(5,'Auxiliar de Produção','O candidato deverá ser apto a otimizar os processos de produção ao vivo dos programas e jornais, apresentando alternativas de exibição em diversas mídias.','podcast',1);
+INSERT INTO `vagas` VALUES (1,'Analista de Dados','O candidato deverá ser apto a criar layouts e artes baseadas em dados estatísticos.','bar-chart',1),(2,'Analista Político','O candidato deverá estar apto a realizar análises do atual cenário político mundial com base em tendências e eventos históricos.','black-tie',1),(3,'Web Designer','O candidato deverá ser apto a elaborar documentos e páginas multimídia incorporadas ao site, a fim de promover a convergências das reportagens criadas pela emissora.','globe',1),(4,'Motion Designer','O candidato deverá estar apto a criar artes e modelos gráficos a partir dos dados estatísticos levantados pelo sistema e pelos analistas de dados.','newspaper-o',1),(5,'Auxiliar de Produção','O candidato deverá ser apto a otimizar os processos de produção ao vivo dos programas e jornais, apresentando alternativas de exibição em diversas mídias.','podcast',1),(6,'Analista de Dados','Gerar relatórios de dados estratégicos a partir dos números relacionados às viagens efetuadas.','',7),(7,'Analista de Dados','O profissional deve conhecer técnicas SQL de filtragem de informações e gerenciamento de DataSets.',NULL,9);
 /*!40000 ALTER TABLE `vagas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -380,4 +380,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-28  8:52:55
+-- Dump completed on 2021-08-12 14:47:42

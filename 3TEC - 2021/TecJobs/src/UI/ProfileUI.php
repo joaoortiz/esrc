@@ -313,11 +313,28 @@ $objCat = new EmpresasDAO();
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                Tecnologias
+                                Tecnologias Buscadas
                             </div>
                             <div class="card-body">
                                 <div class="row justify-content-md-center">
+                                    <?php
+                                    if ($_SESSION['permissao'] == 2) {
+                                        $idEmp = $_SESSION['id'];
+                                        $objBDEmp = new EmpresasDAO();
+                                        $tecn = $objBDEmp->listarNecessidades($idEmp);
+                                        
+                                        for ($i = 0; $i < count($tecn); $i++) {
+                                            ?>
+                                            <div class="col-lg-2 text-center">
+                                                <img src="../../img/tech/<?= $tecn[$i]->getIcone(); ?>" class="Icones">
+                                                <br>
+                                                <?= $tecn[$i]->getNome(); ?><br>
+                                            </div>
 
+                                            <?php
+                                        }
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>

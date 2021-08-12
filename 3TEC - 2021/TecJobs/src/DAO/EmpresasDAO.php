@@ -174,61 +174,91 @@ class EmpresasDAO {
     function cadastrarVaga($vaga) {
         $objBD = new ConexaoDAO();
         $vConn = $objBD->abrirConexao();
-        
+
         $sqlVaga = "Insert into vagas(cargo_VAGA, descricao_VAGA, idEmpresa_VAGA) values (";
         $sqlVaga.= "'" . $vaga->getCargo() . "',";
         $sqlVaga.= "'" . $vaga->getDescricao() . "',";
         $sqlVaga.= $vaga->getIdEmpresa() . ")";
-        
+
         $vConn->query($sqlVaga);
     }
-    
-    function cadastrarEmpresa($tmpEmpresa){
+
+    function cadastrarEmpresa($tmpEmpresa) {
         $objBD = new ConexaoDAO();
         $vConn = $objBD->abrirConexao();
-        
+
         $sqlCadastro = "Insert into empresas(";
         $sqlCadastro.="email_EMPRESA, nomeFantasia_EMPRESA,cep_EMPRESA,";
         $sqlCadastro.="endereco_EMPRESA, numero_EMPRESA,complemento_EMPRESA,";
         $sqlCadastro.="bairro_EMPRESA, cidade_EMPRESA,telefone_EMPRESA,";
         $sqlCadastro.="imagem_EMPRESA, idCategoria_EMPRESA)values(";
-        $sqlCadastro.="'" . $tmpEmpresa->getEmail() . "'";
-        $sqlCadastro.="'" . $tmpEmpresa->getNomeFantasia() . "'";
-        $sqlCadastro.="'" . $tmpEmpresa->getCep() . "'";
-        $sqlCadastro.="'" . $tmpEmpresa->getEndereco() . "'";
-        $sqlCadastro.="'" . $tmpEmpresa->getNumero() . "'";
-        $sqlCadastro.="'" . $tmpEmpresa->getComplemento() . "'";
-        $sqlCadastro.="'" . $tmpEmpresa->getBairro() . "'";
-        $sqlCadastro.="'" . $tmpEmpresa->getCidade() . "'";
-        $sqlCadastro.="'" . $tmpEmpresa->getTelefone() . "'";
-        $sqlCadastro.="'" . $tmpEmpresa->getImagem() . "'";
+        $sqlCadastro.="'" . $tmpEmpresa->getEmail() . "',";
+        $sqlCadastro.="'" . $tmpEmpresa->getNomeFantasia() . "',";
+        $sqlCadastro.="'" . $tmpEmpresa->getCep() . "',";
+        $sqlCadastro.="'" . $tmpEmpresa->getEndereco() . "',";
+        $sqlCadastro.="'" . $tmpEmpresa->getNumero() . "',";
+        $sqlCadastro.="'" . $tmpEmpresa->getComplemento() . "',";
+        $sqlCadastro.="'" . $tmpEmpresa->getBairro() . "',";
+        $sqlCadastro.="'" . $tmpEmpresa->getCidade() . "',";
+        $sqlCadastro.="'" . $tmpEmpresa->getTelefone() . "',";
+        $sqlCadastro.="'" . $tmpEmpresa->getImagem() . "',";
         $sqlCadastro.= $tmpEmpresa->getIdCategoria() . ")";
-        
+
         $vConn->query($sqlCadastro);
     }
-    
-    function adicionarInfo($tmpInfo, $tmpId){
+
+    function adicionarInfo($tmpInfo, $tmpId) {
         $objBD = new ConexaoDAO();
         $vConn = $objBD->abrirConexao();
-        
-        $sqlInfo ="Update empresas set info_EMPRESA = '$tmpInfo' where id_EMPRESA = '$tmpId'";
-                
+
+        $sqlInfo = "Update empresas set info_EMPRESA = '$tmpInfo' where id_EMPRESA = '$tmpId'";
+
         $vConn->query($sqlInfo);
     }
-    
-    function consultarUltimaEmpresa(){
+
+    function consultarUltimaEmpresa() {
         $objBD = new ConexaoDAO();
         $vConn = $objBD->abrirConexao();
-        
+
         $sqlEmp = "Select id_EMPRESA from EMPRESAS order by id_EMPRESA desc limit 1";
         $rsId = $vConn->query($sqlEmp);
-        
+
         $tblId = $rsId->fetch();
-        
+
         return $tblId['id_EMPRESA'];
-        
-         
     }
-    
+
+    function registrarNecessidade($idEmp, $idTec) {
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
+
+        $sqlNec = "Insert into necessidades(idEmpresa_NECESSIDADE, idTecnologia_NECESSIDADE)values('$idEmp','$idTec')";
+
+        $vConn->query($sqlNec);
+    }
+
+    function listarNecessidades($idEmp) {
+
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
+        $sqlNec = "Select T.* from tecnologias T, necessidades N where N.idEmpresa_NECESSIDADE = '$idEmp' and T.id_TECNOLOGIA = N.idTecnologia_NECESSIDADE";
+        $rsNec = $vConn->query($sqlNec);
+        $tblNec = $rsNec->fetchAll(PDO::FETCH_BOTH);
+
+        $tecn = new ArrayObject();
+
+        foreach ($tblNec as $row) {
+
+            $objTec = new Tecnologias();
+            $objTec->setId($row['id_TECNOLOGIA']);
+            $objTec->setNome($row['nome_TECNOLOGIA']);
+            $objTec->setDescricao($row['descricao_TECNOLOGIA']);
+            $objTec->setIcone($row['icone_TECNOLOGIA']);            
+
+            $tecn->append($objTec); //add obj no vetor
+        }
+
+        return $tecn;
+    }
 
 }

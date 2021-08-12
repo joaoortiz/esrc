@@ -78,5 +78,90 @@ class CandidatosDAO {
 
         return $tecn;
     }
+    
+    function consultarUltimoCandidato(){
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
 
+        $sqlCand = "Select id_CANDIDATO from CANDIDATOS order by id_CANDIDATO desc limit 1";
+        $rsId = $vConn->query($sqlCand);
+
+        $tblId = $rsId->fetch();
+
+        return $tblId['id_CANDIDATO'];
+    }
+    
+    function consultarCandidato($id) {
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
+
+        $sqlCand = "Select * from CANDIDATOS C where C.id_CANDIDATO = '$id'";
+
+        $rsCand = $vConn->query($sqlCand);
+        $tblCand = $rsCand->fetch();
+
+        $objCand = new Candidatos();
+
+        $objCand->setId($tblCand['id_CANDIDATO']);
+        $objCand->setEmail($tblCand['email_CANDIDATO']);
+        $objCand->setNomeCompleto($tblCand['nomeCompleto_CANDIDATO']);
+        $objCand->setBio($tblCand['bio_CANDIDATO']);
+        $objCand->setCep($tblCand['cep_CANDIDATO']);
+        $objCand->setEndereco($tblCand['endereco_CANDIDATO']);
+        $objCand->setNumero($tblCand['numero_CANDIDATO']);
+        $objCand->setComplemento($tblCand['complemento_CANDIDATO']);
+        $objCand->setBairro($tblCand['bairro_CANDIDATO']);
+        $objCand->setCidade($tblCand['cidade_CANDIDATO']);
+        $objCand->setTelefone($tblCand['telefone_CANDIDATO']);
+        $objCand->setImagem($tblCand['imagem_CANDIDATO']);
+       
+        return $objCand;
+    }
+    
+    function adicionarBio($tmpBio, $tmpId) {
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
+
+        $sqlBio = "Update candidatos set bio_CANDIDATO = '$tmpBio' where id_CANDIDATO = '$tmpId'";
+
+        $vConn->query($sqlBio);
+    }
+
+   function registrarConhecimento($tmpCand, $tmpTec){
+       $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
+
+        $sqlCon = "Insert into niveis(idCandidato_NIVEL, idTecnologia_NIVEL, classificacao_NIVEL)values('$tmpCand','$tmpTec',1)";
+
+        $vConn->query($sqlCon);
+   } 
+    
+    function buscarVagas($idTec, $tmpBusca, $tipo){
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
+
+        if($tipo == 1){ //busca por palavra
+            $sqlVagas = "Select * from Vagas where cargo_VAGA like '%$tmpBusca%' or descricao_VAGA like '%$tmpBusca%'";
+        }else if($tipo == 2){ //busca inteligente
+            $sqlVagas = "Select V.* from Vagas V, Tecnologias T, Areas A where T.id_TECNOLOGIA = A.idTecnologia_AREA and A.idVaga_AREA = V.id_VAGA and T.id_TECNOLOGIA = '$idTec'";
+        }
+        
+        $rsVagas = $vConn->query($sqlVagas);
+        $tblVagas = $rsVagas->fetchAll(PDO::FETCH_BOTH);
+        
+        $vagas = new ArrayObject();
+        
+        foreach ($tblVagas as $row) {
+            $objVagas = new Vagas();
+            $objVagas->setId($row['id_VAGA']);
+            $objVagas->setCargo($row['cargo_VAGA']);
+            $objVagas->setDescricao($row['descricao_VAGA']);
+            $objVagas->setIcone($row['icone_VAGA']);
+            $objVagas->setIdEmpresa($row['idEmpresa_VAGA']);
+
+            $vagas->append($objVagas);
+        }
+        return $vagas;
+    }
+    
 }

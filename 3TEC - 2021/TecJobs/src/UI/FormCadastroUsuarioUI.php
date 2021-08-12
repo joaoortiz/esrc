@@ -20,17 +20,6 @@
                 });
             });
 
-            $(function() {
-
-                var idTec = "";
-
-                $("#btnAddTec").click(function() {
-                    $("#DivTecnologias").append("<img class=Icones src=../../img/tech/" + $('input[name="HTML_tecnologias"]').val() + ">");
-                    $('input[name="HTML_tecnologias"]').clear();
-                });
-            })
-
-
         </script>
 
         <title>::TecJobs - Professional Networking ::</title>
@@ -39,12 +28,19 @@
 
         <?php
         require_once "../DAO/EmpresasDAO.php";
+        require_once "../DAO/CandidatosDAO.php";
         require_once "../DAO/TecnologiasDAO.php";
+        require_once "../Model/Tecnologias.php";
         session_start();
 
         $objBDEmp = new EmpresasDAO();
         $id = $objBDEmp->consultarUltimaEmpresa();
         $objEmp = $objBDEmp->consultarEmpresa($id);
+        
+        
+        $objBDCand = new CandidatosDAO();
+        $idC = $objBDCand->consultarUltimoCandidato();
+        $objCand = $objBDCand->consultarCandidato($idC);
 
         include "TopoUI.php";
         ?>
@@ -324,8 +320,40 @@
 
                     </form>
 
+                    <?php } else if ($type == 3) {
+                    ?>
+
+                    <form action="../Control/UsuariosControl.php" method="POST">
+                        <div class="row justify-content-md-center" style="margin-top: 25px;margin-bottom:25px;">
+                            <div class="col-lg-2">
+                                <img src="../../img/users/<?= $objCand->getImagem(); ?>" class="ImgUser">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-12 text-center" style="margin-top: 15px;">
+                                <center><h4 class="text-dark">Nos conte um pouco sobre você.</h4></center>                                                            
+                            </div>
+                        </div>
+                        <div class="form-row justify-content-md-center">
+                            <div class="col-lg-8 text-center" style="margin-top: 15px;">
+                                <textarea class="form-control" rows="10" name="HTML_bio"></textarea>                                
+                            </div>                             
+                        </div>
+                        <div class="form-row justify-content-md-center">
+                            <div class="col-lg-8 text-center" style="margin-top: 15px;">
+
+                                <input type="hidden" name="idCand" value="<?= $idC; ?>">
+                                <input type="hidden" name="exec" value="4">
+                                <input type="hidden" name="type" value="3">
+                                <button type="submit" class="btn text-white float-right" style="background-color:#7952B3;">Registrar Informações</button>                                
+                            </div>                             
+                        </div>
+
+                    </form>            
+
                     <?php
                 }
+                /*                 * **************************************************** STEP 4 ***************************************************** */
             } else if ($step == 4) {
                 $type = $_GET['type'];
 
@@ -337,7 +365,7 @@
                             <img src="../../img/users/<?= $objEmp->getImagem(); ?>" class="ImgUser">
                         </div>
                     </div>
-                    <form action="FormCadastroUsuarioUI.php" method="POST"> 
+                    <form action="../Control/UsuariosControl.php" method="GET"> 
                         <div class="form-row justify-content-md-center">
                             <div class="col-lg-12 text-center" style="margin-top: 15px;">
                                 <hr>
@@ -357,28 +385,57 @@
                                     <?php
                                     for ($i = 0; $i < count($tecn); $i++) {
                                         ?>
-                                        <option  data-value=<?=$tecn[$i]->getId();?> value="<?= $tecn[$i]->getNome(); ?>"><?= $tecn[$i]->getNome(); ?></option>
+                                        <option data-value=<?= $tecn[$i]->getNome(); ?> value="<?= $tecn[$i]->getId() . " - " . $tecn[$i]->getNome(); ?>"></option>
 
                                     <?php } ?>
 
                                 </datalist> 
 
                             </div>                             
-                            <div class="col-lg-2 text-center" style="margin-top: 15px;padding-top:32px;">
+                            <div class="col-lg-3 text-center" style="margin-top: 15px;padding-top:32px;">
+                                <input type="hidden" name="step" value="4">
+                                <input type="hidden" name="type" value="2">                                
+                                <input type="hidden" name="exec" value="5">                                 
                                 <button type="submit" id="btnAddTec" class="btn text-white" style="background-color:#7952B3;">Adicionar Tecnologia</button>
+                                <a class="btn text-white" style="background-color:#7952B3;" href="../Control/UsuariosControl.php?exec=6">
+                                    Limpar
+                                </a>
+
 
                             </div>                             
                         </div>
 
                         <div class="form-row justify-content-md-center" style="margin-top: 15px;">
                             <div class="col-lg-8" id="DivTecnologias">
+                                <div class="row">
 
+                                    <?php
+                                    if ($_SESSION['necessidades'] != NULL) {
+                                        $vImgs = explode(";", $_SESSION['necessidades']);
+
+
+                                        for ($i = 0; $i < count($vImgs) - 1; $i++) {
+
+                                            $objTec = new Tecnologias();
+                                            $objTec = $objBDTec->consultarTecnologia($vImgs[$i]);
+                                            ?>
+                                            <div class="card col-lg-2">
+                                                <div class="card-body">
+                                                    <img src="../../img/tech/<?= strtolower($vImgs[$i]) . ".png"; ?>" class="Icones">
+                                                    <h5 class="card-title"><?= $objTec->getNome(); ?></h5>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                </div>
 
                             </div>                            
                         </div>
                         <div class="form-row justify-content-md-center" style="margin-top: 15px;">
                             <div class="col-lg-12 text-center">
-                                <a class="btn text-white" href="../Control/UsuariosControl.php?exec=6?idEmp=<?= $id ?>" style="background-color:#7952B3;width:350px;height:40px;">
+                                <a class="btn text-white" href="../Control/UsuariosControl.php?exec=7&idEmp=<?= $id ?>" style="background-color:#7952B3;width:350px;height:40px;">
                                     Finalizar cadastro
                                 </a>
 
@@ -386,6 +443,93 @@
                         </div>
                     </form>
                     <?php
+                }else if($type == 3){?>
+                    <div class="row justify-content-md-center" style="margin-top: 25px;margin-bottom:25px;">
+                        <div class="col-lg-2">
+                            <img src="../../img/users/<?= $objCand->getImagem(); ?>" class="ImgUser">
+                        </div>
+                    </div>
+                    <form action="../Control/UsuariosControl.php" method="GET"> 
+                        <div class="form-row justify-content-md-center">
+                            <div class="col-lg-12 text-center" style="margin-top: 15px;">
+                                <hr>
+                                <center><h4 class="text-dark">Selecione seus conhecimentos</h4></center>                                           
+                            </div> 
+                        </div>
+                        <div class="form-row justify-content-md-center">
+                            <div class="col-lg-6" style="margin-top: 15px;">
+                                <label>Insira o nome da tecnologia</label>
+                                <input list="tecnologias" name="HTML_tecnologias" class="form-control" id="listTecn">
+                                <datalist id="tecnologias">
+                                    <?php
+                                    $objBDTec = new TecnologiasDAO();
+                                    $tecn = $objBDTec->listarTecnologias();
+                                    ?>
+
+                                    <?php
+                                    for ($i = 0; $i < count($tecn); $i++) {
+                                        ?>
+                                        <option data-value=<?= $tecn[$i]->getNome(); ?> value="<?= $tecn[$i]->getId() . " - " . $tecn[$i]->getNome(); ?>"></option>
+
+                                    <?php } ?>
+
+                                </datalist> 
+
+                            </div>                             
+                            <div class="col-lg-3 text-center" style="margin-top: 15px;padding-top:32px;">
+                                <input type="hidden" name="step" value="4">
+                                <input type="hidden" name="type" value="3">                                
+                                <input type="hidden" name="exec" value="8">                                 
+                                <button type="submit" id="btnAddTec" class="btn text-white" style="background-color:#7952B3;">Adicionar Tecnologia</button>
+                                <a class="btn text-white" style="background-color:#7952B3;" href="../Control/UsuariosControl.php?exec=9">
+                                    Limpar
+                                </a>
+
+
+                            </div>                             
+                        </div>
+
+                        <div class="form-row justify-content-md-center" style="margin-top: 15px;">
+                            <div class="col-lg-8" id="DivTecnologias">
+                                <div class="row">
+
+                                    <?php
+                                    if ($_SESSION['conhecimentos'] != NULL) {
+                                        $vImgs = explode(";", $_SESSION['conhecimentos']);
+
+
+                                        for ($i = 0; $i < count($vImgs) - 1; $i++) {
+
+                                            $objTec = new Tecnologias();
+                                            $objTec = $objBDTec->consultarTecnologia($vImgs[$i]);
+                                            ?>
+                                            <div class="card col-lg-2">
+                                                <div class="card-body">
+                                                    <img src="../../img/tech/<?= strtolower($vImgs[$i]) . ".png"; ?>" class="Icones">
+                                                    <h5 class="card-title"><?= $objTec->getNome(); ?></h5>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                </div>
+
+                            </div>                            
+                        </div>
+                        <div class="form-row justify-content-md-center" style="margin-top: 15px;">
+                            <div class="col-lg-12 text-center">
+                                <a class="btn text-white" href="../Control/UsuariosControl.php?exec=10&idCand=<?= $idC ?>" style="background-color:#7952B3;width:350px;height:40px;">
+                                    Finalizar cadastro
+                                </a>
+
+                            </div>                            
+                        </div>
+                    </form>
+            
+            
+            
+                <?php    
                 }
             }
             ?>
