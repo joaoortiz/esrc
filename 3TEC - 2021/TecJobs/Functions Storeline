@@ -43,12 +43,12 @@
 3. Módulo de Vagas
     3.1 - Cadastro de vagas
     3.2 - Aplicação de vagas (**PENDENTE**)
-    3.3 - Descoberta de vagas (**PENDENTE**)
+    3.3 - Descoberta de vagas 
     3.4 - Gerenciamento das vagas
       3.4.1 - Edição de informações de vaga
       3.4.2 - Listagem de candidatos por vaga
  
-4. Módulo de Relacionamento
+4. Módulo de Relacionamento (***PENDENTE***)
   4.1 - Gerenciamento de Seguidores
     4.1.1 - Adicionar Empresa
       4.1.1.1 - Cadastro na tabela Interesses
