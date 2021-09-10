@@ -11,6 +11,7 @@ require_once "../DAO/CandidatosDAO.php";
 require_once "../Model/Candidatos.php";
 require_once "../DAO/EmpresasDAO.php";
 require_once "../Model/Empresas.php";
+require_once "../Model/Aplicacoes.php";
 
 if (isset($_POST['exec']))
     $exec = $_POST['exec'];
@@ -46,6 +47,8 @@ if ($exec == 1) { //login
             $_SESSION['complemento'] = $objCand->getComplemento();
             $_SESSION['telefone'] = $objCand->getTelefone();
             $_SESSION['imagem'] = $objCand->getImagem();
+            $_SESSION['linkedin'] = $objCand->getLinkedin();
+            $_SESSION['website'] = $objCand->getWebsite();
             $_SESSION['idCategoria'] = 0;
             $_SESSION['permissao'] = $objCand->getPermissao();
             $_SESSION['horaLogin'] = "Acesso em " . date("d-m-Y") . " às " . date("h:i:s");
@@ -93,6 +96,8 @@ if ($exec == 1) { //login
         $_SESSION['numero'] = 0;
         $_SESSION['complemento'] = "";
         $_SESSION['telefone'] = "";
+        $_SESSION['linkedin'] = "";
+        $_SESSION['website'] = "";
         $_SESSION['imagem'] = "";
         $_SESSION['permissao'] = 0;
     } else if ($perm == 2) {
@@ -164,6 +169,8 @@ if ($exec == 1) { //login
         $objCand->setBairro($_POST['HTML_bairro']);
         $objCand->setCidade($_POST['HTML_cidade']);
         $objCand->setTelefone($_POST['HTML_telefone']);
+        $objCand->setLinkedin($_POST['HTML_linkedin']);
+        $objCand->setWebsite($_POST['HTML_website']);
 
         $nomeImg = $_FILES['HTML_imagem']['name'];
         $arqImg = $_FILES['HTML_imagem']['tmp_name'];
@@ -189,13 +196,11 @@ if ($exec == 1) { //login
     if ($type == 3) {//bio do cand
         $bio = $_POST['HTML_bio'];
         $idC = $_POST['idCand'];
-    $objBDCandidato = new CandidatosDAO();
+        $objBDCandidato = new CandidatosDAO();
         $objBDCandidato->adicionarBio($bio, $idC); //insere info da empresa
 
         $_SESSION['conhecimentos'] = NULL;
-         echo "<script>location.href='../UI/FormCadastroUsuarioUI.php?step=4&type=3';</script>";
-        
-        
+        echo "<script>location.href='../UI/FormCadastroUsuarioUI.php?step=4&type=3';</script>";
     } else if ($type == 2) {//info da empresa
         $info = $_POST['HTML_info'];
         $idEmp = $_POST['idEmp'];
@@ -242,7 +247,6 @@ if ($exec == 1) { //login
 }if ($exec == 9) {  //limpar conhecimentos  
     $_SESSION['conhecimentos'] = NULL;
     echo "<script>location.href='../UI/FormCadastroUsuarioUI.php?step=4&type=3';</script>";
-
 }if ($exec == 10) {//cadastrar conhecimentos
     $objBDCand = new CandidatosDAO();
     $idCand = $objBDCand->consultarUltimoCandidato();
@@ -254,4 +258,27 @@ if ($exec == 1) { //login
     }
 
     echo "<script>location.href='../UI/FormLoginUI.php';</script>";
+}if ($exec == 11) { //aplicar para vaga
+    
+    $intro = $_POST['HTML_intro'];
+    $data = date("Y-m-d");
+    $nomeCV = $_FILES['HTML_arquivo']['name'];
+    $arqCV = $_FILES['HTML_arquivo']['tmp_name'];
+    $idCand = $_SESSION['id'];
+    $idVaga = $_POST['idVaga'];
+    $idEmp = $_POST['idEmp'];
+    
+    $tmpAplicacao = new Aplicacoes();
+    $tmpAplicacao->setIdCandidato($idCand);
+    $tmpAplicacao->setIdVaga($idVaga);
+    $tmpAplicacao->setData($data);
+    $tmpAplicacao->setIntroducao($intro);
+    $tmpAplicacao->setArquivo($nomeCV);
+            
+    move_uploaded_file($arqCV, "../../files/" . $nomeCV);
+    $objBDCand = new CandidatosDAO();
+    $objBDCand->registrarAplicacao($tmpAplicacao);
+    
+    echo "<script>location.href='../UI/AplicarVagaUI.php?idVaga=$idVaga&idEmp=$idEmp';</script>";
+    
 }

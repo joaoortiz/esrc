@@ -5,57 +5,94 @@
 
 .CaixaTexto{
     margin-bottom: 30px;
-    width: 430px;
+    width: 530px;    
+}
+
+.BotaoComum{
+    border-color:#7952B3;
+    color:#7952B3;
+    height:55px;
+    font-size: 16pt;
+}
+
+.BotaoLogin{
+    border-color:#7952B3;
+    color:#7952B3;
+    height:55px;
+    width:530px;
+    font-size: 16pt;
+}
+
+.BotaoLogin:hover{
+    background-color:#7952B3;
+    color:#FFFFFF;
+    height:55px;
+    width:530px;
+    font-size: 16pt;
+}
+
+.DivIntro{
+    padding-left: 100px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30pt;
+    color: #7952B3;
+    min-height:600px;
+    background-image: url(../../img/misc/backTeam.png);
+    background-repeat: no-repeat;
+    background-position: 30px 110px;
+    background-size: 870px 480px;
 }
 
 .FormLogin{    
-    margin-top:200px;
-    border: solid 1px #7952B3 ;
-    border-radius: 0px;
+    margin-top:100px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30pt;
+    color: #7952B3;
+
 }
 
 .BodyLogin{
-   /*background-image: url(../../img/empresa.png);
-   background-position: top;
-   background-size: cover;*/
+    /*background-image: url(../../img/empresa.png);
+    background-position: top;
+    background-size: cover;*/
 }
 
 button.animated-button.thar {
-	color: #3CB371;
-	cursor: pointer;
-	display: block;
-	position: relative;
-	border: 1px solid #3CB371;
-        font-size: 20px;
-        margin: 10px;
+    color: #3CB371;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    border: 1px solid #3CB371;
+    font-size: 20px;
+    margin: 10px;
 }
 button.animated-button.thar:hover {
-	color: #000;
-	background-color: transparent;
+    color: #000;
+    background-color: transparent;
 }
 button.animated-button.thar-left:hover:before {
-	left: 0%;
-	width: 100%;
+    left: 0%;
+    width: 100%;
 }
 
 button.animated-button.thar-right:hover:before {
-        padding: 0;
-        margin: 0;
-	right: 0%;
-	width: 100%;
+    padding: 0;
+    margin: 0;
+    right: 0%;
+    width: 100%;
 }
 button.animated-button.thar:before {
-	display: block;
-	position: absolute;
-	top: 0px;
-	right: 0px;
-	height: 100%;
-	width: 0px;
-	z-index: -1;
-	content: '';
-	color: #fff;
-	background: #3CB371;
-	transition: all 0.3s cubic-bezier(0.42, 0, 0.58, 1);
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 100%;
+    width: 0px;
+    z-index: -1;
+    content: '';
+    color: #fff;
+    background: #3CB371;
+    transition: all 0.3s cubic-bezier(0.42, 0, 0.58, 1);
 }
 
 .Icones{
@@ -84,6 +121,15 @@ button.animated-button.thar:before {
 
 .MenuTopo{
     background-color:#7952B3;
+}
+
+.FonteDados{
+    font-size:14pt;
+    font-weight:none;
+}
+
+.CardJob:hover{
+    border-color: #7952B3;
 }
 
 .ImgUser{

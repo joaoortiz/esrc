@@ -98,23 +98,23 @@
 
                             <div class="form-group col-md-6">
                                 <label>Email</label>
-                                <input type="email" class="form-control" name="HTML_email">
+                                <input type="email" class="form-control" name="HTML_email" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Nome Completo</label>
-                                <input type="text" class="form-control" name="HTML_nomeCompleto">
+                                <input type="text" class="form-control" name="HTML_nomeCompleto" required>
                             </div>
                             <div class="form-group col-md-3">
                                 <label>Senha</label>
-                                <input type="password" class="form-control" name="HTML_senha">
+                                <input type="password" class="form-control" name="HTML_senha" required>
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="inputPassword4">Confirmar Senha</label>
-                                <input type="password" class="form-control"  name="HTML_confSenha">
+                                <input type="password" class="form-control"  name="HTML_confSenha" required>
                             </div>
                             <div class="form-group col-md-3">
                                 <label>Data de Nascimento</label>
-                                <input type="date" class="form-control" name="HTML_dataNascimento">
+                                <input type="date" class="form-control" name="HTML_dataNascimento" required>
                             </div>
                             <div class="form-group col-md-3">
                                 <label>Sexo</label>
@@ -131,15 +131,15 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label>Cep</label>
-                                <input type="text" class="form-control" name="HTML_cep">
+                                <input type="text" class="form-control" name="HTML_cep" required>
                             </div>
                             <div class="form-group col-md-7">
                                 <label>Endereço</label>
-                                <input type="text" class="form-control" name="HTML_endereco">
+                                <input type="text" class="form-control" name="HTML_endereco" required>
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Número</label>
-                                <input type="text" class="form-control" name="HTML_numero">
+                                <input type="text" class="form-control" name="HTML_numero" required>
                             </div>
                         </div>
                         <div class="form-row">
@@ -149,19 +149,19 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label>Bairro</label>
-                                <input type="text" class="form-control" name="HTML_bairro">
+                                <input type="text" class="form-control" name="HTML_bairro" required>
 
                             </div>
                             <div class="form-group col-md-3">
                                 <label>Cidade</label>
-                                <input type="text" class="form-control" name="HTML_cidade">
+                                <input type="text" class="form-control" name="HTML_cidade" required>
                             </div>
                         </div>
 
-                        <div class="form-row">
+                        <div class="form-row" style="margin-bottom:10px;">
                             <div class="form-group col-md-6">
                                 <label>Telefone</label>
-                                <input type="text" class="form-control" id="inputCity" name="HTML_telefone">
+                                <input type="text" class="form-control" id="inputCity" name="HTML_telefone" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Imagem</label>
@@ -173,11 +173,23 @@
                             </div>
 
                         </div>
+                        <div class="form-row" style="margin-bottom:10px;">
+                            <div class="form-group col-md-6">
+                                <label>Linkedin</label>
+                                <input type="text" class="form-control" id="inputCity" name="HTML_linkedin">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Website</label>
+                                <input type="text" class="form-control" id="inputCity" name="HTML_website">
+
+                            </div>
+
+                        </div>
                         <input type="hidden" name="exec" value="3">
                         <input type="hidden" name="type" value="3">
 
 
-                        <button type="submit" class="btn float-right text-white"  style="background-color:#7952B3;">Cadastrar Candidato</button>
+                        <button type="submit" class="btn float-right BotaoLogin">Cadastrar Candidato</button>
                     </form>
 
                     <?php
@@ -197,19 +209,19 @@
 
                             <div class="form-group col-md-6">
                                 <label>Email</label>
-                                <input type="email" class="form-control" name="HTML_email">
+                                <input type="email" class="form-control" name="HTML_email" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Nome Fantasia</label>
-                                <input type="text" class="form-control" name="HTML_nomeFantasia">
+                                <input type="text" class="form-control" name="HTML_nomeFantasia" required>
                             </div>
                             <div class="form-group col-md-3">
                                 <label>Senha</label>
-                                <input type="password" class="form-control" name="HTML_senha">
+                                <input type="password" class="form-control" name="HTML_senha" required>
                             </div>
                             <div class="form-group col-md-3">
                                 <label>Confirmar Senha</label>
-                                <input type="password" class="form-control" name="HTML_confSenha">
+                                <input type="password" class="form-control" name="HTML_confSenha" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputPassword4">Categoria</label>
@@ -236,37 +248,37 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label>Cep</label>
-                                <input type="text" class="form-control" name="HTML_cep">
+                                <input type="text" class="form-control" name="HTML_cep" required>
                             </div>
                             <div class="form-group col-md-7">
                                 <label>Endereço</label>
-                                <input type="text" class="form-control" name="HTML_endereco">
+                                <input type="text" class="form-control" name="HTML_endereco" required>
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Número</label>
-                                <input type="text" class="form-control" name="HTML_numero">
+                                <input type="text" class="form-control" name="HTML_numero" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Complemento</label>
-                                <input type="text" class="form-control" name="HTML_complemento">
+                                <input type="text" class="form-control" name="HTML_complemento" required>
                             </div>
                             <div class="form-group col-md-3">
                                 <label>Bairro</label>
-                                <input type="text" class="form-control" name="HTML_bairro">
+                                <input type="text" class="form-control" name="HTML_bairro" required>
 
                             </div>
                             <div class="form-group col-md-3">
                                 <label>Cidade</label>
-                                <input type="text" class="form-control" name="HTML_cidade">
+                                <input type="text" class="form-control" name="HTML_cidade" required>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputCity">Telefone</label>
-                                <input type="text" class="form-control" name="HTML_telefone">
+                                <input type="text" class="form-control" name="HTML_telefone" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputCity">Imagem</label>
@@ -280,7 +292,7 @@
                         </div>
                         <input type="hidden" name="exec" value="3">
                         <input type="hidden" name="type" value="2">
-                        <button type="submit" class="btn float-right text-white"  style="background-color:#7952B3;">Cadastrar Empresa</button>
+                        <button type="submit" class="btn float-right BotaoLogin">Cadastrar Empresa</button>
                     </form>
 
                     <?php
@@ -314,7 +326,7 @@
                                 <input type="hidden" name="idEmp" value="<?= $id; ?>">
                                 <input type="hidden" name="exec" value="4">
                                 <input type="hidden" name="type" value="2">
-                                <button type="submit" class="btn text-white float-right" style="background-color:#7952B3;">Registrar Informações</button>                                
+                                <button type="submit" class="btn  BotaoLogin float-right">Registrar Informações</button>                                
                             </div>                             
                         </div>
 
@@ -345,7 +357,7 @@
                                 <input type="hidden" name="idCand" value="<?= $idC; ?>">
                                 <input type="hidden" name="exec" value="4">
                                 <input type="hidden" name="type" value="3">
-                                <button type="submit" class="btn text-white float-right" style="background-color:#7952B3;">Registrar Informações</button>                                
+                                <button type="submit" class="btn  BotaoLogin float-right">Registrar Informações</button>                                
                             </div>                             
                         </div>
 
@@ -379,7 +391,7 @@
                                 <datalist id="tecnologias">
                                     <?php
                                     $objBDTec = new TecnologiasDAO();
-                                    $tecn = $objBDTec->listarTecnologias();
+                                    $tecn = $objBDTec->listarTecnologias(0,0);
                                     ?>
 
                                     <?php
@@ -396,8 +408,8 @@
                                 <input type="hidden" name="step" value="4">
                                 <input type="hidden" name="type" value="2">                                
                                 <input type="hidden" name="exec" value="5">                                 
-                                <button type="submit" id="btnAddTec" class="btn text-white" style="background-color:#7952B3;">Adicionar Tecnologia</button>
-                                <a class="btn text-white" style="background-color:#7952B3;" href="../Control/UsuariosControl.php?exec=6">
+                                <button type="submit" id="btnAddTec" class="btn BotaoLogin text-white" Adicionar Tecnologia</button>
+                                <a class="btn text-white BotaoLogin" href="../Control/UsuariosControl.php?exec=6">
                                     Limpar
                                 </a>
 
@@ -435,7 +447,7 @@
                         </div>
                         <div class="form-row justify-content-md-center" style="margin-top: 15px;">
                             <div class="col-lg-12 text-center">
-                                <a class="btn text-white" href="../Control/UsuariosControl.php?exec=7&idEmp=<?= $id ?>" style="background-color:#7952B3;width:350px;height:40px;">
+                                <a class="btn  BotaoLogin" href="../Control/UsuariosControl.php?exec=7&idEmp=<?= $id ?>" style="background-color:#7952B3;width:350px;height:40px;">
                                     Finalizar cadastro
                                 </a>
 
@@ -463,7 +475,7 @@
                                 <datalist id="tecnologias">
                                     <?php
                                     $objBDTec = new TecnologiasDAO();
-                                    $tecn = $objBDTec->listarTecnologias();
+                                    $tecn = $objBDTec->listarTecnologias(0,0);
                                     ?>
 
                                     <?php
@@ -480,8 +492,8 @@
                                 <input type="hidden" name="step" value="4">
                                 <input type="hidden" name="type" value="3">                                
                                 <input type="hidden" name="exec" value="8">                                 
-                                <button type="submit" id="btnAddTec" class="btn text-white" style="background-color:#7952B3;">Adicionar Tecnologia</button>
-                                <a class="btn text-white" style="background-color:#7952B3;" href="../Control/UsuariosControl.php?exec=9">
+                                <button type="submit" id="btnAddTec" class="btn  BotaoLogin">Adicionar Tecnologia</button>
+                                <a class="btn  BotaoLogin" href="../Control/UsuariosControl.php?exec=9">
                                     Limpar
                                 </a>
 
@@ -519,7 +531,7 @@
                         </div>
                         <div class="form-row justify-content-md-center" style="margin-top: 15px;">
                             <div class="col-lg-12 text-center">
-                                <a class="btn text-white" href="../Control/UsuariosControl.php?exec=10&idCand=<?= $idC ?>" style="background-color:#7952B3;width:350px;height:40px;">
+                                <a class="btn  BotaoLogin" href="../Control/UsuariosControl.php?exec=10&idCand=<?= $idC ?>" style="background-color:#7952B3;width:350px;height:40px;">
                                     Finalizar cadastro
                                 </a>
 

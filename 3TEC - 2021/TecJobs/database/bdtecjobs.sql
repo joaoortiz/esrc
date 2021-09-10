@@ -18,6 +18,33 @@ USE `bdtecjobs`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `aplicacoes`
+--
+
+DROP TABLE IF EXISTS `aplicacoes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `aplicacoes` (
+  `idCandidato_APLICACAO` int(11) NOT NULL,
+  `idVaga_APLICACAO` int(11) NOT NULL,
+  `data_APLICACAO` date NOT NULL,
+  `apresentacao_APLICACAO` text NOT NULL,
+  `arquivo_APLICACAO` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`idCandidato_APLICACAO`,`idVaga_APLICACAO`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `aplicacoes`
+--
+
+LOCK TABLES `aplicacoes` WRITE;
+/*!40000 ALTER TABLE `aplicacoes` DISABLE KEYS */;
+INSERT INTO `aplicacoes` VALUES (1,8,'2021-09-08','Gostaria de aplicar para esta vaga, pois acredito ter os requisitos necessários que atendem as exigências.',NULL),(3,8,'2021-09-08','Acredito estar apto a auxiliar a empresa em seus processos.',NULL),(1,9,'2021-09-10','Tenho interesse em colaborar com os processos da empresa, já que é uma companhia que acompanho há muito tempo.','Consultas SQL - 2021.docx');
+/*!40000 ALTER TABLE `aplicacoes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `areas`
 --
 
@@ -37,6 +64,7 @@ CREATE TABLE `areas` (
 
 LOCK TABLES `areas` WRITE;
 /*!40000 ALTER TABLE `areas` DISABLE KEYS */;
+INSERT INTO `areas` VALUES (1,5),(3,2),(3,3),(3,7),(4,6),(6,5),(7,5),(8,1),(8,3),(9,2),(9,3),(9,6);
 /*!40000 ALTER TABLE `areas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,6 +90,8 @@ CREATE TABLE `candidatos` (
   `cidade_CANDIDATO` varchar(60) NOT NULL,
   `telefone_CANDIDATO` varchar(11) NOT NULL,
   `imagem_CANDIDATO` varchar(37) DEFAULT NULL,
+  `linkedin_CANDIDATO` varchar(255) DEFAULT NULL,
+  `website_CANDIDATO` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_CANDIDATO`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -72,7 +102,7 @@ CREATE TABLE `candidatos` (
 
 LOCK TABLES `candidatos` WRITE;
 /*!40000 ALTER TABLE `candidatos` DISABLE KEYS */;
-INSERT INTO `candidatos` VALUES (1,'joao@esrc.com.br','João Ortiz','1985-06-08','M','Bacharel em Ciência da Computação, Pós graduado em Des. de Sistemas e Docência no Ens. Superior.','02138040','R. Marabu',223,'','','','1129496686','joao.jpg'),(3,'lmongiat@gmail.com','Lucas Mongiat','2005-08-08','M','Estudante da área de TI com conhecimentos em design e projetos de rede.','03124000','R. Sg. Rodrigues Alves',458,'Apto 85 Bl 2','Pq. Novo Mundo','São Paulo','11974547455','luc.PNG'),(4,'boneli@gmail.com','Matheus Boneli Carvas','2005-05-05','M','Especialista em edição de imagens e criação de soluções digitais.','02138040','Rua Marabu',223,'','Vila Sabrina','São Paulo','1198564578','bon.PNG');
+INSERT INTO `candidatos` VALUES (1,'joao@esrc.com.br','João Ortiz','1985-06-08','M','Bacharel em Ciência da Computação, Pós graduado em Des. de Sistemas e Docência no Ens. Superior.','02138040','R. Marabu',223,'','','','1129496686','joao.jpg',NULL,'http://esrc.com.br/joaoortiz/Portifolio'),(3,'lmongiat@gmail.com','Lucas Mongiat','2005-08-08','M','Estudante da área de TI com conhecimentos em design e projetos de rede.','03124000','R. Sg. Rodrigues Alves',458,'Apto 85 Bl 2','Pq. Novo Mundo','São Paulo','11974547455','lucao.jpg','http://linkedin.com/lmongiat','http://esrc.com.br'),(4,'boneli@gmail.com','Matheus Boneli Carvas','2005-05-05','M','Especialista em edição de imagens e criação de soluções digitais.','02138040','Rua Marabu',223,'','Vila Sabrina','São Paulo','1198564578','bon.PNG','http://linkedin.com/mboneli','http://esrc.com.br');
 /*!40000 ALTER TABLE `candidatos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,7 +142,7 @@ CREATE TABLE `cursos` (
   `id_CURSO` int(11) NOT NULL AUTO_INCREMENT,
   `nome_CURSO` varchar(120) NOT NULL,
   PRIMARY KEY (`id_CURSO`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,7 +151,7 @@ CREATE TABLE `cursos` (
 
 LOCK TABLES `cursos` WRITE;
 /*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
-INSERT INTO `cursos` VALUES (1,'Direito'),(2,'Engenharia Civil'),(3,'Arquitetura'),(4,'Ciências da Computação'),(5,'Publicidade e Propaganda'),(6,'Jornalismo e Comunicação'),(7,'Sistemas de Informação'),(8,'Turismo'),(9,'Enfermagem');
+INSERT INTO `cursos` VALUES (1,'Direito'),(2,'Engenharia Civil'),(3,'Arquitetura'),(4,'Ciências da Computação'),(5,'Publicidade e Propaganda'),(6,'Jornalismo e Comunicação'),(7,'Sistemas de Informação'),(8,'Turismo'),(9,'Enfermagem'),(10,'Ensino Fundamental II'),(11,'Ensino Médio');
 /*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +215,7 @@ CREATE TABLE `formacoes` (
 
 LOCK TABLES `formacoes` WRITE;
 /*!40000 ALTER TABLE `formacoes` DISABLE KEYS */;
-INSERT INTO `formacoes` VALUES (1,4,6,2003,2006,1);
+INSERT INTO `formacoes` VALUES (1,4,6,2003,2006,1),(3,10,10,2009,2015,1),(3,11,9,2016,2019,1);
 /*!40000 ALTER TABLE `formacoes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,7 +230,7 @@ CREATE TABLE `instituicoes` (
   `id_INSTITUICAO` int(11) NOT NULL AUTO_INCREMENT,
   `nome_INSTITUICAO` varchar(120) NOT NULL,
   PRIMARY KEY (`id_INSTITUICAO`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,7 +239,7 @@ CREATE TABLE `instituicoes` (
 
 LOCK TABLES `instituicoes` WRITE;
 /*!40000 ALTER TABLE `instituicoes` DISABLE KEYS */;
-INSERT INTO `instituicoes` VALUES (1,'Universidade de São Paulo'),(2,'Unicamp - SP'),(3,'PUC - SP'),(4,'Uninove'),(5,'Unip'),(6,'Universidade São Judas Tadeu'),(7,'Unicid'),(8,'FMU');
+INSERT INTO `instituicoes` VALUES (1,'Universidade de São Paulo'),(2,'Unicamp - SP'),(3,'PUC - SP'),(4,'Uninove'),(5,'Unip'),(6,'Universidade São Judas Tadeu'),(7,'Unicid'),(8,'FMU'),(9,'Educandário Santa Rita de Cássia'),(10,'Colégio Del Volente');
 /*!40000 ALTER TABLE `instituicoes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -234,7 +264,7 @@ CREATE TABLE `interesses` (
 
 LOCK TABLES `interesses` WRITE;
 /*!40000 ALTER TABLE `interesses` DISABLE KEYS */;
-INSERT INTO `interesses` VALUES (1,1,1),(1,2,1),(3,7,1),(3,8,1),(4,7,1);
+INSERT INTO `interesses` VALUES (1,1,1),(1,2,1),(1,8,1),(1,9,1),(3,7,1),(3,8,1),(4,7,1);
 /*!40000 ALTER TABLE `interesses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -284,7 +314,7 @@ CREATE TABLE `niveis` (
 
 LOCK TABLES `niveis` WRITE;
 /*!40000 ALTER TABLE `niveis` DISABLE KEYS */;
-INSERT INTO `niveis` VALUES (1,1,4),(1,2,5),(1,3,4),(1,4,5),(1,5,1),(3,6,1),(3,2,1),(4,6,1),(4,2,1),(4,3,1);
+INSERT INTO `niveis` VALUES (1,1,3),(1,2,3),(1,3,3),(1,4,3),(1,5,1),(3,6,1),(3,2,1),(4,6,1),(4,2,1),(4,3,1);
 /*!40000 ALTER TABLE `niveis` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,6 +342,31 @@ LOCK TABLES `tecnologias` WRITE;
 /*!40000 ALTER TABLE `tecnologias` DISABLE KEYS */;
 INSERT INTO `tecnologias` VALUES (1,'Java','Linguagem de Programação','1.png'),(2,'HTML 5','Desenvolvimento WEB','2.png'),(3,'CSS','Layouts e Interfaces WEB','3.png'),(4,'PHP','Programação WEB','4.png'),(5,'Python','Programação e Análise de Dados','5.png'),(6,'Photoshop','Design e UI','6.png'),(7,'Javascript','Programação WEB','7.png'),(8,'MySQL','Banco de Dados','8.png');
 /*!40000 ALTER TABLE `tecnologias` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tiposvagas`
+--
+
+DROP TABLE IF EXISTS `tiposvagas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tiposvagas` (
+  `id_TIPOVAGA` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_TIPOVAGA` varchar(100) NOT NULL,
+  `icone_TIPOVAGA` varchar(20) NOT NULL,
+  PRIMARY KEY (`id_TIPOVAGA`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tiposvagas`
+--
+
+LOCK TABLES `tiposvagas` WRITE;
+/*!40000 ALTER TABLE `tiposvagas` DISABLE KEYS */;
+INSERT INTO `tiposvagas` VALUES (1,'Administrativo','black-tie'),(2,'Produção','industry'),(3,'Tecnologia','laptop'),(4,'Financeiro','money');
+/*!40000 ALTER TABLE `tiposvagas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -348,13 +403,20 @@ DROP TABLE IF EXISTS `vagas`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `vagas` (
   `id_VAGA` int(11) NOT NULL AUTO_INCREMENT,
+  `data_VAGA` date NOT NULL,
   `cargo_VAGA` varchar(30) NOT NULL,
   `descricao_VAGA` text NOT NULL,
-  `icone_VAGA` varchar(45) DEFAULT NULL,
+  `salario_VAGA` float NOT NULL,
+  `contrato_VAGA` varchar(45) NOT NULL,
+  `periodo_VAGA` int(11) NOT NULL,
+  `sistema_VAGA` varchar(45) NOT NULL,
+  `beneficios_VAGA` varchar(200) NOT NULL,
+  `idTipo_VAGA` int(11) DEFAULT NULL,
+  `status_VAGA` int(11) NOT NULL,
   `idEmpresa_VAGA` int(11) NOT NULL,
   PRIMARY KEY (`id_VAGA`),
   KEY `idEmpresa_VAGA` (`idEmpresa_VAGA`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -363,7 +425,7 @@ CREATE TABLE `vagas` (
 
 LOCK TABLES `vagas` WRITE;
 /*!40000 ALTER TABLE `vagas` DISABLE KEYS */;
-INSERT INTO `vagas` VALUES (1,'Analista de Dados','O candidato deverá ser apto a criar layouts e artes baseadas em dados estatísticos.','bar-chart',1),(2,'Analista Político','O candidato deverá estar apto a realizar análises do atual cenário político mundial com base em tendências e eventos históricos.','black-tie',1),(3,'Web Designer','O candidato deverá ser apto a elaborar documentos e páginas multimídia incorporadas ao site, a fim de promover a convergências das reportagens criadas pela emissora.','globe',1),(4,'Motion Designer','O candidato deverá estar apto a criar artes e modelos gráficos a partir dos dados estatísticos levantados pelo sistema e pelos analistas de dados.','newspaper-o',1),(5,'Auxiliar de Produção','O candidato deverá ser apto a otimizar os processos de produção ao vivo dos programas e jornais, apresentando alternativas de exibição em diversas mídias.','podcast',1),(6,'Analista de Dados','Gerar relatórios de dados estratégicos a partir dos números relacionados às viagens efetuadas.','',7),(7,'Analista de Dados','O profissional deve conhecer técnicas SQL de filtragem de informações e gerenciamento de DataSets.',NULL,9);
+INSERT INTO `vagas` VALUES (1,'2021-08-27','Analista de Dados','O candidato deverá ser apto a criar layouts e artes baseadas em dados estatísticos.',9500,'CLT',10,'Presencial','Saúde, Transporte',3,0,1),(2,'2021-08-27','Analista Político','O candidato deverá estar apto a realizar análises do atual cenário político mundial com base em tendências e eventos históricos.',7000,'CLT',8,'Remoto','Saúde, Odontológico',1,0,1),(3,'2021-08-27','Web Designer','O candidato deverá ser apto a elaborar documentos e páginas multimídia incorporadas ao site, a fim de promover a convergências das reportagens criadas pela emissora.',8000,'CLT',8,'Remoto','Saúde, Alimentação',3,0,1),(4,'2021-08-27','Motion Designer','O candidato deverá estar apto a criar artes e modelos gráficos a partir dos dados estatísticos levantados pelo sistema e pelos analistas de dados.',6000,'CLT',8,'Remoto','Saúde',3,0,1),(5,'2021-08-27','Auxiliar de Produção','O candidato deverá ser apto a otimizar os processos de produção ao vivo dos programas e jornais, apresentando alternativas de exibição em diversas mídias.',4500,'CLT',10,'Presencial','Saúde',2,0,1),(6,'2021-08-27','Analista de Dados','Gerar relatórios de dados estratégicos a partir dos números relacionados às viagens efetuadas.',8000,'CLT',8,'Presencial','Saúde',3,0,7),(8,'2021-09-03','Analista de Sistemas','O candidato deverá ser apto a levantar soluções tecnológicas para processos rotineiros da empresa, analisando ambientes, e buscando a confecção do melhor modelo de sistema para armazenamento e gerenciamento dos dados.',6500,'CLT',8,'Presencial','Transporte, alimentação, saúde, odontológico. Bônus por produtividade.',3,1,9),(9,'2021-09-09','Editor de Imagens','O usuário deverá processar e editar as imagens recebidas pelos usuários que serão destinadas ao processo de publicação final.\r\nConhecimentos exigidos em Adobe Illustrator, Photoshop e Corel Draw. Diferenciais: HTML e CSS.',3500,'CLT',9,'Presencial','Transporte, saúde, alimentação.',3,1,8);
 /*!40000 ALTER TABLE `vagas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -380,4 +442,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-12 14:47:42
+-- Dump completed on 2021-09-10 11:09:40

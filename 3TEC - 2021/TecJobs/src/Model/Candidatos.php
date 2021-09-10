@@ -5,6 +5,7 @@ class Candidatos extends Usuarios {
     public $id, $email, $nomeCompleto, $dataNascimento, $sexo, $bio;
     public $cep, $endereco, $numero, $complemento, $bairro, $cidade, $telefone;
     public $imagem;
+    public $linkedin, $website;
     
     public function getId() {
         return $this->id;
@@ -118,6 +119,22 @@ class Candidatos extends Usuarios {
     public function setCidade($cidade) {
         $this->cidade = $cidade;
     }
+    public function getLinkedin() {
+        return $this->linkedin;
+    }
+
+    public function getWebsite() {
+        return $this->website;
+    }
+
+    public function setLinkedin($linkedin) {
+        $this->linkedin = $linkedin;
+    }
+
+    public function setWebsite($website) {
+        $this->website = $website;
+    }
+
 
 
 }

@@ -2,7 +2,8 @@
 
 class Vagas {
 
-    public $id, $cargo, $descricao, $icone, $idEmpresa;
+    public $id, $cargo, $descricao, $idTipo, $icone, $idEmpresa;
+    public $data, $salario, $contrato, $periodo, $sistema, $beneficios, $status;
 
     public function getId() {
         return $this->id;
@@ -36,6 +37,15 @@ class Vagas {
         $this->idEmpresa = $idEmpresa;
     }
 
+    public function getIdTipo() {
+        return $this->idTipo;
+    }
+
+    public function setIdTipo($idTipo) {
+        $this->idTipo = $idTipo;
+    }
+
+        
     public function getIcone() {
         return $this->icone;
     }
@@ -44,6 +54,60 @@ class Vagas {
         $this->icone = $icone;
     }
 
+    public function getData() {
+        return $this->data;
+    }
 
-    
+    public function getSalario() {
+        return $this->salario;
+    }
+
+    public function getContrato() {
+        return $this->contrato;
+    }
+
+    public function getPeriodo() {
+        return $this->periodo;
+    }
+
+    public function getSistema() {
+        return $this->sistema;
+    }
+
+    public function getBeneficios() {
+        return $this->beneficios;
+    }
+
+    public function getStatus() {
+        return $this->status;
+    }
+
+    public function setData($data) {
+        $this->data = $data;
+    }
+
+    public function setSalario($salario) {
+        $this->salario = $salario;
+    }
+
+    public function setContrato($contrato) {
+        $this->contrato = $contrato;
+    }
+
+    public function setPeriodo($periodo) {
+        $this->periodo = $periodo;
+    }
+
+    public function setSistema($sistema) {
+        $this->sistema = $sistema;
+    }
+
+    public function setBeneficios($beneficios) {
+        $this->beneficios = $beneficios;
+    }
+
+    public function setStatus($status) {
+        $this->status = $status;
+    }
+
 }

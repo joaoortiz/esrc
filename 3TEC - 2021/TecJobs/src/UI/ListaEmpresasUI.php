@@ -50,13 +50,13 @@ $lista = $objBDEmp->listarEmpresas($nome, $idCat, $tipo);
                         <div class="card mb-3" style="max-width: 540px;">
                             <div class="row no-gutters">
                                 <div class="col-md-4">
-                                    <a href="ProfileEmpresa.php?idEmp=<?= $lista[$i]->getId(); ?>">
+                                    <a href="ProfileEmpresaUI.php?idEmp=<?= $lista[$i]->getId(); ?>">
                                         <img src="../../img/users/<?= $lista[$i]->getImagem(); ?>" class="card-img">
                                     </a>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <a href="ProfileEmpresa.php?idEmp=<?= $lista[$i]->getId(); ?>">
+                                        <a href="ProfileEmpresaUI.php?idEmp=<?= $lista[$i]->getId(); ?>">
                                             <h5 class="card-title"><?= $lista[$i]->getNomeFantasia(); ?></h5>
                                         </a>                                        
                                         <p class="card-text"><?= $lista[$i]->getInfo(); ?></p>

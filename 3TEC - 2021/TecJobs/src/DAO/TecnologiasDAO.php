@@ -5,11 +5,15 @@ require_once "../Model/Tecnologias.php";
 
 class TecnologiasDAO {
 
-    function listarTecnologias() {
+    function listarTecnologias($tipo,$idVaga) {
         $objBD = new ConexaoDAO();
         $vConn = $objBD->abrirConexao();
-        $sqlTec = "Select * from tecnologias";
-
+        
+        if($tipo == 0)
+            $sqlTec = "Select * from tecnologias";
+        else if($tipo == 1)
+            $sqlTec = "Select T.* from tecnologias T, areas A where A.idTecnologia_AREA = T.id_TECNOLOGIA and A.idVaga_AREA = '$idVaga'";
+            
         $rsTec = $vConn->query($sqlTec);
         $tblTec = $rsTec->fetchAll(PDO::FETCH_BOTH);
 

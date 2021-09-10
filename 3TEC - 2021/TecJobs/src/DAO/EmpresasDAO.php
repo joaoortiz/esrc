@@ -7,7 +7,64 @@ require_once "../Model/Empresas.php";
 
 class EmpresasDAO {
 
-    //put your code here
+//put your code here
+
+    function listarTiposVagas() {
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
+
+        $sqlTV = "Select * from tiposvagas";
+        $rsTV = $vConn->query($sqlTV);
+        $tblTV = $rsTV->fetchAll(PDO::FETCH_BOTH);
+
+        $tipos = new ArrayObject();
+
+        foreach ($tblTV as $row) {
+            $objTV = new Categorias();
+            $objTV->setId($row['id_TIPOVAGA']);
+            $objTV->setNome($row['nome_TIPOVAGA']);
+            $objTV->setDescricao($row['icone_TIPOVAGA']);
+
+            $tipos->append($objTV);
+        }
+
+        return $tipos;
+    }
+
+    function listarSeguidores($tmpIdEmpresa) {
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
+
+        $sqlSeg = "Select C.* from candidatos C, interesses I where ";
+        $sqlSeg .= "I.idEmpresa_INTERESSE = '$tmpIdEmpresa' and I.idCandidato_INTERESSE = C.id_CANDIDATO";
+
+        $lista = new ArrayObject();
+
+        $rsSeg = $vConn->query($sqlSeg);
+        $tblSeg = $rsSeg->fetchAll(PDO::FETCH_BOTH);
+
+        foreach ($tblSeg as $row) {
+            $objCand = new Candidatos();
+
+            $objCand->setId($row['id_CANDIDATO']);
+            $objCand->setEmail($row['email_CANDIDATO']);
+            $objCand->setNomeCompleto($row['nomeCompleto_CANDIDATO']);
+            $objCand->setBio($row['bio_CANDIDATO']);
+            $objCand->setCep($row['cep_CANDIDATO']);
+            $objCand->setEndereco($row['endereco_CANDIDATO']);
+            $objCand->setNumero($row['numero_CANDIDATO']);
+            $objCand->setComplemento($row['complemento_CANDIDATO']);
+            $objCand->setBairro($row['bairro_CANDIDATO']);
+            $objCand->setCidade($row['cidade_CANDIDATO']);
+            $objCand->setTelefone($row['telefone_CANDIDATO']);
+            $objCand->setImagem($row['imagem_CANDIDATO']);
+            $objCand->setLinkedin($row['linkedin_CANDIDATO']);
+            $objCand->setWebsite($row['website_CANDIDATO']);
+
+            $lista->append($objCand);
+        }
+        return $lista;
+    }
 
     function listarCategorias() {
         $objBD = new ConexaoDAO();
@@ -35,7 +92,7 @@ class EmpresasDAO {
         $objBD = new ConexaoDAO();
         $vConn = $objBD->abrirConexao();
 
-        $sqlVagas = "Select * from vagas where idEmpresa_VAGA = '$idEmpresa'";
+        $sqlVagas = "Select * from vagas v, tiposvagas tv where v.idEmpresa_VAGA = '$idEmpresa' and v.idTipo_VAGA = tv.id_TIPOVAGA";
         $rsVagas = $vConn->query($sqlVagas);
         $tblVagas = $rsVagas->fetchAll(PDO::FETCH_BOTH);
 
@@ -44,9 +101,16 @@ class EmpresasDAO {
         foreach ($tblVagas as $row) {
             $objVagas = new Vagas();
             $objVagas->setId($row['id_VAGA']);
+            $objVagas->setData($row['data_VAGA']);
             $objVagas->setCargo($row['cargo_VAGA']);
             $objVagas->setDescricao($row['descricao_VAGA']);
-            $objVagas->setIcone($row['icone_VAGA']);
+            $objVagas->setIcone($row['icone_TIPOVAGA']);
+            $objVagas->setBeneficios($row['beneficios_VAGA']);
+            $objVagas->setPeriodo($row['periodo_VAGA']);
+            $objVagas->setContrato($row['contrato_VAGA']);
+            $objVagas->setSalario($row['salario_VAGA']);
+            $objVagas->setSistema($row['sistema_VAGA']);
+            $objVagas->setStatus($row['status_VAGA']);
             $objVagas->setIdEmpresa($row['idEmpresa_VAGA']);
 
             $vagas->append($objVagas);
@@ -92,6 +156,34 @@ class EmpresasDAO {
         $objEmpresa->setIdCategoria($tblEmpresa['idCategoria_EMPRESA']);
 
         return $objEmpresa;
+    }
+    
+    
+    function consultarVaga($id) {
+        $objBD = new ConexaoDAO();
+        $vConn = $objBD->abrirConexao();
+
+        $sqlVaga = "Select * from VAGAS V, TIPOSVAGAS TV where V.id_VAGA = '$id' and V.idTipo_VAGA = TV.id_TIPOVAGA";
+
+        $rsVaga = $vConn->query($sqlVaga);
+        $tblVaga = $rsVaga->fetch();
+
+        $objVaga = new Vagas();
+
+        $objVaga->setId($tblVaga['id_VAGA']);
+        $objVaga->setData($tblVaga['data_VAGA']);
+        $objVaga->setCargo($tblVaga['cargo_VAGA']);
+        $objVaga->setDescricao($tblVaga['descricao_VAGA']);
+        $objVaga->setSalario($tblVaga['salario_VAGA']);
+        $objVaga->setContrato($tblVaga['contrato_VAGA']);
+        $objVaga->setPeriodo($tblVaga['periodo_VAGA']);
+        $objVaga->setSistema($tblVaga['sistema_VAGA']);
+        $objVaga->setBeneficios($tblVaga['beneficios_VAGA']);
+        $objVaga->setIdTipo($tblVaga['idTipo_VAGA']);
+        $objVaga->setIdEmpresa($tblVaga['idEmpresa_VAGA']);
+        $objVaga->setStatus($tblVaga['status_VAGA']);
+        
+        return $objVaga;
     }
 
     function listarEmpresas($nome, $idCat, $tipo) {
@@ -175,9 +267,18 @@ class EmpresasDAO {
         $objBD = new ConexaoDAO();
         $vConn = $objBD->abrirConexao();
 
-        $sqlVaga = "Insert into vagas(cargo_VAGA, descricao_VAGA, idEmpresa_VAGA) values (";
+        $sqlVaga = "Insert into vagas(data_VAGA, cargo_VAGA, descricao_VAGA, salario_VAGA,contrato_VAGA,";
+        $sqlVaga.= "periodo_VAGA, sistema_VAGA, beneficios_VAGA, idTipo_VAGA, status_VAGA, idEmpresa_VAGA) values (";
+        $sqlVaga.= "'" . $vaga->getData() . "',";
         $sqlVaga.= "'" . $vaga->getCargo() . "',";
         $sqlVaga.= "'" . $vaga->getDescricao() . "',";
+        $sqlVaga.= $vaga->getSalario() . ",";
+        $sqlVaga.= "'" . $vaga->getContrato() . "',";
+        $sqlVaga.= $vaga->getPeriodo() . ",";
+        $sqlVaga.= "'" . $vaga->getSistema() . "',";
+        $sqlVaga.= "'" . $vaga->getBeneficios() . "',";
+        $sqlVaga.= $vaga->getIdTipo() . ",";
+        $sqlVaga.= $vaga->getStatus() . ",";
         $sqlVaga.= $vaga->getIdEmpresa() . ")";
 
         $vConn->query($sqlVaga);
@@ -253,12 +354,26 @@ class EmpresasDAO {
             $objTec->setId($row['id_TECNOLOGIA']);
             $objTec->setNome($row['nome_TECNOLOGIA']);
             $objTec->setDescricao($row['descricao_TECNOLOGIA']);
-            $objTec->setIcone($row['icone_TECNOLOGIA']);            
+            $objTec->setIcone($row['icone_TECNOLOGIA']);
 
             $tecn->append($objTec); //add obj no vetor
         }
 
         return $tecn;
+    }
+
+    static function retornaEspaco($tmpNome) {
+        $espaco = false;
+        for ($i = 0; $i < strlen($tmpNome); $i++) {
+            $letra = substr($tmpNome, $i, 1);
+            if ($letra == " ") {
+                $espaco = true;
+                return $i;
+            }
+        }
+
+        if ($espaco == false)
+            return strlen($tmpNome);
     }
 
 }

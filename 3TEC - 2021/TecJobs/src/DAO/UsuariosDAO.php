@@ -72,6 +72,8 @@ class UsuariosDAO {
                     $objCandidato->setComplemento($tblCandidato['complemento_CANDIDATO']);
                     $objCandidato->setTelefone($tblCandidato['telefone_CANDIDATO']);
                     $objCandidato->setImagem($tblCandidato['imagem_CANDIDATO']);
+                    $objCandidato->setLinkedin($tblCandidato['linkedin_CANDIDATO']);
+                    $objCandidato->setWebsite($tblCandidato['website_CANDIDATO']);
                     $objCandidato->setPermissao(3);
                 
                 return $objCandidato;
@@ -94,7 +96,8 @@ class UsuariosDAO {
             $sqlCadastraDados = "Insert into candidatos(";
             $sqlCadastraDados .= "email_CANDIDATO, nomeCompleto_CANDIDATO, dataNascimento_CANDIDATO, sexo_CANDIDATO,";
             $sqlCadastraDados .= "bio_CANDIDATO, cep_CANDIDATO, endereco_CANDIDATO,";
-            $sqlCadastraDados .= "numero_CANDIDATO, complemento_CANDIDATO, bairro_CANDIDATO, cidade_CANDIDATO, telefone_CANDIDATO, imagem_CANDIDATO)";
+            $sqlCadastraDados .= "numero_CANDIDATO, complemento_CANDIDATO, bairro_CANDIDATO, cidade_CANDIDATO, telefone_CANDIDATO, imagem_CANDIDATO,";
+            $sqlCadastraDados .= "linkedin_CANDIDATO, website_CANDIDATO)";
             $sqlCadastraDados .= "values(";
             $sqlCadastraDados .= "'" . $objDados->getEmail() . "',";
             $sqlCadastraDados .= "'" . $objDados->getNomeCompleto() . "',";
@@ -108,7 +111,9 @@ class UsuariosDAO {
             $sqlCadastraDados .= "'" . $objDados->getBairro() . "',";
             $sqlCadastraDados .= "'" . $objDados->getCidade() . "',";
             $sqlCadastraDados .= "'" . $objDados->getTelefone() . "',";
-            $sqlCadastraDados .= "'" . $objDados->getImagem() . "')";
+            $sqlCadastraDados .= "'" . $objDados->getImagem() . "',";
+            $sqlCadastraDados .= "'" . $objDados->getLinkedin() . "',";
+            $sqlCadastraDados .= "'" . $objDados->getWebsite() . "')";
             
             
         } else if($tipo == 2){ //empresa

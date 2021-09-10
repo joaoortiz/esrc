@@ -16,7 +16,7 @@
        <?php if(isset($_SESSION['statusLogin']) && $_SESSION['statusLogin']!=0){ ?>
         
         <div class="col-lg-1">
-            <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+            <a class="nav-link active text-white" aria-current="page" href="ListaVagasUI.php?type=2">IntelJobs</a>
         </div>
 
         <div class="col-lg-1">
